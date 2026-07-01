@@ -41,6 +41,58 @@
       color: var(--text-light); text-decoration: none; padding: 6px 12px; transition: color 0.2s;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* HAMBURGER (mobile only) */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 110;
+    }
+    .nav-burger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--gold);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-links-mobile {
+      display: none;
+      position: fixed;
+      top: 84px; left: 0; right: 0;
+      background: rgba(8,8,8,0.98);
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      padding: 8px 0 18px;
+      border-bottom: 2px solid #8B6914;
+      z-index: 99;
+    }
+    .nav-links-mobile.open { display: flex; }
+    .nav-links-mobile li { width: 100%; text-align: center; }
+    .nav-links-mobile a {
+      display: block;
+      font-family: 'Lato', sans-serif; font-size: 13px; letter-spacing: 0.06em;
+      color: var(--text-light); text-decoration: none;
+      padding: 14px 24px;
+    }
+    .nav-links-mobile a:hover, .nav-links-mobile a:active, .nav-links-mobile a.active { color: var(--gold); }
+    .nav-links-mobile .nav-cta {
+      display: inline-block;
+      margin-top: 8px;
+    }
     .nav-right { display: flex; justify-content: flex-end; }
     .nav-cta {
       background: linear-gradient(135deg, #8B6914, #C9A84C, #8B6914);
@@ -304,6 +356,8 @@
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
       .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .nav-right .nav-cta { display: none; }
       .section-dark, .section-black, .section-white, .section-parchment, .cta-section { padding: 72px 24px; }
       .patterns-grid { grid-template-columns: 1fr; }
       .quote-block { padding: 40px 24px; }
@@ -325,6 +379,9 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="nav-right"><a href="contact.html" class="nav-cta">Get Started</a></div>
+  <button class="nav-burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 <!-- HERO -->
 <section class="page-hero">
@@ -503,5 +560,31 @@
     <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
   </ul>
 </footer>
+<ul class="nav-links-mobile" id="navLinksMobile">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about.html" class="active">About</a></li>
+  <li><a href="programs.html">Programs</a></li>
+  <li><a href="theological-somatics.html">Theological Somatics&trade;</a></li>
+  <li><a href="contact.html">Contact</a></li>
+  <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+</ul>
+
+<script>
+  const navBurger = document.getElementById('navBurger');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navBurger.addEventListener('click', function() {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navBurger.classList.toggle('open', isOpen);
+    navBurger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinksMobile.classList.remove('open');
+      navBurger.classList.remove('open');
+      navBurger.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
 </body>
 </html>
