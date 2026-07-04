@@ -488,15 +488,6 @@ function submitIntake(){
   err.textContent = '';
   lead.name = name; lead.email = email;
 
-  fetch('https://formspree.io/f/xlgypbbo', {
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify({
-      name:lead.name, email:lead.email, business_stage:lead.stage,
-      _subject:'New ERA Assessment Lead'
-    })
-  }).catch(()=>{});
-
   currentSectionIdx = 0;
   renderSection();
   goTo('quiz');
@@ -701,6 +692,16 @@ function showResults(){
 
   drawRadial(avgs);
   goTo('results');
+
+  fetch('https://formspree.io/f/xlgypbbo', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:lead.name, email:lead.email, business_stage:lead.stage,
+      primary_profile:primary.name, secondary_profile:secondary.name,
+      _subject:'New ERA Assessment Lead (Completed)'
+    })
+  }).catch(()=>{});
 
   setTimeout(()=>{
     document.querySelectorAll('.dim-fill').forEach(el=>{
