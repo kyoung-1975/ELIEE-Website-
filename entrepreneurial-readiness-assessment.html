@@ -252,6 +252,7 @@
     </div>
 
     <h2 class="section-heading"><span class="eyebrow">Your Entrepreneurial Readiness Map™</span></h2>
+    <p class="relationship-note">Your Builder Profile explains how you naturally build. This next part reflects something different — not who you are, but where you stand today. Neither one is the full picture alone. Together, they're your starting point.</p>
     <div class="radial-wrap"><svg id="radial-svg" width="280" height="280" viewBox="0 0 280 280"></svg></div>
     <p class="radial-caption">This map reflects where you stand today across all five dimensions — not a fixed score, but a living snapshot that will shift as you grow.</p>
 
@@ -277,12 +278,15 @@
       <ul id="res-recommendations"></ul>
     </div>
 
+    <h2 class="section-heading"><span class="eyebrow">PMFRL Methodology™</span></h2>
+    <p class="relationship-note" id="res-integration"></p>
+
     <div class="pmfrl-box">
-      <span class="eyebrow">How PMFRL Supports You</span>
+      <span class="eyebrow">Where It All Comes Together</span>
       <p id="res-pmfrl"></p>
     </div>
 
-    <p class="closing-philosophy">There are no good or bad profiles here — only different ways of building. Entrepreneurial readiness is developmental, and you are ready for your next step.</p>
+    <p class="closing-philosophy">You now know how you build. You know where you stand today. There's no good or bad profile to land on — only your way of building, met with a method that works with it instead of against it. That's what comes next.</p>
 
     <div class="results-cta">
       <a href="programs.html" class="btn-primary" style="text-decoration:none;display:inline-block;">Explore PMFRL</a>
@@ -557,8 +561,8 @@ function prevSection(){
 }
 
 function bandFor(avg){
-  if(avg >= 4.0) return 'Strength Area';
-  if(avg >= 3.0) return 'Developing';
+  if(avg >= 4.0) return 'Strong Foundation';
+  if(avg >= 3.0) return 'Gaining Momentum';
   return 'Emerging';
 }
 
@@ -613,8 +617,9 @@ function renderProfileCard(container, profile, tierLabel, isPrimary){
       <ul>${profile.recommendations.slice(0,2).map(r=>`<li>${r}</li>`).join('')}</ul>
       <h4>You'll probably feel most energized when your business lets you&hellip;</h4>
       <ul>${profile.energizedBy.map(e=>`<li>${e}</li>`).join('')}</ul>
-      <h4>How PMFRL Complements This Profile</h4>
-      <p class="body-text">${profile.pmfrl}</p>
+      ${isPrimary ? `
+      <h4>How PMFRL Supports This Way of Building</h4>
+      <p class="body-text">${profile.pmfrl}</p>` : ''}
       <div class="profile-affirmation">${profile.affirmation}</div>
     </div>
   `;
@@ -642,7 +647,7 @@ function buildSummary(primary, secondary){
   const stage = lead.stage.toLowerCase();
   const subject = lead.name ? lead.name : 'You';
   const verb = lead.name ? 'leads' : 'lead';
-  return `${subject} ${verb} with ${primary.essence} — supported by ${secondary.essence}.<br><br>${primary.summaryLine}<br><br>At the ${stage} stage, the invitation isn't to become someone different. It's to let these two strengths work together, on purpose.`;
+  return `${subject} ${verb} with ${primary.essence} — supported by ${secondary.essence}.<br><br>${primary.summaryLine}<br><br>At the ${stage} stage, the invitation isn't to become someone different. It's to let these two strengths work together, on purpose.<br><br>You already have what it takes to build something real. This isn't measuring whether you're ready — it's showing you where a little focused attention will move things fastest, starting from exactly where you stand.`;
 }
 
 function showResults(){
@@ -671,7 +676,10 @@ function showResults(){
   fill('res-strengths', primary.strengths);
   fill('res-growth', primary.growthAreas);
   fill('res-recommendations', primary.recommendations);
-  document.getElementById('res-pmfrl').innerHTML = primary.pmfrl;
+
+  document.getElementById('res-integration').innerHTML = `Your Lead Builder — <strong>${primary.name}</strong> — is how you naturally build. Your Supporting Builder — <strong>${secondary.name}</strong> — is the pattern that strengthens it. Your Readiness Map shows where you stand today. PMFRL is what helps all three move together.`;
+
+  document.getElementById('res-pmfrl').innerHTML = `On their own, a natural building style and a snapshot of today are just information. PMFRL is what turns that information into motion — meeting you exactly where you build from, and exactly where you stand, instead of asking you to start from someone else's playbook.<br><br>You didn't come out of this needing to change who you are. You came out of it seeing it clearly. What comes next is simply building from there.`;
 
   const dimBars = document.getElementById('dim-bars');
   dimBars.innerHTML = '';
