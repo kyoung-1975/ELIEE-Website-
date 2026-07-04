@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrepreneurial Readiness Assessment™ | empowerHER Legacy Institute</title>
+<meta name="description" content="A developmental reflection for women entrepreneurs — discover your Entrepreneurial Builder Profile™ and your next right step.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#080808;
+    --black2:#0D0D0D;
+    --gold:#C9A84C;
+    --gold-light:#E2C97E;
+    --gold-dark:#8B6914;
+    --parchment:#E8DFCB;
+    --parchment-dim:#B8AF9C;
+    --line:rgba(139,105,20,0.4);
+    --gold-sep: linear-gradient(to right, transparent 0%, #8B6914 15%, #C9A84C 35%, #E2C97E 50%, #C9A84C 65%, #8B6914 85%, transparent 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--parchment);font-family:'Lato',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--parchment);}
+  .eyebrow{font-family:'Cinzel',serif;letter-spacing:0.22em;text-transform:uppercase;font-size:0.72rem;color:var(--gold);}
+  a{color:var(--gold);}
+  button{font-family:'Lato',sans-serif;cursor:pointer;}
+  img,svg{display:block;}
+  .icon-tint{filter:grayscale(1) sepia(1) saturate(3.2) brightness(0.95) contrast(1.05);display:inline-block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+  header.site{padding:28px 24px;display:flex;justify-content:space-between;align-items:center;position:relative;}
+  header.site::after{content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--gold-sep);}
+  header.site .word{font-family:'Cinzel',serif;letter-spacing:0.18em;font-size:0.82rem;color:var(--parchment);text-decoration:none;}
+  header.site .word span{color:var(--gold);}
+  header.site .back{font-size:0.78rem;letter-spacing:0.06em;color:var(--parchment-dim);text-decoration:none;}
+  header.site .back:hover{color:var(--gold);}
+  footer.site{text-align:center;padding:40px 24px 60px;color:var(--parchment-dim);font-size:0.78rem;letter-spacing:0.03em;margin-top:40px;position:relative;}
+  footer.site::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:var(--gold-sep);}
+  .screen{display:none;min-height:70vh;padding:64px 0 80px;}
+  .screen.active{display:block;animation:fadeUp .5s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .landing .eyebrow{margin-bottom:18px;}
+  .landing h1{font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.15;margin-bottom:20px;font-style:italic;}
+  .landing p.lede{font-size:1.08rem;color:var(--parchment-dim);max-width:560px;margin-bottom:34px;}
+  .landing .meta-row{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:44px;font-size:0.85rem;color:var(--parchment-dim);}
+  .landing .meta-row strong{color:var(--gold);display:block;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;}
+  .btn-primary{
+    background:linear-gradient(135deg, #8B6914, #C9A84C, #8B6914);
+    color:#FAF5E9;border:1px solid #8B6914;padding:16px 38px;font-size:0.85rem;letter-spacing:0.1em;
+    font-family:'Cinzel',serif;text-transform:uppercase;font-weight:700;
+    box-shadow:0 2px 12px rgba(139,105,20,0.3);
+    transition:all 0.3s;
+  }
+  .btn-primary:hover{background:linear-gradient(135deg, #C9A84C, #E2C97E, #C9A84C);color:#1A1208;box-shadow:0 4px 20px rgba(201,168,76,0.4);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;color:var(--parchment);border:1px solid var(--line);padding:15px 30px;font-size:0.82rem;letter-spacing:0.08em;font-family:'Cinzel',serif;text-transform:uppercase;}
+  .btn-ghost:hover{border-color:var(--gold-dark);color:var(--gold);}
+  .philosophy-line{margin-top:56px;padding-top:36px;border-top:1px solid var(--line);font-style:italic;font-size:1.15rem;color:var(--parchment-dim);font-family:'Cormorant Garamond',serif;}
+  .field{margin-bottom:22px;}
+  .field label{display:block;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-family:'Cinzel',serif;}
+  .field input[type=text],.field input[type=email]{width:100%;background:var(--black2);border:1px solid var(--line);color:var(--parchment);padding:14px 16px;font-family:'Lato',sans-serif;font-size:1rem;}
+  .field input:focus{outline:none;border-color:var(--gold-dark);}
+  .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:520px){.stage-grid{grid-template-columns:1fr;}}
+  .stage-opt{border:1.5px solid var(--line);padding:14px 16px;font-size:0.92rem;color:var(--parchment-dim);transition:all .2s ease;}
+  .stage-opt input{display:none;}
+  .stage-opt.selected{border:2px solid var(--gold-dark);color:var(--parchment);background:rgba(139,105,20,0.14);box-shadow:0 2px 10px rgba(139,105,20,0.25);}
+  .stage-opt:hover{border-color:var(--gold-dark);}
+  .progress-track{height:2px;background:var(--line);width:100%;margin-bottom:8px;}
+  .progress-fill{height:3px;background:linear-gradient(to right, var(--gold-dark), var(--gold), var(--gold-light));width:0%;transition:width .4s ease;}
+  .progress-label{display:flex;justify-content:space-between;font-size:0.72rem;letter-spacing:0.08em;color:var(--parchment-dim);margin-bottom:40px;font-family:'Cinzel',serif;text-transform:uppercase;}
+  .section-title{margin-bottom:6px;font-size:1.7rem;font-style:italic;}
+  .section-sub{color:var(--parchment-dim);font-size:0.92rem;margin-bottom:36px;}
+  .question{margin-bottom:34px;padding-bottom:34px;position:relative;}
+  .question::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold-sep);}
+  .question:last-child::after{display:none;}
+  .question p{font-size:1.12rem;color:var(--parchment);margin-bottom:16px;line-height:1.5;}
+  .likert{display:flex;gap:8px;justify-content:space-between;}
+  .likert label{flex:1;text-align:center;border:1.5px solid var(--line);padding:12px 4px;font-size:0.72rem;color:var(--parchment-dim);letter-spacing:0.02em;transition:all .2s ease;}
+  .likert input{display:none;}
+  .likert label.picked{border:2px solid var(--gold-dark);background:rgba(139,105,20,0.16);color:var(--parchment);box-shadow:0 2px 10px rgba(139,105,20,0.25);}
+  .likert label:hover{border-color:var(--gold-dark);}
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+  .nav-row .hint{font-size:0.78rem;color:var(--parchment-dim);}
+  .results-intro{text-align:center;margin-bottom:20px;}
+  .results-intro .eyebrow{display:block;margin-bottom:10px;}
+  .results-intro p{color:var(--parchment-dim);font-size:0.95rem;max-width:520px;margin:0 auto;}
+  .section-heading{font-size:1.9rem;font-style:italic;text-align:center;margin:64px 0 8px;}
+  .section-heading .eyebrow{display:block;text-align:center;margin-bottom:12px;}
+  .relationship-note{color:var(--parchment-dim);font-size:0.95rem;text-align:center;max-width:560px;margin:0 auto 40px;}
+  .profile-card{border:1.5px solid var(--line);padding:36px 32px;margin-bottom:24px;}
+  .profile-card.primary{border:2px solid var(--gold-dark);background:rgba(139,105,20,0.06);box-shadow:0 2px 16px rgba(139,105,20,0.2);}
+  .profile-card .p-eyebrow{margin-bottom:14px;}
+  .profile-card .p-head{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+  .profile-card .p-icon{font-size:2.2rem;}
+  .profile-card .p-name{font-size:1.7rem;font-style:italic;}
+  .profile-card .p-identity{font-size:1.2rem;font-style:italic;color:var(--gold);font-family:'Cormorant Garamond',serif;margin-bottom:20px;}
+  .profile-signature{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;line-height:1.45;color:var(--gold-light);margin:0 0 26px;border-left:2px solid var(--gold-dark);padding-left:18px;}
+  .profile-card h4{font-family:'Cinzel',serif;font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin:20px 0 10px;}
+  .profile-card p.body-text{color:var(--parchment-dim);font-size:0.98rem;}
+  .profile-card ul{list-style:none;}
+  .profile-card li{position:relative;padding-left:20px;margin-bottom:8px;color:var(--parchment-dim);font-size:0.96rem;}
+  .profile-card li::before{content:"—";position:absolute;left:0;color:var(--gold-dark);}
+  .profile-affirmation{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:1.2rem;line-height:1.6;}
+  .supporting-wrap{margin-bottom:56px;}
+  .supporting-wrap h4{font-family:'Cinzel',serif;font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:18px;}
+  .supporting-chips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .chip{border:1.5px solid var(--line);padding:16px 20px;text-align:center;max-width:220px;}
+  .chip .c-icon{font-size:1.4rem;margin-bottom:6px;}
+  .chip .c-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;margin-bottom:4px;}
+  .chip .c-line{font-size:0.8rem;color:var(--parchment-dim);}
+  .supporting-empty{text-align:center;color:var(--parchment-dim);font-size:0.9rem;font-style:italic;}
+  .radial-wrap{display:flex;justify-content:center;margin:30px 0 10px;}
+  .radial-caption{text-align:center;color:var(--parchment-dim);font-size:0.88rem;font-style:italic;max-width:460px;margin:0 auto 50px;font-family:'Cormorant Garamond',serif;}
+  .dim-bars{margin-bottom:48px;}
+  .subheading{font-family:'Cinzel',serif;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  .dim-row{margin-bottom:22px;}
+  .dim-row .dim-top{display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px;}
+  .dim-row .dim-top .name{font-family:'Cinzel',serif;letter-spacing:0.05em;color:var(--parchment);}
+  .dim-row .dim-top .band{color:var(--gold);font-size:0.76rem;letter-spacing:0.06em;text-transform:uppercase;}
+  .dim-track{height:6px;background:var(--black2);border:1px solid var(--line);}
+  .dim-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));width:0%;transition:width 1s ease;}
+  .stage-callout{text-align:center;font-size:0.9rem;color:var(--parchment-dim);margin-bottom:48px;padding:18px;border:1px solid var(--line);}
+  .stage-callout strong{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;}
+  .rblock{margin-bottom:44px;}
+  .rblock h3{font-size:1.15rem;font-family:'Cinzel',serif;letter-spacing:0.04em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:16px;}
+  .rblock ul{list-style:none;}
+  .rblock li{position:relative;padding-left:20px;margin-bottom:10px;color:var(--parchment-dim);font-size:0.98rem;}
+  .rblock li::before{content:"—";position:absolute;left:0;color:var(--gold-dark);}
+  .rblock p{color:var(--parchment-dim);font-size:0.98rem;}
+  .pmfrl-box{border:2px solid var(--gold-dark);padding:32px;margin:56px 0;background:rgba(139,105,20,0.06);box-shadow:0 2px 16px rgba(139,105,20,0.2);}
+  .pmfrl-box .eyebrow{margin-bottom:10px;}
+  .pmfrl-box p{color:var(--parchment-dim);font-size:1rem;}
+  .results-cta{text-align:center;margin-top:50px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .closing-philosophy{text-align:center;font-style:italic;color:var(--parchment-dim);font-family:'Cormorant Garamond',serif;font-size:1.05rem;margin-top:44px;padding-top:30px;border-top:1px solid var(--line);}
+  @media(max-width:520px){.likert{flex-wrap:wrap;}.likert label{flex:0 0 calc(20% - 6px);padding:10px 2px;}}
+
+  @media print{
+    body{background:#fff !important;}
+    header.site,footer.site,.results-cta,.progress-track,.progress-label,.no-print,.top-download-wrap{display:none !important;}
+    header.site::after,footer.site::before{display:none !important;}
+    .screen{padding:20px 0 !important;}
+    .wrap{max-width:100% !important;}
+
+    /* Force every element in the results screen to dark, readable text first */
+    #screen-results, #screen-results *{color:#2A2318 !important;}
+
+    /* Then deliberately restore gold ONLY for true accents, on top of the above */
+    #screen-results .eyebrow,
+    #screen-results h4,
+    #screen-results .subheading,
+    #screen-results .supporting-wrap h4,
+    #screen-results .stage-callout strong,
+    #screen-results .dim-row .dim-top .band,
+    #screen-results .p-identity,
+    #screen-results .profile-signature,
+    #screen-results .profile-affirmation,
+    #screen-results a,
+    #screen-results li::before{color:#8B6914 !important;}
+
+    #screen-results h1,#screen-results h2,#screen-results h3,#screen-results .p-name{color:#1A1208 !important;}
+
+    #radial-svg text{fill:#4A4030 !important;}
+    #radial-svg polygon,#radial-svg line{stroke:#8B6914 !important;}
+    #radial-svg circle{fill:#8B6914 !important;}
+
+    .profile-card,.pmfrl-box,.stage-callout,.chip{border-color:#8B6914 !important;background:#fff !important;box-shadow:none !important;break-inside:avoid;}
+    .profile-card.primary{background:#FAF5E9 !important;}
+    .dim-track{background:#EFE8D8 !important;border-color:#8B6914 !important;}
+    .dim-fill{background:#8B6914 !important;}
+    .section-heading{page-break-before:always;}
+    .results-intro,.section-heading:first-of-type{page-break-before:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <a href="index.html" class="word">empowerHER <span>Legacy Institute</span></a>
+  <a href="index.html" class="back">← Back to Site</a>
+</header>
+
+<main class="wrap">
+
+  <section class="screen active landing" id="screen-landing">
+    <span class="eyebrow">Entrepreneurial Readiness Assessment™</span>
+    <h1>You are not being graded.<br>You are being reflected.</h1>
+    <p class="lede">This assessment reflects where you currently stand as a founder, how you naturally build and lead, plus the next step that will strengthen both your business and the woman building it. It is descriptive, not evaluative — there is no failing score, and no good or bad profile.</p>
+    <div class="meta-row">
+      <div><strong>40</strong>reflective statements</div>
+      <div><strong>5</strong>readiness dimensions</div>
+      <div><strong>~12</strong>minutes</div>
+      <div><strong>5</strong>Entrepreneurial Builder Profiles™</div>
+    </div>
+    <button class="btn-primary" onclick="goTo('intake')">Begin Your Assessment</button>
+    <p class="philosophy-line">"Entrepreneurial readiness is multidimensional, developmental and dynamic. Everyone is ready for a next step."</p>
+  </section>
+
+  <section class="screen" id="screen-intake">
+    <span class="eyebrow">Before you begin</span>
+    <h2 style="font-size:1.9rem;font-style:italic;margin:14px 0 30px;">A little about you</h2>
+    <div class="field">
+      <label for="f-name">Your name</label>
+      <input type="text" id="f-name" placeholder="First and last name">
+    </div>
+    <div class="field">
+      <label for="f-email">Your email</label>
+      <input type="email" id="f-email" placeholder="you@email.com">
+    </div>
+    <div class="field">
+      <label>Which best describes your current business stage?</label>
+      <div class="stage-grid" id="stage-grid"></div>
+    </div>
+    <div class="nav-row">
+      <span class="hint" id="intake-error" style="color:#d98a5f;"></span>
+      <button class="btn-primary" onclick="submitIntake()">Continue to Assessment</button>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-quiz">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label"><span id="progress-text">Section 1 of 5</span><span id="progress-pct">0%</span></div>
+    <h2 class="section-title" id="section-title"></h2>
+    <p class="section-sub" id="section-sub"></p>
+    <div id="question-list"></div>
+    <div class="nav-row">
+      <button class="btn-ghost" id="btn-back" onclick="prevSection()">Back</button>
+      <span class="hint" id="quiz-error" style="color:#d98a5f;"></span>
+      <button class="btn-primary" id="btn-next" onclick="nextSection()">Continue</button>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-results">
+
+    <div class="results-intro">
+      <span class="eyebrow" id="res-name"></span>
+      <p>Think of this less as a report card, more as a conversation — a reflection of how you build today. It will keep evolving as you do.</p>
+      <div class="top-download-wrap" style="margin-top:20px;">
+        <button class="btn-ghost" onclick="downloadProfile()">Download Your Profile</button>
+      </div>
+    </div>
+
+    <h2 class="section-heading"><span class="eyebrow">Your Entrepreneurial Builder Profile™</span></h2>
+    <p class="relationship-note">Your <strong>Primary Builder Profile</strong> represents the entrepreneurial pattern that most naturally shapes how you build and lead. Your <strong>Secondary Builder Profile</strong> represents your strongest supporting pattern. Your <strong>Supporting Builder Traits</strong> reflect additional characteristics that influence how you approach business. Together, these create your unique Entrepreneurial Builder Profile™ — and there is no good or bad pattern to land on.</p>
+
+    <div id="primary-card"></div>
+    <div id="secondary-card"></div>
+    <div class="supporting-wrap">
+      <h4>Supporting Builder Traits</h4>
+      <div class="supporting-chips" id="supporting-chips"></div>
+    </div>
+
+    <h2 class="section-heading"><span class="eyebrow">Your Entrepreneurial Readiness Map™</span></h2>
+    <div class="radial-wrap"><svg id="radial-svg" width="280" height="280" viewBox="0 0 280 280"></svg></div>
+    <p class="radial-caption">This map reflects where you stand today across all five dimensions — not a fixed score, but a living snapshot that will shift as you grow.</p>
+
+    <div class="stage-callout">Current Business Stage: <strong id="res-stage"></strong></div>
+
+    <div class="subheading">Dimension Results</div>
+    <div class="dim-bars" id="dim-bars"></div>
+
+    <div class="rblock">
+      <h3>Overall Readiness Summary</h3>
+      <p id="res-summary"></p>
+    </div>
+    <div class="rblock">
+      <h3>Primary Strengths</h3>
+      <ul id="res-strengths"></ul>
+    </div>
+    <div class="rblock">
+      <h3>Growth Opportunities</h3>
+      <ul id="res-growth"></ul>
+    </div>
+    <div class="rblock">
+      <h3>Personalized Development Recommendations</h3>
+      <ul id="res-recommendations"></ul>
+    </div>
+
+    <div class="pmfrl-box">
+      <span class="eyebrow">How PMFRL Supports You</span>
+      <p id="res-pmfrl"></p>
+    </div>
+
+    <p class="closing-philosophy">There are no good or bad profiles here — only different ways of building. Entrepreneurial readiness is developmental, and you are ready for your next step.</p>
+
+    <div class="results-cta">
+      <a href="programs.html" class="btn-primary" style="text-decoration:none;display:inline-block;">Explore PMFRL</a>
+      <button class="btn-ghost" onclick="downloadProfile()">Download Your Profile</button>
+      <button class="btn-ghost" onclick="restart()">Retake Assessment</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  © 2026 empowerHER Legacy Institute for Entrepreneurship Excellence. Entrepreneurial Readiness Assessment™, Entrepreneurial Builder Profiles™, Entrepreneurial Readiness Map™, and PMFRL Methodology™ are proprietary frameworks of ELIEE.
+</footer>
+
+<script>
+const DIMENSIONS = [
+  {key:'vision', label:'Vision Readiness'},
+  {key:'strategic', label:'Strategic Readiness'},
+  {key:'operational', label:'Operational Readiness'},
+  {key:'capacity', label:'Capacity Readiness'},
+  {key:'stage', label:'Business Stage Readiness'}
+];
+
+const QUESTIONS = [
+  {d:'vision', t:'I can clearly describe the kind of impact I want my business to have in the next 5 to 10 years.'},
+  {d:'vision', t:'I regularly notice problems around me that could turn into business ideas.'},
+  {d:'vision', t:'I feel confident that my ideas can turn into a real product or service, even if I do not yet know every step.'},
+  {d:'vision', t:'My vision for my business feels aligned with my personal values and the life I want to build.'},
+  {d:'vision', t:'I can imagine multiple future paths for my business and adjust my vision as I learn.'},
+  {d:'vision', t:'I see myself as someone who creates opportunities rather than waits for the perfect conditions.'},
+  {d:'vision', t:'When I think about my business idea, I feel hopeful and energized rather than only overwhelmed.'},
+  {d:'vision', t:'I can explain who my business is for and how it will serve that person well.'},
+  {d:'strategic', t:'I can break my long-term vision into clear milestones.'},
+  {d:'strategic', t:'I regularly step back from daily tasks to think about where my business is heading.'},
+  {d:'strategic', t:'I can make decisions even when I do not have all the information I would like.'},
+  {d:'strategic', t:'If conditions change, I can adjust my strategy without losing sight of my core purpose.'},
+  {d:'strategic', t:'I can spot what I am assuming about my business and test whether it is true in simple ways.'},
+  {d:'strategic', t:'I understand the basic numbers that make my business work.'},
+  {d:'strategic', t:'Before making major business decisions, I consider perspectives beyond my own.'},
+  {d:'strategic', t:'I can explain my business strategy in simple language to other people.'},
+  {d:'operational', t:'I know the basic steps needed to turn my idea into my first paying customer.'},
+  {d:'operational', t:'I can manage multiple tasks and deadlines without losing track of important details.'},
+  {d:'operational', t:'I create simple processes or checklists to make recurring tasks easier to manage.'},
+  {d:'operational', t:'I know how to prioritize when everything feels urgent.'},
+  {d:'operational', t:'I can delegate or outsource tasks when needed, even if that feels uncomfortable at first.'},
+  {d:'operational', t:'I feel capable of handling basic legal, admin or compliance tasks for my business, with support when needed.'},
+  {d:'operational', t:'I use some kind of task or project management system to keep my work organized.'},
+  {d:'operational', t:'When something doesn\'t work, I try to learn from it and adjust instead of blaming myself.'},
+  {d:'operational', t:'I have regular practices that help me manage stress and restore energy.'},
+  {d:'capacity', t:'When I face setbacks, I can usually regain focus within a reasonable amount of time.'},
+  {d:'capacity', t:'I believe I can pursue my business goals without sacrificing my physical health, mental well-being or relationships.'},
+  {d:'capacity', t:'I have people or communities where I can be honest about how running a business really feels.'},
+  {d:'capacity', t:'I can recognize the signs that I am approaching burnout.'},
+  {d:'capacity', t:'When I am stretched too thin, I can adjust commitments or ask for help rather than push through at any cost.'},
+  {d:'capacity', t:'I believe my emotional well-being is as important to business success as strategy or execution.'},
+  {d:'capacity', t:'Even in stressful periods, I can usually stay optimistic about what is still possible.'},
+  {d:'stage', t:'I have a clear sense of where I am in my entrepreneurial journey right now.'},
+  {d:'stage', t:'I know the next concrete milestone I want to reach in my business.'},
+  {d:'stage', t:'I feel capable of taking the next step in my business, even if I do not yet know every step beyond it.'},
+  {d:'stage', t:'I have at least one person, group or resource I can turn to for help at my current stage.'},
+  {d:'stage', t:'I am open to the possibility that my business model or role may evolve as I grow.'},
+  {d:'stage', t:'I see my current stage as one step in a longer journey—not as a measure of what I\'m ultimately capable of.'},
+  {d:'stage', t:'I write down the lessons I learn from running my business.'},
+  {d:'stage', t:'I am willing to experiment with new tools or methods to organize my work and learn more effectively.'}
+];
+
+const SECTIONS = [
+  {key:'vision', title:'Vision Readiness', sub:'How you see opportunity, purpose and the future you are building toward.'},
+  {key:'strategic', title:'Strategic Readiness', sub:'How you plan, decide and turn direction into a workable path.'},
+  {key:'operational', title:'Operational Readiness', sub:'How you organize, execute and keep the business running day to day.'},
+  {key:'capacity', title:'Capacity Readiness', sub:'How you sustain yourself — your resilience, well-being and pacing.'},
+  {key:'stage', title:'Business Stage Readiness', sub:'How clearly you see your current stage and your openness to what comes next.'}
+];
+
+const STAGE_OPTIONS = ['Idea or pre-launch','Early-stage','Early growth','Growth','Transition or reinvention'];
+
+const PROFILES = [
+  {
+    id:'visionary', icon:'✨', name:'The Visionary',
+    identity:'You naturally build through vision.',
+    essence:'vision',
+    whyGift:'You see the opportunity before anyone else has named it.<br><br>While others are still describing the problem, you\'re already imagining what could replace it.<br><br>You\'ve probably noticed this about yourself: ideas rarely feel effortful to you. They arrive, often fully formed, long before anyone asks for them.<br><br>That\'s not naive optimism. It\'s a real capacity — the same one that starts movements, not just businesses.',
+    developIntro:'Here\'s something worth sitting with: your ideas have rarely been the problem.<br><br>What tends to go quiet is the bridge between the dream and the Tuesday-morning task list.<br><br>You\'ve probably watched other founders move faster than you and wondered if they were simply more disciplined. Often they weren\'t. They had just learned to build the vision one week at a time, instead of all at once.<br><br>Your biggest risk was never dreaming too big. It\'s leaving the dream to build itself.',
+    summaryLine:'That combination is rare. And it\'s worth protecting.',
+    signature:'Ideas have never been your problem. Building them consistently has.',
+    strengths:['You notice what\'s missing before most people even feel the gap.','You can hold a five-year picture in your mind and still make it feel real to someone hearing it for the first time.','People remember conversations with you — you leave them believing something bigger is possible.','Your energy for the mission rarely runs dry, even when the day-to-day does.'],
+    growthAreas:['Your next level isn\'t a bigger vision. It\'s giving the current one enough runway to prove itself.','Passion is a beautiful starting point. Structure is what lets it finish what it started.','When everything feels exciting, the real skill is choosing — and staying chosen.','Slow progress doesn\'t mean the vision was wrong. It usually just means the timeline was always going to be longer than the excitement.'],
+    recommendations:['Give your vision a body: one flagship offer, mapped into real milestones.','Build a weekly rhythm that turns "someday" into "this week."','Let a simple project system carry what your memory shouldn\'t have to.','Protect a little structure — not to cage the vision, but to give it somewhere to land.'],
+    pmfrl:'You don\'t need a smaller vision. You need a system built for the way you naturally think — one that catches the ideas already living in your head and gives them somewhere to land.<br><br>That\'s where PMFRL comes in. It breaks what you see clearly into steps small enough to actually finish, without asking you to shrink the vision to fit the plan.',
+    affirmation:'Vision changes lives.<br>Disciplined execution changes generations.',
+    weights:{vision:0.55, strategic:0.15, operational:0.05, capacity:0.10, stage:0.15}
+  },
+  {
+    id:'planner', icon:'🗺️', name:'The Planner',
+    identity:'You naturally build through strategy.',
+    essence:'strategy',
+    whyGift:'You think in systems most people can\'t see yet.<br><br>Where someone else sees a single decision, you see the five decisions behind it — and you\'ve usually already weighed them.<br><br>If this feels familiar, you\'re not imagining it: people tend to trust your judgment before they can fully explain why. That instinct they\'re picking up on is real. You\'ve simply been doing the thinking in advance, quietly, long before the room needed it.',
+    developIntro:'Your plans are rarely the weak point.<br><br>The gap tends to open between "this is ready" and "this is ready enough."<br><br>You\'ve probably mistaken this pattern for indecision at some point. It usually isn\'t. It\'s simply the way your mind protects the quality of your work — by asking one more question before it lets go.<br><br>Confidence, for you, isn\'t the thing that arrives before the plan is finished. It\'s usually what shows up once you let the plan meet reality.',
+    summaryLine:'That combination is a real asset. Most people spend years trying to build what you already have.',
+    signature:'Your plan is already strong enough. At some point, planning has to become building.',
+    strengths:['You catch the obstacle three steps ahead, before it becomes anyone else\'s emergency.','Your decisions tend to hold up under pressure, because you already thought them through under calm.','You bring order to complexity other people find overwhelming.','You treat strategy as something worth shaping on purpose — not something that just happens to you.'],
+    growthAreas:['There\'s a version of this plan that\'s ready right now — even if part of you wants one more pass at it.','Waiting for full certainty isn\'t required. It\'s simply the story your mind tells before it lets go.','Every model you\'re holding costs something. The invitation is to set a few of them down.','The next level isn\'t a better plan. It\'s trusting the one you already have.'],
+    recommendations:['Set shorter cycles: plan, test, learn — then plan again.','Practice releasing something "clear enough," before it feels perfect.','Narrow your strategy down to the few moves that actually matter right now.','Build in real checkpoints for your own capacity, not just the business\'s.'],
+    pmfrl:'You don\'t need to think less. You need a container for your thinking that lets it turn into motion, not just more analysis.<br><br>That\'s where PMFRL comes in. It takes the strategy you\'ve already built in your head and gives it timelines, sequencing and a natural next step — so momentum finally has somewhere to go.',
+    affirmation:'Clarity creates confidence.<br>Action brings clarity to life.',
+    weights:{vision:0.15, strategic:0.55, operational:0.15, capacity:0.05, stage:0.10}
+  },
+  {
+    id:'implementer', icon:'⚙️', name:'The Implementer',
+    identity:'You naturally build through execution.',
+    essence:'execution',
+    whyGift:'You don\'t spend much time waiting for perfect conditions.<br><br>Once you decide something matters, your instinct is to move.<br><br>Momentum comes naturally to you — and momentum, more than almost anything else, is what turns ideas into businesses. Most founders spend years trying to build the habit you were simply born with.',
+    developIntro:'Your follow-through has never really been in question.<br><br>What sometimes goes quiet is the pause to ask whether this task, right now, is actually the one that matters most.<br><br>You\'ve probably noticed that busyness and progress can start to feel like the same thing. They aren\'t always. Momentum without a compass just moves faster in the wrong direction.<br><br>Being good at almost everything can quietly get in the way of doing the one thing that matters most.',
+    summaryLine:'That combination moves fast. Pointed in the right direction, it\'s hard to stop.',
+    signature:'You don\'t need more hustle. You need a system that protects your energy.',
+    strengths:['You turn plans into progress other people can actually see.','You build the systems and routines that make the business run, even on the hard days.','You follow through — reliably, and often without needing to be asked twice.','You\'re usually the reason things don\'t fall apart when it gets complicated.'],
+    growthAreas:['Your next level isn\'t more output. It\'s making sure the output is aimed at what matters most.','Being good at a task doesn\'t always mean it\'s the task that deserves you right now.','Progress and busyness can look identical from the inside. The invitation is to check, on purpose.','The signs of running low are easy to miss when you\'re the one holding everything together. Noticing them early is its own kind of strength.'],
+    recommendations:['Put a real strategy check-in on the calendar — not just when things break.','Practice handing off what doesn\'t need to be yours.','Tie this week\'s tasks back to the actual long-term goal, on purpose.','Build recovery into the plan. Rest isn\'t the opposite of momentum — it\'s what sustains it.'],
+    pmfrl:'You already move faster than most people ever learn to. What\'s sometimes missing isn\'t drive — it\'s direction.<br><br>That\'s where PMFRL comes in. It connects the work you\'re already doing to the strategy that makes it count, so your momentum finally builds toward something, instead of just staying busy.',
+    affirmation:'Your momentum is a gift.<br>Alignment is what makes it endure.',
+    weights:{vision:0.05, strategic:0.15, operational:0.55, capacity:0.10, stage:0.15}
+  },
+  {
+    id:'sustainer', icon:'🌿', name:'The Sustainer',
+    identity:'You naturally build through sustainability.',
+    essence:'sustainability',
+    whyGift:'You instinctively understand something many entrepreneurs learn the hard way:<br><br>Success that costs you yourself is too expensive.<br><br>You think about capacity, well-being and long-term stewardship right alongside strategy — not after it. That\'s not caution.<br><br>That\'s wisdom.',
+    developIntro:'Your hesitation usually isn\'t about doubt in the idea.<br><br>It\'s often about waiting to feel fully ready before you\'ll let yourself move.<br><br>Have you ever noticed that the founders who look the most confident aren\'t always the most certain? Often, they were simply willing to build confidence while moving, instead of waiting for it to arrive first.<br><br>Confidence is usually built after the first small action — not before it.',
+    summaryLine:'That combination is rarer than it feels from the inside — and far more durable.',
+    signature:'Success should fit your life, not replace it.',
+    strengths:['You know that a business is only as sustainable as the woman building it.','You bring real emotional insight and groundedness into rooms that often lack both.','You protect healthy boundaries instead of treating burnout as the cost of doing business.','People feel safe around you — and that safety is part of what you build.'],
+    growthAreas:['Waiting to feel fully ready is optional. Confidence usually shows up after the first small step, not before it.','Your instincts are quieter than most. That doesn\'t make them less accurate.','Preparing longer can feel safer than testing. Usually, testing teaches you more, faster.','Self-care and business-building were never separate categories. They\'re the same practice, wearing two different names.'],
+    recommendations:['Take one small, real action this week — let confidence follow the evidence, not the other way around.','Use simple tools that lower the overwhelm instead of adding to it.','Practice moving faster on the low-risk experiments — the ones where the cost of trying is small.','Let sustainable action be the proof of your self-trust, not a reward you have to earn first.'],
+    pmfrl:'You don\'t need to abandon what matters to you in order to move faster. You need a structure that lets ambition and capacity grow at the same time.<br><br>That\'s where PMFRL comes in. It breaks meaningful progress into steps small enough to build real confidence, without asking you to trade away the peace and stewardship you\'ve worked hard to protect.',
+    affirmation:'Your capacity is not a limitation.<br>It\'s part of your strategy.',
+    weights:{vision:0.10, strategic:0.05, operational:0.10, capacity:0.55, stage:0.20}
+  },
+  {
+    id:'pioneer', icon:'🧭', name:'The Pioneer',
+    identity:'You naturally build through adaptation.',
+    essence:'adaptation',
+    whyGift:'You rarely wait for perfect certainty before moving.<br><br>Your instinct is to learn by doing.<br><br>You often discover the best path after you\'ve already started walking it — and that comfort with the unknown is something most people spend years trying to unlearn their fear of.',
+    developIntro:'Your ideas are rarely the problem.<br><br>Giving your best ideas enough time to mature usually is.<br><br>You\'ve probably mistaken this pattern for restlessness before. It usually isn\'t restlessness — it\'s curiosity without a place yet to land.<br><br>Sometimes your greatest opportunity isn\'t finding another great idea. It\'s staying with the current one long enough to let it become exceptional.',
+    summaryLine:'That combination just needs one thing: somewhere steady enough to let it compound.',
+    signature:'Your adaptability is a superpower — until it becomes an exit strategy.',
+    strengths:['You adapt quickly when the ground shifts, while others are still getting oriented.','Uncertainty doesn\'t freeze you — if anything, it tends to sharpen your instincts.','You bring genuine creativity and flexibility to problems that resist a standard playbook.','You\'re often the first to sense which way things are turning.'],
+    growthAreas:['Your next level isn\'t another great idea. It\'s staying with the one you already have long enough to watch it mature.','Too many open doors at once can start to feel like none of them are really open.','Structure was never the enemy of creativity. Sometimes it\'s the thing that finally gives creativity somewhere to land.','Staying a little longer than feels comfortable is usually where the real compounding begins.'],
+    recommendations:['Choose one direction and give it a defined season before you evaluate it.','Limit how many experiments are open at once, so each one has room to actually teach you something.','Build a few stable systems — not to slow the creativity down, but to give it a place to compound.','Practice staying, on purpose, a little past the point where leaving starts to feel easier.'],
+    pmfrl:'You don\'t need to become less adaptive. You need a container sturdy enough to hold your best ideas while they mature.<br><br>That\'s where PMFRL comes in. It helps you track what you\'re learning and stabilize just enough structure that your best ideas finally get the runway to become something real.',
+    affirmation:'Innovation opens doors.<br>Consistency keeps them open.',
+    weights:{vision:0.15, strategic:0.15, operational:0.15, capacity:0.15, stage:0.40}
+  }
+];
+
+let answers = {};
+let currentSectionIdx = 0;
+let lead = {name:'', email:'', stage:''};
+
+function init(){
+  const grid = document.getElementById('stage-grid');
+  STAGE_OPTIONS.forEach(opt=>{
+    const label = document.createElement('label');
+    label.className = 'stage-opt';
+    label.innerHTML = `<input type="radio" name="stage" value="${opt}"> ${opt}`;
+    label.addEventListener('click', ()=>{
+      document.querySelectorAll('.stage-opt').forEach(el=>el.classList.remove('selected'));
+      label.classList.add('selected');
+      lead.stage = opt;
+    });
+    grid.appendChild(label);
+  });
+}
+init();
+
+function goTo(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function submitIntake(){
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const err = document.getElementById('intake-error');
+  if(!name || !email || !email.includes('@') || !lead.stage){
+    err.textContent = 'Please fill in your name, email and business stage.';
+    return;
+  }
+  err.textContent = '';
+  lead.name = name; lead.email = email;
+
+  fetch('https://formspree.io/f/xlgypbbo', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:lead.name, email:lead.email, business_stage:lead.stage,
+      _subject:'New ERA Assessment Lead'
+    })
+  }).catch(()=>{});
+
+  currentSectionIdx = 0;
+  renderSection();
+  goTo('quiz');
+}
+
+function renderSection(){
+  const sec = SECTIONS[currentSectionIdx];
+  document.getElementById('section-title').textContent = sec.title;
+  document.getElementById('section-sub').textContent = sec.sub;
+  document.getElementById('progress-text').textContent = `Section ${currentSectionIdx+1} of ${SECTIONS.length}`;
+  const pct = Math.round((currentSectionIdx)/SECTIONS.length*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-pct').textContent = pct+'%';
+  document.getElementById('btn-back').style.visibility = currentSectionIdx===0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = currentSectionIdx===SECTIONS.length-1 ? 'Reveal My Entrepreneurial Builder Profile™' : 'Continue';
+  document.getElementById('quiz-error').textContent = '';
+
+  const list = document.getElementById('question-list');
+  list.innerHTML = '';
+  const secQuestions = QUESTIONS.map((q,i)=>({...q, idx:i})).filter(q=>q.d===sec.key);
+
+  secQuestions.forEach(q=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    const scaleLabels = ['Strongly disagree','Disagree','Neutral','Agree','Strongly agree'];
+    let optsHtml = '';
+    for(let v=1; v<=5; v++){
+      const picked = answers[q.idx]===v ? 'picked' : '';
+      optsHtml += `<label class="${picked}" data-q="${q.idx}" data-v="${v}" onclick="pick(${q.idx},${v},this)">${scaleLabels[v-1]}</label>`;
+    }
+    qDiv.innerHTML = `<p>${q.t}</p><div class="likert">${optsHtml}</div>`;
+    list.appendChild(qDiv);
+  });
+}
+
+function pick(qIdx, val, el){
+  answers[qIdx] = val;
+  const parent = el.parentElement;
+  parent.querySelectorAll('label').forEach(l=>l.classList.remove('picked'));
+  el.classList.add('picked');
+  document.getElementById('quiz-error').textContent = '';
+}
+
+function nextSection(){
+  const sec = SECTIONS[currentSectionIdx];
+  const secQuestions = QUESTIONS.map((q,i)=>({...q, idx:i})).filter(q=>q.d===sec.key);
+  const unanswered = secQuestions.some(q=>answers[q.idx]===undefined);
+  if(unanswered){
+    document.getElementById('quiz-error').textContent = 'Please respond to every statement before continuing.';
+    return;
+  }
+  if(currentSectionIdx < SECTIONS.length-1){
+    currentSectionIdx++;
+    renderSection();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    showResults();
+  }
+}
+
+function prevSection(){
+  if(currentSectionIdx>0){
+    currentSectionIdx--;
+    renderSection();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+}
+
+function bandFor(avg){
+  if(avg >= 4.0) return 'Strength Area';
+  if(avg >= 3.0) return 'Developing';
+  return 'Emerging';
+}
+
+function computeScores(){
+  const sums = {}, counts = {};
+  DIMENSIONS.forEach(d=>{ sums[d.key]=0; counts[d.key]=0; });
+  QUESTIONS.forEach((q,i)=>{
+    sums[q.d] += answers[i];
+    counts[q.d] += 1;
+  });
+  const avgs = {};
+  DIMENSIONS.forEach(d=>{ avgs[d.key] = sums[d.key]/counts[d.key]; });
+  return avgs;
+}
+
+function scoreProfile(profile, avgs){
+  let weightedSum = 0, weightTotal = 0;
+  Object.keys(avgs).forEach(k=>{
+    const w = profile.weights[k] || 0;
+    weightedSum += w * avgs[k];
+    weightTotal += w;
+  });
+  return weightTotal > 0 ? weightedSum / weightTotal : 0;
+}
+
+function rankProfiles(avgs){
+  return PROFILES.map(p=>({...p, score: scoreProfile(p, avgs)})).sort((a,b)=> b.score - a.score);
+}
+
+function selectProfiles(avgs){
+  const ranked = rankProfiles(avgs);
+  const primary = ranked[0];
+  const secondary = ranked[1];
+  const supporting = ranked.slice(2).filter(p => p.score >= 3.5 && (secondary.score - p.score) <= 0.6).slice(0,2);
+  return {primary, secondary, supporting};
+}
+
+function renderProfileCard(container, profile, tierLabel, isPrimary){
+  container.innerHTML = `
+    <div class="profile-card ${isPrimary ? 'primary' : ''}">
+      <span class="eyebrow p-eyebrow">${tierLabel}</span>
+      <div class="p-head">
+        <span class="p-icon icon-tint">${profile.icon}</span>
+        <span class="p-name">${profile.name}</span>
+      </div>
+      <div class="p-identity">${profile.identity}</div>
+      <div class="profile-signature">${profile.signature}</div>
+      <h4>Why This Is a Gift</h4>
+      <p class="body-text">${profile.whyGift}</p>
+      <h4>What to Intentionally Develop</h4>
+      <p class="body-text">${profile.developIntro}</p>
+      <ul>${profile.recommendations.slice(0,2).map(r=>`<li>${r}</li>`).join('')}</ul>
+      <h4>How PMFRL Complements This Profile</h4>
+      <p class="body-text">${profile.pmfrl}</p>
+      <div class="profile-affirmation">${profile.affirmation}</div>
+    </div>
+  `;
+}
+
+function renderSupportingChips(supporting){
+  const wrap = document.getElementById('supporting-chips');
+  const label = document.querySelector('.supporting-wrap h4');
+  if(supporting.length === 0){
+    label.style.display = 'none';
+    wrap.innerHTML = `<p class="supporting-empty">Your Primary and Secondary patterns clearly define how you build — no additional supporting traits stood out this time.</p>`;
+    return;
+  }
+  label.style.display = 'block';
+  wrap.innerHTML = '';
+  supporting.forEach(p=>{
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.innerHTML = `<div class="c-icon icon-tint">${p.icon}</div><div class="c-name">${p.name}</div><div class="c-line">${p.identity}</div>`;
+    wrap.appendChild(chip);
+  });
+}
+
+function buildSummary(primary, secondary){
+  const stage = lead.stage.toLowerCase();
+  const subject = lead.name ? lead.name : 'You';
+  const verb = lead.name ? 'leads' : 'lead';
+  return `${subject} ${verb} with ${primary.essence} — supported by ${secondary.essence}.<br><br>${primary.summaryLine}<br><br>At the ${stage} stage, the invitation isn't to become someone different. It's to let these two strengths work together, on purpose.`;
+}
+
+function showResults(){
+  const avgs = computeScores();
+  const sel = selectProfiles(avgs);
+  const primary = sel.primary, secondary = sel.secondary, supporting = sel.supporting;
+
+  document.getElementById('res-name').textContent = lead.name ? `${lead.name}'s Reflection` : 'Your Reflection';
+  document.getElementById('res-stage').textContent = lead.stage;
+
+  renderProfileCard(document.getElementById('primary-card'), primary, 'Primary Builder Profile', true);
+  renderProfileCard(document.getElementById('secondary-card'), secondary, 'Secondary Builder Profile', false);
+  renderSupportingChips(supporting);
+
+  document.getElementById('res-summary').innerHTML = buildSummary(primary, secondary);
+
+  const fill = (id, arr) => {
+    const ul = document.getElementById(id);
+    ul.innerHTML = '';
+    arr.forEach(item=>{
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+  };
+  fill('res-strengths', primary.strengths);
+  fill('res-growth', primary.growthAreas);
+  fill('res-recommendations', primary.recommendations);
+  document.getElementById('res-pmfrl').innerHTML = primary.pmfrl;
+
+  const dimBars = document.getElementById('dim-bars');
+  dimBars.innerHTML = '';
+  DIMENSIONS.forEach(d=>{
+    const avg = avgs[d.key];
+    const pct = (avg/5)*100;
+    const row = document.createElement('div');
+    row.className = 'dim-row';
+    row.innerHTML = `<div class="dim-top"><span class="name">${d.label}</span><span class="band">${bandFor(avg)}</span></div><div class="dim-track"><div class="dim-fill" style="width:0%" data-target="${pct}"></div></div>`;
+    dimBars.appendChild(row);
+  });
+
+  drawRadial(avgs);
+  goTo('results');
+
+  setTimeout(()=>{
+    document.querySelectorAll('.dim-fill').forEach(el=>{
+      el.style.width = el.getAttribute('data-target')+'%';
+    });
+  }, 100);
+}
+
+function drawRadial(avgs){
+  const svg = document.getElementById('radial-svg');
+  svg.innerHTML = '';
+  const keys = DIMENSIONS.map(d=>d.key);
+  const labels = ['Vision','Strategic','Operational','Capacity','Stage'];
+  const cx = 140, cy = 140, maxR = 100;
+  const angleStep = (Math.PI*2)/keys.length;
+  const GOLD = '#C9A84C';
+  const GOLD_LIGHT = '#E2C97E';
+
+  function pointAt(i, r){
+    const angle = -Math.PI/2 + i*angleStep;
+    return [cx + r*Math.cos(angle), cy + r*Math.sin(angle)];
+  }
+
+  const ns = 'http://www.w3.org/2000/svg';
+
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const pts = keys.map((k,i)=>pointAt(i, maxR*f).join(',')).join(' ');
+    const poly = document.createElementNS(ns,'polygon');
+    poly.setAttribute('points', pts);
+    poly.setAttribute('fill','none');
+    poly.setAttribute('stroke','rgba(139,105,20,0.35)');
+    poly.setAttribute('stroke-width','1');
+    svg.appendChild(poly);
+  });
+
+  keys.forEach((k,i)=>{
+    const [x,y] = pointAt(i, maxR);
+    const line = document.createElementNS(ns,'line');
+    line.setAttribute('x1',cx); line.setAttribute('y1',cy);
+    line.setAttribute('x2',x); line.setAttribute('y2',y);
+    line.setAttribute('stroke','rgba(139,105,20,0.35)');
+    svg.appendChild(line);
+
+    const [lx,ly] = pointAt(i, maxR+22);
+    const text = document.createElementNS(ns,'text');
+    text.setAttribute('x',lx); text.setAttribute('y',ly);
+    text.setAttribute('text-anchor','middle');
+    text.setAttribute('dominant-baseline','middle');
+    text.setAttribute('fill','#B8AF9C');
+    text.setAttribute('font-size','10');
+    text.setAttribute('font-family','Cinzel, serif');
+    text.setAttribute('letter-spacing','0.5');
+    text.textContent = labels[i];
+    svg.appendChild(text);
+  });
+
+  const dataPts = keys.map((k,i)=> pointAt(i, (avgs[k]/5)*maxR).join(',')).join(' ');
+  const dataPoly = document.createElementNS(ns,'polygon');
+  dataPoly.setAttribute('points', dataPts);
+  dataPoly.setAttribute('fill','rgba(139,105,20,0.22)');
+  dataPoly.setAttribute('stroke', GOLD);
+  dataPoly.setAttribute('stroke-width','2');
+  svg.appendChild(dataPoly);
+
+  keys.forEach((k,i)=>{
+    const [x,y] = pointAt(i, (avgs[k]/5)*maxR);
+    const dot = document.createElementNS(ns,'circle');
+    dot.setAttribute('cx',x); dot.setAttribute('cy',y); dot.setAttribute('r','3.5');
+    dot.setAttribute('fill', GOLD_LIGHT);
+    svg.appendChild(dot);
+  });
+}
+
+function downloadProfile(){
+  const originalTitle = document.title;
+  const namePart = lead.name ? lead.name.trim().replace(/\s+/g,'-') : 'Your';
+  document.title = `${namePart}-Entrepreneurial-Builder-Profile`;
+  window.print();
+  setTimeout(()=>{ document.title = originalTitle; }, 800);
+}
+
+function restart(){
+  answers = {};
+  currentSectionIdx = 0;
+  lead = {name:'', email:'', stage:''};
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-email').value = '';
+  document.querySelectorAll('.stage-opt').forEach(el=>el.classList.remove('selected'));
+  goTo('landing');
+}
+</script>
+</body>
+</html>
