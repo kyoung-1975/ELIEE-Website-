@@ -113,6 +113,10 @@
       font-family: 'Lato', sans-serif; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
       padding: 9px 20px; border-radius: 2px;
     }
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold-light);
+    }
 
     /* SHARED */
     .section-dark { background: var(--dark); padding: 100px 72px; }
@@ -231,7 +235,7 @@
     }
 
     /* DESIGNATION BADGE */
-    .designation-wrap { text-align: center; }
+    .designation-wrap { text-align: left; }
     .designation-badge {
       display: inline-block; border: 2px solid var(--gold); padding: 26px 48px; margin: 32px 0;
       background: #FFFDF8; box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25);
@@ -259,7 +263,7 @@
     }
 
     /* QUOTE BLOCK */
-    .quote-block { text-align: center; padding: 60px 48px; }
+    .quote-block { text-align: left; padding: 60px 48px; }
     .quote-block p {
       font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.5vw, 30px); font-weight: 300; font-style: italic;
       line-height: 1.6; color: var(--text-light);
@@ -271,7 +275,7 @@
 
     /* CTA */
     .cta-section {
-      background: var(--black); padding: 110px 72px; text-align: center; position: relative; overflow: hidden;
+      background: var(--black); padding: 110px 72px; text-align: left; position: relative; overflow: hidden;
     }
     .cta-section::before {
       content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 480px; height: 320px;
@@ -295,8 +299,7 @@
 
     /* FOOTER */
     footer {
-      background: #FFFFFF; border-top: 5px solid transparent;
-      border-image: linear-gradient(to right, transparent 0%, #B8860B 8%, #E0AC3F 28%, #F6DA8C 50%, #E0AC3F 72%, #B8860B 92%, transparent 100%) 1;
+      background: #FFFFFF;
       padding: 36px 72px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
     }
     .footer-copy { font-family: 'Lato', sans-serif; font-size: 11px; color: #1A1208; }
@@ -357,8 +360,8 @@
     <p class="opening-sub">Project Management for Real Life: Entrepreneurial Edition&trade;</p>
     <p class="body-light">Learn the PMFRL Methodology&trade; &mdash; the signature educational framework taught through the empowerHER Legacy Institute for Entrepreneurship Excellence.</p>
     <div class="badge-row">
-      <span class="badge-pill">Self-Paced Program</span>
-      <a href="contact.html" class="btn-gold">Learn the PMFRL Methodology&trade;</a>
+      <span class="hero-eyebrow">Self-Paced Certification Program</span>
+      <a href="contact.html" class="btn-gold">Explore PMFRL&trade;</a>
     </div>
     <div class="gold-rule"></div>
     <p class="body-light" style="font-style: italic;">This isn&rsquo;t a masterclass.</p>
@@ -502,7 +505,7 @@
 <!-- CEPS DESIGNATION -->
 <section class="section-black">
   <div class="inner designation-wrap">
-    <span class="section-label" style="text-align:center;">The Credential</span>
+    <span class="section-label">The Credential</span>
     <h2 class="headline-light" style="font-style: italic;">Earn the CEPS Designation</h2>
     <p class="body-light" style="font-style: italic; color: var(--gold-light);">More Than Certification. A New Way to Lead.</p>
     <p class="body-light">Upon successful completion of the PMFRL Program and a final assessment, you&rsquo;ll earn the professional designation:</p>
@@ -511,7 +514,7 @@
       <div class="desig-full">Certified Entrepreneurship Project Strategist</div>
     </div>
     <p class="body-light">The designation represents more than completing a program. It represents mastering a methodology that will continue serving you long after the course is complete.</p>
-    <div class="gold-rule" style="margin-left: auto; margin-right: auto;"></div>
+    <div class="gold-rule"></div>
     <p class="body-light" style="font-style: italic; color: var(--gold-light); font-size: 22px;">Because confidence isn&rsquo;t built through inspiration.<br>It&rsquo;s built through preparation.</p>
   </div>
 </section>
@@ -534,7 +537,11 @@
   <div class="cta-inner">
     <h2 class="cta-headline">Build the Vision You&rsquo;ve Been Called to Create.</h2>
     <p class="cta-sub">You already have the vision. Now build it with structure. Build it with confidence. Build it with intention. Build it for legacy.</p>
-    <a href="ERA.html" class="btn-gold">Enroll in the PMFRL Program</a>
+    <div class="gold-rule"></div>
+    <span class="section-label">Before Enrollment</span>
+    <p class="body-light">The Entrepreneurial Readiness Assessment&trade; is a required first step for all PMFRL participants.</p>
+    <p class="body-light">We believe every entrepreneur deserves a learning experience tailored to how they naturally build. Your Builder Profile&trade; helps personalize your journey through Project Management for Real Life: Entrepreneurial Edition&trade; from the very beginning.</p>
+    <a href="ERA.html" class="btn-gold">Take the Entrepreneurial Readiness Assessment&trade;</a>
   </div>
 </section>
 
