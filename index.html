@@ -459,6 +459,25 @@
       .test-content { padding: 60px 28px; }
       footer { padding: 28px 24px; flex-direction: column; text-align: center; }
     }
+  
+    /* BOTTOM NAV BAR */
+    .back-home-wrap { background: var(--parchment-bg); padding: 40px 72px; display: flex; flex-direction: column; align-items: center; }
+    .back-home-nav { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; list-style: none; }
+    .back-home-nav li { display: flex; align-items: center; }
+    .back-home-nav li:not(:last-child)::after {
+      content: ''; display: inline-block; width: 1px; height: 10px;
+      background: rgba(139,105,20,0.4); margin: 0 22px;
+    }
+    .back-home-nav a {
+      font-family: 'Lato', sans-serif; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #1A1208; text-decoration: none; white-space: nowrap; transition: color 0.2s;
+    }
+    .back-home-nav a:hover, .back-home-nav a.active { color: var(--gold-dark); }
+    @media (max-width: 768px) {
+      .back-home-wrap { padding: 32px 24px; }
+      .back-home-nav { flex-direction: column; gap: 14px; }
+      .back-home-nav li:not(:last-child)::after { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -473,8 +492,9 @@
     <li><a href="about.html">About</a></li>
     <li><a href="our-foundation.html">Our Foundation</a></li>
     <li><a href="programs.html">The PMFRL Methodology&trade;</a></li>
-    <li><a href="ERA.html">Entrepreneurship Readiness Assessment (ERA)</a></li>
-    <li><a href="theological-somatics.html">Institute Research & Ideas</a></li>
+    <li><a href="entrepreneurial-readiness-assessment.html">Entrepreneurship Readiness Assessment&trade; (ERA)</a></li>
+    <li><a href="enrollment.html">Enrollment</a></li>
+    <li><a href="theological-somatics.html">Research &amp; Ideas</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="nav-right"><a href="contact.html" class="nav-cta">Get Started</a></div>
@@ -488,8 +508,9 @@
   <li><a href="about.html">About</a></li>
   <li><a href="our-foundation.html">Our Foundation</a></li>
   <li><a href="programs.html">The PMFRL Methodology&trade;</a></li>
-    <li><a href="ERA.html">Entrepreneurship Readiness Assessment (ERA)</a></li>
-  <li><a href="theological-somatics.html">Institute Research & Ideas</a></li>
+    <li><a href="entrepreneurial-readiness-assessment.html">Entrepreneurship Readiness Assessment&trade; (ERA)</a></li>
+    <li><a href="enrollment.html">Enrollment</a></li>
+  <li><a href="theological-somatics.html">Research &amp; Ideas</a></li>
   <li><a href="contact.html">Contact</a></li>
   <li><a href="contact.html" class="nav-cta">Get Started</a></li>
 </ul>
@@ -720,6 +741,21 @@
     <a href="ERA.html" class="btn-gold">Get Started</a>
   </div>
 </section>
+
+<div class="gold-sep"></div>
+
+<div class="back-home-wrap">
+  <ul class="back-home-nav">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="our-foundation.html">Our Foundation</a></li>
+    <li><a href="programs.html">The PMFRL Methodology&trade;</a></li>
+    <li><a href="entrepreneurial-readiness-assessment.html">Entrepreneurship Readiness Assessment&trade; (ERA)</a></li>
+    <li><a href="enrollment.html">Enrollment</a></li>
+    <li><a href="theological-somatics.html">Research &amp; Ideas</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
 
 <!-- FOOTER -->
 <footer>
