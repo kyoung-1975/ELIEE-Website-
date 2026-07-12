@@ -1020,6 +1020,25 @@ img[alt*="diagram"]{
     grid-template-rows: 220px 1fr;
   }
 }
+
+/* ===== HOPE ANXIETY THRESHOLD — arrival ===== */
+#ha-mist{
+  position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0;
+  background:
+    radial-gradient(circle at 50% 46%,rgba(226,201,126,.30) 0%,rgba(201,168,76,.10) 32%,rgba(8,8,8,0) 62%),
+    rgba(8,8,8,1);
+}
+#ha-mist.showing{opacity:1;}
+#ha-mist.clearing{opacity:0;transition:opacity 1150ms cubic-bezier(.22,1,.36,1);}
+body.ha-arriving{animation:ha-arrive 1250ms cubic-bezier(.22,1,.36,1) forwards;}
+@keyframes ha-arrive{
+  0%{opacity:0;filter:blur(5px);}
+  100%{opacity:1;filter:blur(0);}
+}
+@media (prefers-reduced-motion: reduce){
+  body.ha-arriving{animation:none;}
+  #ha-mist{display:none;}
+}
 </style>
 </head>
 <body>
@@ -1280,5 +1299,31 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
+
+<div id="ha-mist"></div>
+<script>
+(function(){
+  var came = false;
+  try{ came = sessionStorage.getItem('ha-threshold') === '1'; }catch(e){}
+  if(!came) return;                       // direct visitors load normally
+  try{ sessionStorage.removeItem('ha-threshold'); }catch(e){}
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var mist = document.getElementById('ha-mist');
+  if(!mist) return;
+
+  mist.classList.add('showing');          // you land inside the light
+  document.body.classList.add('ha-arriving');
+
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      mist.classList.remove('showing');
+      mist.classList.add('clearing');     // and it clears, like walking out of mist
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
