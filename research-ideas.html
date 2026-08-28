@@ -28,7 +28,7 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-      padding: 0 48px; height: 84px;
+      padding: 0 48px; height: 96px;
       background: rgba(8,8,8,0.97);
       border-bottom: 5px solid transparent;
       border-image: linear-gradient(to right, transparent 0%, #B8860B 8%, #E0AC3F 28%, #F6DA8C 50%, #E0AC3F 72%, #B8860B 92%, transparent 100%) 1;
@@ -70,7 +70,7 @@
     .nav-links-mobile {
       display: none;
       position: fixed;
-      top: 84px; left: 0; right: 0;
+      top: 96px; left: 0; right: 0;
       background: rgba(8,8,8,0.98);
       flex-direction: column;
       align-items: center;
@@ -118,7 +118,7 @@
       position: relative;
       min-height: 78vh;
       min-height: max(78vh, 480px);
-      padding-top: 84px;
+      padding-top: 96px;
       overflow: hidden;
       display: flex; align-items: flex-end;
     }
@@ -542,7 +542,7 @@
 <p class="cta-sub">Theological Somatics&trade; &mdash; the developing discipline examining the intersection of trauma science, nervous system regulation, spiritual formation and embodied faith.</p>
 <a href="theological-somatics.html" class="btn-gold">Explore Theological Somatics&trade;</a>
 <p class="cta-sub" style="margin-top:26px">Hope Anxiety&trade; &mdash; the first fully developed pattern within Theological Somatics&trade;, and the framework for understanding why hope itself can sometimes feel dangerous.</p>
-<a href="https://scale.hopeanxiety.com" class="btn-gold">Explore Hope Anxiety&trade;</a>
+<a href="hope-anxiety/index.html" class="btn-gold">Explore Hope Anxiety&trade;</a>
 </div>
 </section>
 
@@ -569,6 +569,34 @@
     <li><a href="terms-conditions.html">Terms &amp; Conditions</a></li>
   </ul>
 </footer>
+<ul class="nav-links-mobile" id="navLinksMobile">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about.html">About</a></li>
+  <li><a href="our-foundation.html">Our Foundation</a></li>
+  <li><a href="programs.html">The PMFRL Methodology&trade;</a></li>
+  <li><a href="ERA.html">Entrepreneurship Readiness Assessment&trade; (ERA)</a></li>
+  <li><a href="enrollment.html">Enrollment</a></li>
+  <li><a href="research-ideas.html" class="active">Research &amp; Ideas</a></li>
+  <li><a href="contact.html">Contact</a></li>
+  <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+</ul>
+
+<script>
+  const navBurger = document.getElementById('navBurger');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  navBurger.addEventListener('click', function() {
+    const isOpen = navLinksMobile.classList.toggle('open');
+    navBurger.classList.toggle('open', isOpen);
+    navBurger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinksMobile.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinksMobile.classList.remove('open');
+      navBurger.classList.remove('open');
+      navBurger.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
 
 </body>
 </html>
