@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hope Anxiety™ Glossary</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment: #f2ece0;
+  --parchment-dark: #e8dfc8;
+  --parchment-shadow: #d4c9b0;
+  --ink: #1a1810;
+  --ink-soft: #3d3828;
+  --gold: #c8a84a;
+  --gold-light: #e8cc7a;
+  --gold-bright: #f5e0a0;
+  --gold-dark: #8a6820;
+  --gold-mid: #d4a83a;
+  --dark: #12100a;
+  --page-shadow: rgba(0,0,0,0.35);
+  --spine: #2a2418;
+  --metallic: linear-gradient(135deg, #c8a030 0%, #f0d878 25%, #a87820 45%, #f5e090 55%, #c8a030 75%, #e8c860 100%);
+  --metallic-h: linear-gradient(135deg, #d4ac3a 0%, #f8e888 22%, #b08828 44%, #faeea0 56%, #d4ac3a 78%, #f0d470 100%);
+}
+
+body {
+  background: #0e0c08;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background-image: radial-gradient(ellipse at 50% 0%, #2a2010 0%, #0e0c08 70%);
+}
+
+/* ── Title above book ── */
+.book-title {
+  text-align: center;
+  margin-bottom: 32px;
+  animation: fadeDown 0.8s ease both;
+}
+.book-title h1 {
+  font-family: 'Cinzel', serif;
+  background: var(--metallic);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.book-title .subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #a09070;
+  font-size: clamp(13px, 1.8vw, 16px);
+  margin-top: 6px;
+  letter-spacing: 0.06em;
+}
+.gold-rule {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f0d878, #c8a030, #f0d878, transparent);
+  margin: 10px auto 0;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Book wrapper ── */
+.book-scene {
+  perspective: 2000px;
+  width: 100%;
+  max-width: 780px;
+  animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 0;
+  filter: drop-shadow(0 24px 60px rgba(0,0,0,0.7));
+}
+
+/* ── Spine ── */
+.spine {
+  width: 28px;
+  background: linear-gradient(180deg, #3a2e18, var(--spine) 30%, #2a2010 70%, #3a2e18);
+  border-radius: 3px 0 0 3px;
+  position: relative;
+  flex-shrink: 0;
+}
+.spine::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,220,100,0.15), rgba(255,220,100,0.05), rgba(255,220,100,0.15));
+}
+
+/* ── Pages stack illusion ── */
+.pages-stack {
+  position: absolute;
+  right: -4px;
+  top: 3px;
+  bottom: 3px;
+  width: 8px;
+  background: repeating-linear-gradient(
+    to right,
+    #e8dfc8,
+    #e8dfc8 1px,
+    #d4c9b0 1px,
+    #d4c9b0 2px
+  );
+  border-radius: 0 2px 2px 0;
+  z-index: 0;
+}
+
+/* ── Book pages container ── */
+.pages-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--parchment);
+  min-height: 520px;
+}
+
+/* Paper texture overlay */
+.pages-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Individual page ── */
+.page {
+  position: absolute;
+  inset: 0;
+  background: var(--parchment);
+  padding: 44px 48px 36px;
+  display: none;
+  flex-direction: column;
+}
+
+.page.active {
+  display: flex;
+  animation: pageReveal 0.5s ease both;
+}
+
+.page.turning-out {
+  display: flex;
+  animation: pageTurnOut 0.45s cubic-bezier(0.4, 0, 0.6, 1) both;
+  transform-origin: left center;
+  z-index: 5;
+}
+
+.page.turning-in {
+  display: flex;
+  animation: pageTurnIn 0.45s cubic-bezier(0.4, 0, 0.6, 1) both;
+  transform-origin: left center;
+  z-index: 4;
+}
+
+@keyframes pageReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pageTurnOut {
+  0%   { transform: rotateY(0deg); opacity: 1; }
+  100% { transform: rotateY(-25deg); opacity: 0; }
+}
+
+@keyframes pageTurnIn {
+  0%   { transform: rotateY(15deg); opacity: 0; }
+  100% { transform: rotateY(0deg); opacity: 1; }
+}
+
+/* ── Page header ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--parchment-shadow);
+}
+
+.page-header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: #3d3828;
+  text-transform: uppercase;
+}
+
+.page-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  color: #a09070;
+  letter-spacing: 0.1em;
+}
+
+/* ── Term entries ── */
+.term-entry {
+  margin-bottom: 28px;
+  flex: 0 0 auto;
+}
+
+.term-entry:last-child {
+  margin-bottom: 0;
+}
+
+.term-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(13px, 1.8vw, 15px);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.term-name::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, #c8a030, #f0d878, #c8a030);
+  flex-shrink: 0;
+}
+
+.term-def {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.72;
+  color: var(--ink-soft);
+  padding-left: 30px;
+}
+
+.term-def strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.term-def em {
+  font-style: italic;
+  color: #5a4e38;
+}
+
+/* ── Page footer ── */
+.page-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--parchment-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-ornament {
+  background: var(--metallic);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 14px;
+}
+
+.footer-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #b0a080;
+  text-transform: uppercase;
+}
+
+/* ── Controls ── */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.9s ease 0.4s both;
+}
+
+.btn {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border: 1px solid transparent;
+  background: var(--metallic);
+  background-origin: border-box;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--metallic-h);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+
+.btn span, .btn {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:hover {
+  color: var(--dark);
+  box-shadow: 0 4px 16px rgba(200,160,48,0.4), inset 0 1px 0 rgba(255,255,255,0.35);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn:disabled::before { display: none; }
+.btn:disabled:hover { transform: none; box-shadow: none; }
+
+/* Pagination dots */
+.pagination {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid #d4a83a;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.dot.active {
+  background: var(--metallic);
+  border-color: transparent;
+  transform: scale(1.3);
+  box-shadow: 0 0 6px rgba(200,160,48,0.6);
+}
+
+.dot:hover:not(.active) {
+  background: linear-gradient(135deg, #c8a030, #f0d878);
+  opacity: 0.5;
+}
+
+/* Page counter text */
+.page-counter {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #6a6050;
+  font-size: 13px;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Right-side cover decoration */
+.book-cover-right {
+  width: 20px;
+  background: linear-gradient(180deg, #3a2e18, var(--spine) 30%, #2a2010 70%, #3a2e18);
+  border-radius: 0 3px 3px 0;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .page { padding: 28px 24px 24px; }
+  .term-def { padding-left: 20px; }
+  .pages-container { min-height: 580px; }
+  .spine { width: 18px; }
+}
+</style>
+<style>
+nav{position:fixed;inset:0 0 auto 0;z-index:100;height:84px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 42px;background:rgba(12,11,10,.97);border-bottom:1px solid rgba(201,168,76,.34)}
+.nav-logo{display:flex;align-items:center;height:100%}
+.nav-logo img{height:56px;width:auto;display:block}
+.nav-links{display:flex;justify-content:center;gap:28px;list-style:none}
+.nav-links a{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#f4ead9}
+.nav-links a:hover,.nav-links a.active{color:#dcc27b}
+.nav-right{display:flex;justify-content:flex-end}
+.nav-cta{background:linear-gradient(135deg,#8b6914,#c9a84c,#e2c97e,#c9a84c);padding:12px 22px;color:#1b140d;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+body{padding:124px 20px 40px !important}
+.site-footer{background:#0c0b0a;padding:50px 40px 36px;margin-top:40px}
+.footer-top-divider{height:1px;background:rgba(201,168,76,.3);max-width:1200px;margin:0 auto 36px}
+.footer-main{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.footer-logo{width:46px;height:46px;object-fit:contain}
+.footer-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;color:#f4ead9}
+.footer-subtitle{font-size:10px;letter-spacing:.16em;color:#9d8a6f;margin-top:2px}
+.footer-copy{font-size:10px;letter-spacing:.08em;color:#8b8176;margin-top:10px}
+.footer-links{display:flex;gap:26px;margin-top:10px}
+.footer-links a{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8b8176}
+@media (max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  body{padding:104px 16px 30px !important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<a class="nav-logo" href="index.html"><img alt="empowerHER Legacy Institute" src="images/nav-logo-icon.png"/></a>
+<ul class="nav-links">
+<li><a href="how-it-forms.html">How It Forms</a></li>
+<li><a href="neurobiology.html">Neurobiology</a></li>
+<li><a href="hope-alignment.html">Hope Alignment</a></li>
+<li><a href="spillover-effect.html">Spillover</a></li>
+<li><a class="active" href="glossary.html">Glossary</a></li>
+</ul>
+<div class="nav-right"><a class="nav-cta" href="https://scale.hopeanxiety.com">Take the HAS-10</a></div>
+</nav>
+
+
+<div class="book-title">
+  <h1>Glossary of Key Terms</h1>
+  <p class="subtitle">Hope Anxiety™</p>
+  <div class="gold-rule"></div>
+</div>
+
+<div class="book-scene">
+  <div class="book">
+    <div class="spine">
+      <div class="pages-stack"></div>
+    </div>
+
+    <div class="pages-container" id="pagesContainer">
+      <!-- Pages injected by JS -->
+    </div>
+
+    <div class="book-cover-right"></div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changePage(-1)" disabled>← Prev</button>
+  <div class="pagination" id="pagination"></div>
+  <span class="page-counter" id="pageCounter"></span>
+  <button class="btn" id="nextBtn" onclick="changePage(1)">Next →</button>
+</div>
+
+<footer class="site-footer">
+<div class="footer-top-divider"></div>
+<div class="footer-main">
+<img alt="ELIEE Logo" class="footer-logo" src="images/eliee-logo.png"/>
+<div class="footer-text">
+<div class="footer-title">empowerHER Legacy Institute</div>
+<div class="footer-subtitle">FOR ENTREPRENEURSHIP EXCELLENCE</div>
+<div class="footer-copy">© 2026 empowerHER Legacy Institute · All Rights Reserved</div>
+<div class="footer-links">
+<a href="#">Privacy Policy</a>
+<a href="#">Terms &amp; Conditions</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+const terms = [
+  {
+    name: "Blessing Vigilance",
+    def: "The pattern of scanning for threat even inside blessing—remaining on alert for what could go wrong precisely when something goes right. Blessing Vigilance activates the nervous system's protective response during moments of favor, answered prayer or unexpected goodness, making it difficult to receive positive experiences without simultaneously bracing for their reversal."
+  },
+  {
+    name: "Capacity for Goodness",
+    def: "The ability to receive and hold positive experiences—blessings, answered prayers, seasons of stability—without bracing or emotionally withdrawing. Capacity for Goodness is not about worthiness; it is about building the nervous system resilience and emotional skills required to stay present with what you prayed for. It grows gradually through practice, not overnight."
+  },
+  {
+    name: "Deferred Hope",
+    def: "A condition described in Proverbs 13:12—<em>'Hope deferred makes the heart sick'</em>—in which the repeated postponement or crushing of hope creates not just disappointment, but emotional and spiritual injury. The Hebrew word for 'sick' in this passage (<em>chalah</em>) means weak, diseased, wounded. Deferred Hope is the soil in which Hope Anxiety grows—the accumulated weight of seasons where belief outpaced experience."
+  },
+  {
+    name: "Emotional Bracing",
+    def: "The nervous system's learned response of guarding against good things before they can disappoint. Emotional Bracing is what happens when the body has been conditioned to associate positive experiences with impending pain—so rather than relaxing into good news, the system automatically contracts, prepares for impact and guards against the vulnerability of hope."
+  },
+  {
+    name: "Forward Motion Disruption",
+    def: "The specific way Hope Anxiety operates in the body and behavior: not by eliminating hope, but by interrupting movement toward it. A person experiencing Forward Motion Disruption may fully believe that something good is possible and want it deeply—but when the moment arrives to act, apply, respond or step forward, the nervous system stalls, hesitates or pulls back. <strong>This is not procrastination or lack of discipline.</strong> It is the body protecting itself from the emotional exposure that forward motion requires."
+  },
+  {
+    name: "Hidden Disconnection",
+    def: "A stage of Hope Anxiety in which fear has quieted into numbness—where the heart stops registering desire because desire itself feels too dangerous to hold. Women in the Hidden Disconnection Stage often appear functional, competent and fine from the outside. On the inside, they have gone offline from their own longings, creativity, prayer life and sense of future. This is the quietest but most costly expression of Hope Anxiety."
+  },
+  {
+    name: "Hope Alignment",
+    def: "The ongoing process of teaching your nervous system that safety and hope can coexist—reconnecting faith, body, mind and desire so they move together instead of fighting each other. Hope Alignment is not a state of perfection or the absence of fear. It is an embodied posture in which you can receive blessings without bracing, tolerate goodness without suspicion, and stay present with what you prayed for. <strong>It is the destination this book builds toward.</strong>"
+  },
+  {
+    name: "Hope Anxiety",
+    def: "A trauma-rooted nervous system response that activates specifically when something positive is happening, about to happen or could happen—after repeated disappointment, loss or shattered expectations. <strong>Hope Anxiety is not general anxiety, low self-esteem, lack of faith or negativity.</strong> It is a conditioned protective response in which the nervous system has learned to associate hope itself with danger. For women of faith, it is never just psychological—it is spiritual, because the disappointment landed not just in the emotions, but in the faith."
+  },
+  {
+    name: "Hope Anxiety Scale™ (HAS-10)",
+    def: "A 10-item self-reflection tool designed to help readers identify whether Hope Anxiety is present and assess its intensity across key areas of life. The HAS-10 is a psychoeducational instrument, not a diagnostic tool. It gives language and structure to patterns that have often gone unnamed—measuring how frequently positive experiences trigger anxiety, avoidance or shutdown, and helping readers locate themselves on the path from Hope Anxiety to Hope Alignment."
+  },
+  {
+    name: "Hope Conditioning",
+    def: "The process by which the nervous system learns—through repeated experience—how to relate to hope. When hope has been paired with pain often enough, the nervous system becomes conditioned to treat anticipation itself as a threat. Hope Conditioning describes both how Hope Anxiety forms (through negative conditioning) and how it heals (through gentle, repeated reconditioning that teaches the body it is safe to expect good things)."
+  },
+  {
+    name: "Incarnational Faith",
+    def: "Faith that lives in the body, not just the beliefs. Incarnational Faith is the integration of spiritual conviction and nervous system reality—where what you confess with your mouth and what your body expects are no longer at war. Healing Hope Anxiety requires Incarnational Faith: not just knowing God is faithful in your head, but learning to feel it in your body when the blessing shows up."
+  },
+  {
+    name: "Micro-Hope",
+    def: "Tiny, low-stakes moments of allowing good things to land without immediately shutting down, minimizing or bracing for loss. Micro-Hope is the foundational practice of Hope Alignment—the nervous system rehabilitation that begins not with grand leaps of faith, but with small, repeated experiences of safety around hope. <em>These small practices are not soft. They are the emotional and spiritual equivalent of physical therapy after an injury.</em>"
+  },
+  {
+    name: "Post-Breakthrough Panic",
+    def: "A fear response that activates <strong>after</strong> a breakthrough, blessing or answered prayer—not before it. Post-Breakthrough Panic is one of the clearest signs that Hope Anxiety is still operating beneath the surface. Rather than resting in the win, the nervous system sounds the alarm: <em>something must be wrong, this won't last, I need to prepare for the fall.</em>"
+  },
+  {
+    name: "Pre-Rejection",
+    def: "The act of dismissing, downplaying or withdrawing from an opportunity, relationship or blessing before it has the chance to reject you first. Pre-Rejection is a protective strategy rooted in Hope Anxiety—if you leave before you can be left, apply before you can be declined, or shrink before you can be seen, the nervous system believes it has avoided the worst possible pain. In reality, it ensures you never fully receive what you hoped for."
+  },
+  {
+    name: "The Procrastination Shield",
+    def: "A protective strategy in which delay, over-preparation or endless refinement is used to avoid the emotional exposure of being seen, judged or disappointed. <strong>The Procrastination Shield is not laziness</strong>—it is a nervous system response to the perceived threat of hope. As long as something is 'still in progress,' it cannot fail. The shield feels like excellence or discernment from the outside. On the inside, it is fear of what might happen if you actually let your work, your gifts or yourself be seen."
+  },
+  {
+    name: "Protective Detachment",
+    def: "Emotional distance used as a shield against the vulnerability of hope. Protective Detachment is the pattern of disconnecting from dreams, relationships, blessings or future possibilities before they can disappoint. It often develops after repeated losses or betrayals and can look like calm, independence or spiritual maturity from the outside. On the inside, it is the nervous system's strategy of keeping hope at arm's length to prevent the pain of losing it."
+  },
+  {
+    name: "The Spillover Effect",
+    def: "The way Hope Anxiety spreads beyond its original wound into every area of life—relationships, finances, parenting, calling, creativity, spirituality, self-concept and more. What begins as a protective response in one area becomes a global lens through which all experience is filtered. The Spillover Effect explains why high-functioning women often feel confused about what is 'wrong' with them when nothing is wrong—<em>they are simply living in survival mode with a calling on their lives.</em>"
+  },
+  {
+    name: "Stability Intolerance",
+    def: "The inability to rest in peaceful, calm or stable seasons without suspicion, hypervigilance or the compulsive need to prepare for disaster. When the nervous system has learned that calm precedes chaos, stability itself becomes uncomfortable—even threatening. Stability Intolerance is why good seasons can feel harder than hard ones, why peace feels like a setup, and why some women unconsciously create conflict or urgency just to feel a sense of familiar ground."
+  },
+  {
+    name: "Survival-Informed",
+    def: "A reframe for behaviors, beliefs and emotional strategies that formed as adaptive responses to prolonged uncertainty, threat or loss. To be Survival-Informed is not to be broken, faithless or negative—it is to be someone whose brilliant, God-designed nervous system did exactly what it was built to do: protect you. <strong>The term honors the intelligence behind Hope Anxiety</strong> while naming that the same strategies that once kept you safe may now be keeping you small."
+  }
+];
+
+// 2 terms per page
+const TERMS_PER_PAGE = 2;
+const pages = [];
+for (let i = 0; i < terms.length; i += TERMS_PER_PAGE) {
+  pages.push(terms.slice(i, i + TERMS_PER_PAGE));
+}
+
+let currentPage = 0;
+let isAnimating = false;
+
+function buildPages() {
+  const container = document.getElementById('pagesContainer');
+  container.innerHTML = '';
+  pages.forEach((pageTerms, idx) => {
+    const pageEl = document.createElement('div');
+    pageEl.className = 'page' + (idx === 0 ? ' active' : '');
+    pageEl.id = 'page-' + idx;
+
+    const termNum = idx * TERMS_PER_PAGE + 1;
+    const termNumEnd = Math.min(termNum + TERMS_PER_PAGE - 1, terms.length);
+
+    pageEl.innerHTML = `
+      <div class="page-header">
+        <span class="page-header-title">Hope Anxiety™ · Glossary</span>
+        <span class="page-num">Terms ${termNum}–${termNumEnd} of ${terms.length}</span>
+      </div>
+      ${pageTerms.map(t => `
+        <div class="term-entry">
+          <div class="term-name">${t.name}</div>
+          <div class="term-def">${t.def}</div>
+        </div>
+      `).join('')}
+      <div class="page-footer">
+        <span class="footer-ornament">✦</span>
+        <span class="footer-brand">Hope Anxiety™</span>
+        <span class="footer-ornament">✦</span>
+      </div>
+    `;
+    container.appendChild(pageEl);
+  });
+}
+
+function buildPagination() {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+  pages.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (idx === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Page ' + (idx + 1));
+    dot.onclick = () => goToPage(idx);
+    pagination.appendChild(dot);
+  });
+}
+
+function updateControls() {
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  document.getElementById('nextBtn').disabled = currentPage === pages.length - 1;
+  document.getElementById('pageCounter').textContent = `${currentPage + 1} of ${pages.length}`;
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === currentPage);
+  });
+}
+
+
+// ── Page-turn sound (synthesized, no audio file needed) ──
+let audioCtx = null;
+function playPageTurnSound() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+
+    const duration = 0.22;
+    const bufferSize = audioCtx.sampleRate * duration;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      const t = i / bufferSize;
+      const envelope = Math.sin(Math.PI * t) * (1 - t * 0.3);
+      data[i] = (Math.random() * 2 - 1) * envelope;
+    }
+
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(2200, audioCtx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + duration);
+    filter.Q.value = 0.7;
+
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.16, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+    noise.connect(filter).connect(gain).connect(audioCtx.destination);
+    noise.start();
+    noise.stop(audioCtx.currentTime + duration);
+  } catch (e) { /* silent fail — sound is a nice-to-have, never block page turns */ }
+}
+
+function goToPage(newPage) {
+  if (isAnimating || newPage === currentPage) return;
+  isAnimating = true;
+  playPageTurnSound();
+
+  const outEl = document.getElementById('page-' + currentPage);
+  const inEl  = document.getElementById('page-' + newPage);
+
+  outEl.classList.remove('active');
+  outEl.classList.add('turning-out');
+  inEl.classList.add('turning-in');
+
+  setTimeout(() => {
+    outEl.classList.remove('turning-out');
+    inEl.classList.remove('turning-in');
+    inEl.classList.add('active');
+    currentPage = newPage;
+    updateControls();
+    isAnimating = false;
+  }, 460);
+}
+
+function changePage(dir) {
+  const newPage = currentPage + dir;
+  if (newPage < 0 || newPage >= pages.length) return;
+  goToPage(newPage);
+}
+
+// Init
+buildPages();
+buildPagination();
+updateControls();
+</script>
+</body>
+</html>
