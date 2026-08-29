@@ -668,13 +668,12 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
   max-width:1000px; margin:0 auto; display:grid; grid-template-columns:300px 1fr; gap:64px; align-items:center;
 }
 .author-portrait{
-  aspect-ratio:4/5; background:var(--paper);
-  border:1px solid var(--gold); position:relative; box-sizing:border-box;
-  padding:9px; box-shadow:0 20px 46px rgba(0,0,0,.16);
+  aspect-ratio:4/5; position:relative; box-sizing:border-box;
+  border:3px solid; border-image:linear-gradient(135deg,#8b6914,#f5e0a0 30%,#c9a84c 55%,#e8cc7a 75%,#8b6914) 1;
+  box-shadow:0 20px 46px rgba(0,0,0,.16);
 }
 .author-portrait .author-photo{
-  width:100%; height:100%; object-fit:cover; display:block; box-sizing:border-box;
-  border:2px solid var(--gold);
+  width:100%; height:100%; object-fit:cover; display:block;
 }
 .author-copy .a-eyebrow{
   font-size:10.5px; font-weight:700; letter-spacing:.26em; text-transform:uppercase;
