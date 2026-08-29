@@ -339,6 +339,42 @@ nav{
   #lightbox-img{max-width:96vw;max-height:82vh}
   #lightbox .close{top:16px;right:16px;width:40px;height:40px;font-size:24px}
 }
+
+/* EDITORIAL CALLOUT — major visual statement, not a standard card */
+.callout-statement{background:var(--ink);padding:150px 40px;text-align:center}
+.callout-statement .inner{max-width:760px;margin:0 auto}
+.callout-rule{width:64px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 44px}
+.callout-rule.bottom{margin:44px auto 0}
+.callout-line1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(19px,2.1vw,25px);color:#a8927a;line-height:1.55;margin-bottom:24px}
+.callout-line2{font-family:'Cinzel',serif;font-weight:400;font-size:clamp(28px,4.4vw,48px);line-height:1.32;color:var(--gold-soft)}
+@media (max-width:768px){
+  .callout-statement{padding:88px 24px}
+  .callout-rule{margin-bottom:32px}
+  .callout-rule.bottom{margin-top:32px}
+}
+
+/* COMPARISON SECTION */
+.compare-section{background:var(--paper);padding:100px 40px}
+.compare-section .inner{max-width:740px;margin:0 auto}
+.compare-section .section-eyebrow{text-align:center}
+.compare-section h2{
+  font-family:'Cinzel',serif;font-weight:400;text-align:center;
+  font-size:clamp(26px,3.4vw,40px);color:var(--text);margin-bottom:60px;line-height:1.25;
+}
+.compare-list{display:flex;flex-direction:column}
+.compare-item{padding:30px 0;border-bottom:1px solid var(--line)}
+.compare-item:first-child{padding-top:0}
+.compare-item:last-child{border-bottom:none;padding-bottom:0}
+.compare-label{
+  display:block;font-family:'Cinzel',serif;font-size:11px;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:#9d7422;margin-bottom:14px;
+}
+.compare-a{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,1.7vw,21px);line-height:1.65;color:var(--muted);margin-bottom:6px}
+.compare-b{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(18px,1.7vw,21px);line-height:1.65;color:var(--text)}
+@media (max-width:768px){
+  .compare-section{padding:64px 22px}
+  .compare-section h2{margin-bottom:40px}
+}
 </style>
 </head>
 <body>
@@ -359,8 +395,10 @@ nav{
 <div class="inner">
 <span class="chapter-eyebrow">A Framework for Understanding</span>
 <h1>What Hope Anxiety Is Not</h1>
-<p class="chapter-sub">[FILLER COPY] Naming the Pattern Correctly</p>
-<p class="chapter-intro">[FILLER COPY — replace with final] It can look like a lot of different things — depression, procrastination, even self-sabotage. But what's happening underneath is not the same.</p>
+<p class="chapter-sub">It May Not Be What You Think</p>
+<p class="chapter-intro">Hope Anxiety can be difficult to recognize because it often looks like something else.</p>
+<p class="chapter-intro">It can look like procrastination. Perfectionism. Overthinking. Avoidance. Self-sabotage. Even a loss of motivation.</p>
+<p class="chapter-intro">The behavior may look familiar. What’s driving it may be entirely different.</p>
 </div>
 </header>
 <div class="gold-sep"></div>
@@ -368,8 +406,12 @@ nav{
 <section class="chapter-section">
 <div class="inner">
 <span class="section-eyebrow">The Framework</span>
-<h2>[FILLER COPY — replace with final] Naming It Correctly</h2>
-<p>[FILLER COPY] It can look like depression, procrastination or self-sabotage on the surface. Underneath, something else entirely is happening — and if you misname it, you'll keep mismanaging it.</p>
+<h2>The Difference Isn’t Always In What You Do</h2>
+<p>Two people can delay the same decision, avoid the same opportunity or struggle to take the same next step — for completely different reasons.</p>
+<p>With Hope Anxiety, desire is often still there. You may want the opportunity, the relationship, the growth, the healing or the future in front of you.</p>
+<p>What becomes difficult is allowing yourself to move toward something that matters enough to hurt if you lose it.</p>
+<p class="lede">That distinction matters.</p>
+<p>Because what looks like procrastination may be protection. What looks like self-sabotage may be an attempt to limit emotional exposure. And what looks like fear of success may have less to do with success itself than with what it requires you to hope for.</p>
 </div>
 </section>
 
@@ -384,14 +426,70 @@ nav{
 
 <div class="gold-sep"></div>
 
+<div class="gold-sep"></div>
+
+<div class="callout-statement">
+<div class="inner">
+<div class="callout-rule"></div>
+<p class="callout-line1">Generalized anxiety fears what might go wrong.</p>
+<p class="callout-line2">Hope Anxiety fears what might go right — and then be lost.</p>
+<div class="callout-rule bottom"></div>
+</div>
+</div>
+
+<div class="gold-sep"></div>
+
+<section class="compare-section">
+<div class="inner">
+<span class="section-eyebrow">The Distinction</span>
+<h2>Same Behavior. Different Mechanism.</h2>
+<div class="compare-list">
+<div class="compare-item">
+<span class="compare-label">ADHD</span>
+<p class="compare-a">ADHD disrupts where attention goes.</p>
+<p class="compare-b">Hope Anxiety disrupts forward movement toward emotionally significant possibility.</p>
+</div>
+<div class="compare-item">
+<span class="compare-label">Generalized Anxiety</span>
+<p class="compare-a">Generalized anxiety fears what might go wrong.</p>
+<p class="compare-b">Hope Anxiety fears what might go right — and then be lost.</p>
+</div>
+<div class="compare-item">
+<span class="compare-label">Depression</span>
+<p class="compare-a">Depression can make the future feel empty.</p>
+<p class="compare-b">Hope Anxiety can make the future feel emotionally risky.</p>
+</div>
+<div class="compare-item">
+<span class="compare-label">Fear of Success</span>
+<p class="compare-a">Fear of success avoids the consequences of the outcome.</p>
+<p class="compare-b">Hope Anxiety avoids the vulnerability of hoping for the outcome.</p>
+</div>
+<div class="compare-item">
+<span class="compare-label">Procrastination</span>
+<p class="compare-a">Procrastination delays tasks.</p>
+<p class="compare-b">Hope Anxiety delays movement toward emotionally charged possibility.</p>
+</div>
+<div class="compare-item">
+<span class="compare-label">Self-Sabotage</span>
+<p class="compare-a">Self-sabotage undermines success.</p>
+<p class="compare-b">Hope Anxiety restricts movement toward something desired to reduce the emotional risk of hoping for it.</p>
+</div>
+</div>
+<p class="lede" style="text-align:center;margin-top:52px">The behavior may look the same. The reason underneath it changes everything.</p>
+</div>
+</section>
+
+<div class="gold-sep"></div>
+
 <section class="next-band">
 <div class="inner">
 <span class="section-eyebrow">Keep Exploring</span>
 <h2>How Hope Anxiety Forms</h2>
-<p>[FILLER COPY] Now that you know what it isn't, trace how it actually forms.</p>
+<p>If it isn’t simply procrastination, self-sabotage or fear — what is your system protecting you from?</p>
+<p>Hope Anxiety begins to make sense when you understand what happens when hope itself becomes associated with emotional risk.</p>
 </div>
 <div class="next-links">
-<a class="next-btn primary" href="how-it-forms.html">Explore This Concept →</a>
+<a class="next-btn primary" href="how-it-forms.html">Click Here to Keep Exploring →</a>
 <a class="next-btn secondary" href="index.html">See All Topics</a>
 </div>
 </section>
