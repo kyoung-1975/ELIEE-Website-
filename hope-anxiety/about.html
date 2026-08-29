@@ -750,10 +750,13 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
 
 /* --- Hero --- */
 .about-hero{
-  position:relative; padding:150px 40px 90px; background-size:cover; background-position:center 30%; background-repeat:no-repeat;
-  overflow:hidden; min-height:92vh; display:flex; align-items:flex-end;
+  position:relative; padding:60px 40px 70px; background-size:cover; background-position:center; background-repeat:no-repeat;
+  overflow:hidden; aspect-ratio:1537/1023; display:flex; align-items:flex-end;
 }
 .about-hero .inner{max-width:780px; margin:0 auto; text-align:left; width:100%}
+@media (min-width:1150px){
+  .about-hero{aspect-ratio:auto; height:88vh; max-height:900px; padding:90px 40px 80px; background-position:center 12%}
+}
 .about-hero h1{
   font-family:'Cinzel',serif; font-weight:400; font-size:clamp(38px,5.2vw,58px);
   color:#fff; margin-bottom:16px; letter-spacing:.01em; line-height:1.08;
@@ -771,7 +774,7 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
   box-shadow:0 40px 90px rgba(0,0,0,.5);
 }
 @media (max-width:768px){
-  .about-hero{padding:110px 22px 50px; min-height:48vh}
+  .about-hero{padding:90px 22px 40px}
 }
 
 /* --- Text sections (reuse chapter-section pattern with local tweaks) --- */
