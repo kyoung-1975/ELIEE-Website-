@@ -77,12 +77,17 @@ nav{
 .nav-drawer-close{
   position:absolute; top:30px; right:32px;
   width:42px; height:42px; border-radius:50%;
-  background:rgba(201,168,76,.16); border:1.5px solid var(--gold);
-  color:var(--gold-soft); font-size:22px; line-height:1; font-weight:300; cursor:pointer;
+  background:rgba(201,168,76,.16); border:none; padding:0; cursor:pointer;
   display:flex; align-items:center; justify-content:center;
-  transition:background .25s ease, transform .25s ease, border-color .25s ease;
+  transition:background .25s ease, transform .25s ease;
 }
-.nav-drawer-close:hover{background:rgba(201,168,76,.32); border-color:var(--gold-soft); transform:scale(1.08); color:#fff}
+.nav-drawer-close .close-ring{position:absolute; inset:0; width:100%; height:100%}
+.nav-drawer-close .close-x{
+  position:relative; z-index:1; font-size:22px; line-height:1; font-weight:300;
+  background:linear-gradient(135deg,#8b6914,#f5e0a0 40%,#c9a84c 70%,#e8cc7a);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent;
+}
+.nav-drawer-close:hover{background:rgba(201,168,76,.32); transform:scale(1.08)}
 
 .nav-drawer-inner{
   padding:118px 54px 50px; min-height:100%;
@@ -440,7 +445,10 @@ nav{
 </svg>
 <div class="nav-backdrop" id="navBackdrop"></div>
 <aside class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Hope Anxiety navigation">
-<button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&times;</button>
+<button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">
+<svg class="close-ring" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="19.3" stroke="url(#navGoldGradient)" stroke-width="1.5"/></svg>
+<span class="close-x">&times;</span>
+</button>
 <div class="nav-drawer-inner">
 <span class="nav-drawer-eyebrow">Hope Anxiety™</span>
 <div class="nav-drawer-list">
