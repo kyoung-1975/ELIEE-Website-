@@ -71,6 +71,7 @@ nav{
 .chapter-section h2{font-family:'Cinzel',serif;font-weight:400;font-size:clamp(26px,3vw,38px);line-height:1.18;color:var(--text);margin-bottom:26px}
 .chapter-section p{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,1.7vw,21px);line-height:1.7;color:var(--muted);margin-bottom:20px}
 .chapter-section p.lede{font-size:clamp(20px,2vw,24px);color:var(--text);font-style:italic}
+p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);color:var(--text);font-style:italic;line-height:1.6}
 .chapter-section ul.story-list{margin:24px 0 26px;padding-left:0}
 .chapter-section ul.story-list li{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,1.7vw,21px);line-height:1.6;color:var(--muted);padding:10px 0 10px 28px;border-bottom:1px solid var(--line);position:relative}
 .chapter-section ul.story-list li:before{content:"▪";position:absolute;left:0;color:var(--gold);font-weight:700}
@@ -338,6 +339,57 @@ nav{
   #lightbox-img{max-width:96vw;max-height:82vh}
   #lightbox .close{top:16px;right:16px;width:40px;height:40px;font-size:24px}
 }
+
+/* FAITH/FEAR DIALOGUE EXCHANGE */
+.faith-dialogue{margin-top:8px}
+.faith-dialogue p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(19px,1.9vw,23px);line-height:1.6;color:var(--text);
+  margin-bottom:10px;padding-left:24px;border-left:2px solid rgba(201,168,76,.4);
+}
+.faith-dialogue .speaker{
+  font-style:normal;font-weight:700;font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#9d7422;margin-right:10px;
+}
+
+/* EDITORIAL CALLOUT */
+.callout-statement{background:var(--ink);padding:150px 40px;text-align:center}
+.callout-statement .inner{max-width:760px;margin:0 auto}
+.callout-rule{width:64px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 44px}
+.callout-rule.bottom{margin:44px auto 0}
+.callout-statement .big{font-family:'Cinzel',serif;font-weight:400;font-size:clamp(26px,4vw,44px);line-height:1.38;color:var(--gold-soft);margin-bottom:26px}
+.callout-statement .small{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(18px,2vw,23px);color:#a8927a;line-height:1.55}
+@media (max-width:768px){
+  .callout-statement{padding:88px 24px}
+  .callout-rule{margin-bottom:32px}
+  .callout-rule.bottom{margin-top:32px}
+}
+
+/* FRAMEWORK / DIAGRAM INTRO */
+.collision-framework{background:var(--paper);padding:100px 40px}
+.collision-framework .inner{max-width:820px;margin:0 auto;text-align:center}
+.collision-framework .section-eyebrow{text-align:center}
+.collision-framework h2{font-family:'Cinzel',serif;font-weight:400;font-size:clamp(26px,3.4vw,40px);color:var(--text);margin-bottom:24px}
+.collision-framework .framework-intro{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(18px,1.7vw,21px);
+  line-height:1.7;color:var(--muted);max-width:640px;margin:0 auto 56px;
+}
+.collision-grid{display:grid;grid-template-columns:1fr 0.85fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.collision-side{padding:38px 26px;background:var(--paper);display:flex;flex-direction:column;justify-content:center}
+.collision-side.faith{border-right:1px solid var(--line)}
+.collision-side.fear{border-left:1px solid var(--line)}
+.collision-center{background:var(--ink);padding:38px 22px;display:flex;flex-direction:column;justify-content:center}
+.collision-label{display:block;font-family:'Cinzel',serif;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9d7422;margin-bottom:14px;line-height:1.3}
+.collision-center .collision-label{color:var(--gold-soft)}
+.collision-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;line-height:1.5;color:var(--text)}
+.collision-center .collision-quote{color:#e9ddc8;font-size:15.5px}
+@media (max-width:768px){
+  .collision-framework{padding:64px 22px}
+  .collision-framework .framework-intro{margin-bottom:36px}
+  .collision-grid{grid-template-columns:1fr}
+  .collision-side.faith{border-right:none;border-bottom:1px solid var(--line)}
+  .collision-side.fear{border-left:none;border-top:1px solid var(--line)}
+}
 </style>
 </head>
 <body>
@@ -358,8 +410,12 @@ nav{
 <div class="inner">
 <span class="chapter-eyebrow">A Framework for Understanding</span>
 <h1>The Faith–Fear Collision</h1>
-<p class="chapter-sub">[FILLER COPY] Where Hope Anxiety Begins</p>
-<p class="chapter-intro">[FILLER COPY — replace with final] Where faith in what God can do collides with fear that He won't do it for you—and Hope Anxiety is born.</p>
+<p class="chapter-sub">When You Believe God Can — But You’re Afraid He Won’t for You</p>
+<p class="chapter-intro">You believe God is able.</p>
+<p class="chapter-intro">You’ve seen Him move in other people’s lives. You know the scriptures. You know the testimonies. You may even have your own evidence of His faithfulness.</p>
+<p class="chapter-intro">And yet, when it comes to the thing you desperately want, something changes.</p>
+<p class="chapter-intro">You can believe in His power and still be afraid to believe in the possibility of that power reaching your life in the way you hope.</p>
+<p class="chapter-intro">That tension is not necessarily a lack of faith. It may be where faith and self-protection have learned to coexist.</p>
 </div>
 </header>
 <div class="gold-sep"></div>
@@ -367,8 +423,55 @@ nav{
 <section class="chapter-section">
 <div class="inner">
 <span class="section-eyebrow">The Framework</span>
-<h2>[FILLER COPY — replace with final] A Nervous System Suspended</h2>
-<p>[FILLER COPY] Where faith in what God can do collides with fear that He won't do it for you — and Hope Anxiety is born, right in that split-screen space.</p>
+<h2>When Belief and Expectation Are Not the Same Thing</h2>
+<p>There is a difference between believing God can and allowing yourself to hope He will for you.</p>
+<p>The first asks you to trust His ability.</p>
+<p>The second makes the hope personal.</p>
+<p>Now there is something to receive. Something to wait for. Something to become emotionally invested in. And if you have experienced enough disappointment, unanswered prayers or devastating loss, that investment can feel dangerous.</p>
+<p>So you may continue believing in God while quietly lowering your expectations for yourself.</p>
+<p>You pray — but try not to expect too much.</p>
+<p>You hope — but only so far.</p>
+<p>You believe something is possible — while preparing yourself for the possibility that it won’t be possible for you.</p>
+<p class="lede">This is where the collision happens.</p>
+<div class="faith-dialogue">
+<p><span class="speaker">Faith says,</span> “I know He can.”</p>
+<p><span class="speaker">Fear whispers,</span> “But what if He doesn’t for me?”</p>
+</div>
+</div>
+</section>
+
+<div class="gold-sep"></div>
+
+<div class="callout-statement">
+<div class="inner">
+<div class="callout-rule"></div>
+<p class="big">You can have faith in God’s ability and still have a nervous system that is afraid of hope.</p>
+<p class="small">That is not the same thing as having no faith.</p>
+<div class="callout-rule bottom"></div>
+</div>
+</div>
+
+<div class="gold-sep"></div>
+
+<section class="collision-framework">
+<div class="inner">
+<span class="section-eyebrow">The Framework</span>
+<h2>The Faith–Fear Collision</h2>
+<p class="framework-intro">The Faith–Fear Collision describes the internal tension that can emerge when spiritual belief and emotional expectation move in different directions.</p>
+<div class="collision-grid">
+<div class="collision-side faith">
+<span class="collision-label">Faith in God’s Ability</span>
+<p class="collision-quote">“I know He can do anything.”</p>
+</div>
+<div class="collision-center">
+<span class="collision-label">Hope Anxiety</span>
+<p class="collision-quote">A nervous system suspended between belief and self-protection.</p>
+</div>
+<div class="collision-side fear">
+<span class="collision-label">Fear He Won’t Do It for Me</span>
+<p class="collision-quote">“I’m not sure He’ll do it for me.”</p>
+</div>
+</div>
 </div>
 </section>
 
@@ -378,6 +481,7 @@ nav{
 <div class="inner">
 <div class="diagram-click" role="button" tabindex="0" aria-label="Expand the Faith-Fear Collision diagram"><img alt="The Faith-Fear Collision" src="faith-fear-collision-diagram.png"/></div>
 <p class="diagram-hint">Tap to expand</p>
+<p class="lede" style="text-align:center;margin-top:40px">The struggle isn’t always whether you believe. Sometimes it’s whether believing feels safe when the hope becomes personal.</p>
 </div>
 </div>
 
@@ -387,10 +491,11 @@ nav{
 <div class="inner">
 <span class="section-eyebrow">Keep Exploring</span>
 <h2>Hope Alignment</h2>
-<p>[FILLER COPY] The restoration of safety around hope.</p>
+<p>So what happens when faith remains intact, but your capacity to expect something good has been wounded?</p>
+<p>Understanding that distinction opens the door to a different relationship with hope — one where protecting yourself from disappointment no longer has to mean keeping possibility at a distance.</p>
 </div>
 <div class="next-links">
-<a class="next-btn primary" href="hope-alignment.html">Explore This Concept →</a>
+<a class="next-btn primary" href="hope-alignment.html">Click Here to Keep Exploring →</a>
 <a class="next-btn secondary" href="index.html">See All Topics</a>
 </div>
 </section>
