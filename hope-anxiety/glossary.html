@@ -435,13 +435,14 @@ nav{position:fixed;inset:0 0 auto 0;z-index:100;height:84px;display:grid;grid-te
   background:none; border:none; cursor:pointer;
 }
 .nav-hamburger span{
-  display:block; height:1px; background:var(--gold);
-  transition:width .25s ease, background .25s ease;
+  display:block; height:1.5px;
+  background:linear-gradient(90deg,#8b6914,#f5e0a0 50%,#c9a84c);
+  transition:width .25s ease, opacity .25s ease;
 }
 .nav-hamburger span:nth-child(1){width:22px}
 .nav-hamburger span:nth-child(2){width:16px}
 .nav-hamburger span:nth-child(3){width:22px}
-.nav-hamburger:hover span{background:var(--gold-soft)}
+.nav-hamburger:hover span{opacity:.8}
 .nav-hamburger:hover span:nth-child(2){width:22px}
 
 .nav-backdrop{
@@ -455,7 +456,7 @@ nav{position:fixed;inset:0 0 auto 0;z-index:100;height:84px;display:grid;grid-te
 .nav-drawer{
   position:fixed; top:0; right:0; height:100vh; width:42%; max-width:520px; min-width:340px;
   background:linear-gradient(165deg,#0c0b0a,#1c150e 55%,#0c0b0a);
-  border-left:1px solid rgba(201,168,76,.35);
+  border-left:1px solid; border-image:linear-gradient(to bottom,transparent,#e8cc7a 15%,#c9a84c 50%,#e8cc7a 85%,transparent) 1;
   box-shadow:-30px 0 70px rgba(0,0,0,.45);
   transform:translateX(100%);
   transition:transform .55s cubic-bezier(.16,.84,.44,1);
@@ -486,10 +487,10 @@ nav{position:fixed;inset:0 0 auto 0;z-index:100;height:84px;display:grid;grid-te
 .nav-drawer-item{
   display:flex; align-items:flex-start; gap:18px;
   padding:19px 0; text-decoration:none;
-  border-bottom:1px solid rgba(201,168,76,.14);
+  border-bottom:1px solid; border-image:linear-gradient(to right,#8b6914,#e8cc7a 30%,#c9a84c 60%,transparent) 1;
 }
 .nav-drawer-list .nav-drawer-item:first-child{padding-top:0}
-.nav-drawer-icon{width:21px; height:21px; flex-shrink:0; color:var(--gold); margin-top:2px}
+.nav-drawer-icon{width:21px; height:21px; flex-shrink:0; margin-top:2px}
 .nav-drawer-icon svg{width:100%; height:100%; display:block}
 .nav-drawer-text{display:flex; flex-direction:column; gap:5px}
 .nav-drawer-label{
@@ -504,7 +505,7 @@ nav{position:fixed;inset:0 0 auto 0;z-index:100;height:84px;display:grid;grid-te
 }
 
 .nav-drawer-footer{margin-top:auto; padding-top:26px}
-.nav-drawer-footer-rule{height:1px; background:rgba(201,168,76,.12); margin-bottom:22px}
+.nav-drawer-footer-rule{height:1px; background:linear-gradient(to right,transparent,#8b6914,#e8cc7a 40%,#c9a84c 60%,#8b6914,transparent); margin-bottom:22px}
 .nav-drawer-item.eliee{border-bottom:none; padding:0; gap:14px; align-items:center}
 .nav-drawer-item.eliee .nav-drawer-label{
   font-size:11px; letter-spacing:.16em; color:#8b8176; font-weight:400;
@@ -554,41 +555,44 @@ body{padding:124px 20px 40px !important}
 </div>
 </nav>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="navGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#8b6914"/>
+<stop offset="28%" stop-color="#e8cc7a"/>
+<stop offset="52%" stop-color="#c9a84c"/>
+<stop offset="76%" stop-color="#f5e0a0"/>
+<stop offset="100%" stop-color="#8b6914"/>
+</linearGradient>
+</defs>
+</svg>
 <div class="nav-backdrop" id="navBackdrop"></div>
 <aside class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Hope Anxiety navigation">
 <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&times;</button>
 <div class="nav-drawer-inner">
 <span class="nav-drawer-eyebrow">Hope Anxiety™</span>
 <div class="nav-drawer-list">
-<a href="index.html" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8.5" stroke="currentColor" stroke-width="1.3"/><path d="M11 6.5L12.6 9.9L11 15.5L9.4 9.9Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">Understand</span><span class="nav-drawer-sub">Return to the framework overview</span></span>
-</a>
-<a href="index.html#explore" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="12" y="3.5" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="3.5" y="12" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="12" y="12" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.3"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">Explore</span><span class="nav-drawer-sub">Browse the topic library</span></span>
-</a>
 <a href="https://scale.hopeanxiety.com" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M4 14a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="1.3"/><path d="M11 14L14.5 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="14" r="1" fill="currentColor"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">HAS-10</span><span class="nav-drawer-sub">Take the Hope Anxiety Scale™</span></span>
+<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M4 14a7 7 0 0 1 14 0" stroke="url(#navGoldGradient)" stroke-width="1.3"/><path d="M11 14L14.5 9" stroke="url(#navGoldGradient)" stroke-width="1.3" stroke-linecap="round"/><circle cx="11" cy="14" r="1" fill="url(#navGoldGradient)"/></svg></span>
+<span class="nav-drawer-text"><span class="nav-drawer-label">HAS-10</span><span class="nav-drawer-sub">Go to the Hope Anxiety Scale™ (HAS-10) assessment.</span></span>
 </a>
 <a href="index.html#the-book" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M11 5.5C9.5 4.3 6.8 4 4.5 4.3V16C6.8 15.7 9.5 16 11 17.2C12.5 16 15.2 15.7 17.5 16V4.3C15.2 4 12.5 4.3 11 5.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M11 5.5V17.2" stroke="currentColor" stroke-width="1.2"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">The Book</span><span class="nav-drawer-sub">When Hope Feels Dangerous</span></span>
+<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M11 5.5C9.5 4.3 6.8 4 4.5 4.3V16C6.8 15.7 9.5 16 11 17.2C12.5 16 15.2 15.7 17.5 16V4.3C15.2 4 12.5 4.3 11 5.5Z" stroke="url(#navGoldGradient)" stroke-width="1.2" stroke-linejoin="round"/><path d="M11 5.5V17.2" stroke="url(#navGoldGradient)" stroke-width="1.2"/></svg></span>
+<span class="nav-drawer-text"><span class="nav-drawer-label">The Book</span><span class="nav-drawer-sub">Go to the section/page for When Hope Feels Dangerous.</span></span>
 </a>
 <a href="glossary.html" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M5 6.5H17M5 11H17M5 15.5H12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">Glossary</span><span class="nav-drawer-sub">Language for what you’ve lived</span></span>
+<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M5 6.5H17M5 11H17M5 15.5H12.5" stroke="url(#navGoldGradient)" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+<span class="nav-drawer-text"><span class="nav-drawer-label">Glossary</span><span class="nav-drawer-sub">Go to the Hope Anxiety™ glossary.</span></span>
 </a>
 <a href="../about.html#founder" class="nav-drawer-item">
-<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="3.3" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 18C5.3 14.3 7.8 12.3 11 12.3C14.2 12.3 16.7 14.3 17.5 18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
-<span class="nav-drawer-text"><span class="nav-drawer-label">About</span><span class="nav-drawer-sub">The story behind the framework</span></span>
+<span class="nav-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="3.3" stroke="url(#navGoldGradient)" stroke-width="1.3"/><path d="M4.5 18C5.3 14.3 7.8 12.3 11 12.3C14.2 12.3 16.7 14.3 17.5 18" stroke="url(#navGoldGradient)" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+<span class="nav-drawer-text"><span class="nav-drawer-label">About</span><span class="nav-drawer-sub">Go to information about the development of the Hope Anxiety™ framework, its creator and the body of work behind it.</span></span>
 </a>
 </div>
 <div class="nav-drawer-footer">
 <div class="nav-drawer-footer-rule"></div>
 <a href="../index.html" class="nav-drawer-item eliee">
-<span class="nav-drawer-text"><span class="nav-drawer-label">ELIEE</span><span class="nav-drawer-sub">Return to the main site</span></span>
+<span class="nav-drawer-text"><span class="nav-drawer-label">ELIEE</span><span class="nav-drawer-sub">Return to the main ELIEE website.</span></span>
 </a>
 </div>
 </div>
