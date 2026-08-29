@@ -294,6 +294,66 @@ nav{
   .framework-node{width:38px;height:38px;font-size:14px}
   .framework-line{margin-left:18px;height:22px}
 }
+
+/* DIAGRAM: spacing + click-to-expand affordance */
+.fmd-image{padding:56px 40px}
+.diagram-click{
+  display:block;
+  cursor:pointer;
+  outline:none;
+  transition:opacity .2s ease;
+}
+.diagram-click:hover{opacity:.94}
+.diagram-hint{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:14px;
+  letter-spacing:.03em;
+  color:var(--gold-dark,#9d7422);
+  opacity:.72;
+  margin-top:18px;
+}
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed; inset:0;
+  background:rgba(8,7,6,.94);
+  display:none;
+  align-items:center; justify-content:center;
+  z-index:9999;
+  padding:32px;
+}
+#lightbox.active{display:flex}
+#lightbox-img{
+  max-width:92vw; max-height:88vh;
+  width:auto; height:auto;
+  object-fit:contain;
+  box-shadow:0 24px 70px rgba(0,0,0,.55);
+  border-radius:2px;
+  animation:lightboxIn .25s ease;
+}
+@keyframes lightboxIn{from{opacity:0; transform:scale(.97)} to{opacity:1; transform:scale(1)}}
+#lightbox .close{
+  position:fixed; top:26px; right:30px;
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; line-height:1;
+  font-family:'Cinzel',serif;
+  color:#f4ead9;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(201,168,76,.45);
+  border-radius:50%;
+  cursor:pointer;
+  transition:background .2s ease, transform .2s ease;
+}
+#lightbox .close:hover{background:rgba(201,168,76,.24); transform:scale(1.07)}
+
+@media (max-width:768px){
+  .fmd-image{padding:40px 22px}
+  #lightbox-img{max-width:96vw;max-height:82vh}
+  #lightbox .close{top:16px;right:16px;width:40px;height:40px;font-size:24px}
+}
 </style>
 </head>
 <body>
@@ -341,7 +401,8 @@ nav{
 
 <div class="fmd-image">
 <div class="inner">
-<div class="diagram-click"><img alt="Forward Motion Disruption Diagram" src="forward-motion-disruption-diagram.png"/></div>
+<div class="diagram-click" role="button" tabindex="0" aria-label="Expand the Forward Motion Disruption diagram"><img alt="Forward Motion Disruption Diagram" src="forward-motion-disruption-diagram.png"/></div>
+<p class="diagram-hint">Tap to expand</p>
 </div>
 </div>
 
@@ -377,36 +438,45 @@ nav{
 </div>
 </footer>
 
-<div id="lightbox">
-<span class="close">&times;</span>
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded diagram view">
+<span class="close" role="button" tabindex="0" aria-label="Close">&times;</span>
 <img alt="" id="lightbox-img"/>
 </div>
 <script>
-document.addEventListener('click', function(e) {
-  const img = e.target.closest('.fmd-image img, .faith-fear-image img, .ha-not-visual img');
-  if (!img) return;
+(function() {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  lightboxImg.src = img.src;
-  lightboxImg.alt = img.alt || 'Expanded diagram';
-  lightbox.classList.add('active');
-});
-document.addEventListener('click', function(e) {
-  if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
+
+  function openLightbox(img) {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt || 'Expanded diagram';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
     lightbox.classList.remove('active');
     lightboxImg.removeAttribute('src');
+    document.body.style.overflow = '';
   }
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    lightbox.classList.remove('active');
-    lightboxImg.removeAttribute('src');
-  }
-});
+
+  document.addEventListener('click', function(e) {
+    const img = e.target.closest('.fmd-image img, .faith-fear-image img, .ha-not-visual img');
+    if (img) { openLightbox(img); return; }
+    if (e.target.id === 'lightbox' || e.target.classList.contains('close')) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeLightbox(); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('diagram-click')) {
+      e.preventDefault();
+      const img = e.target.querySelector('img');
+      if (img) openLightbox(img);
+    }
+  });
+})();
 </script>
 
 </body>
