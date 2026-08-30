@@ -118,6 +118,9 @@ nav{
 }
 .panel.reverse{grid-template-columns:.88fr 1.12fr}
 .panel-media{min-height:430px;background-size:cover;background-position:center}
+.panel-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.panel-teaser-notthis .panel-media{background:#0c0b0a}
+.panel-teaser-notthis .panel-media img{object-fit:contain !important}
 .panel-starthere .panel-media{background-position:center bottom}
 .panel-copy{display:flex;flex-direction:column;justify-content:center;padding:52px 58px;background:var(--paper)}
 .panel.reverse .panel-copy{order:1}
@@ -228,7 +231,7 @@ footer{
   .portal,.band,.glossary,.book{padding-left:22px;padding-right:22px}
   .panel,.panel.reverse,.book .inner{grid-template-columns:1fr}
   .panel.reverse .panel-copy,.panel.reverse .panel-media{order:initial}
-  .panel-media{min-height:290px}
+  .panel-media{min-height:0;aspect-ratio:3/2}
   .panel-copy{padding:34px 28px}
   .book-cover{min-height:380px}
 }
