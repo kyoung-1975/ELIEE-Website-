@@ -56,6 +56,27 @@ nav{
 .hero-inner{text-shadow:0 2px 14px rgba(0,0,0,.34)}
 .gold-sep{height:4px;background:linear-gradient(to right,transparent,#8b6914,#c9a84c,#e2c97e,#c9a84c,#8b6914,transparent)}
 
+/* Desktop: the hero photo is a portrait (2:3) image. Forcing it to fill a
+   min-height:100vh full-bleed box (as on mobile) crops the top of her head
+   and her hand/necklace on wide screens. Above mobile widths, cap the photo
+   in its native aspect ratio inside a dark frame so nothing is cropped. */
+@media (min-width:769px){
+  .hero{
+    min-height:0; height:auto; display:block; align-items:normal;
+    padding:84px 0 76px; background:var(--ink);
+  }
+  .hero-frame{
+    position:relative; max-width:600px; margin:0 auto;
+    aspect-ratio:1024/1536; /* the photo's native ratio -- guarantees zero crop */
+    overflow:hidden;
+  }
+  .hero-media{position:absolute; inset:0}
+  .hero-inner{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    max-width:none; padding:0 44px 44px;
+  }
+}
+
 .definition{background:var(--ink-soft);padding:74px 80px}
 .definition .inner{max-width:980px;margin:0 auto}
 .def-box{border-left:3px solid var(--gold);background:rgba(201,168,76,.05);padding:30px 38px}
@@ -1178,6 +1199,7 @@ body.ha-arriving{animation:ha-arrive 1250ms cubic-bezier(.22,1,.36,1) forwards;}
 </div>
 </aside>
 <section class="hero">
+<div class="hero-frame">
 <div class="hero-media"></div>
 <div class="hero-inner">
 <span class="eyebrow">A Framework for Understanding</span>
@@ -1185,6 +1207,7 @@ body.ha-arriving{animation:ha-arrive 1250ms cubic-bezier(.22,1,.36,1) forwards;}
 <p class="hero-sub">When Hope Feels Dangerous.</p>
 <div class="hero-rule"></div>
 <p class="hero-copy">Hope Anxiety™ is a trauma-rooted fear response that activates specifically when something positive is happening, about to happen or could happen, after repeated disappointment, loss or shattered expectations.</p>
+</div>
 </div>
 </section>
 <div class="gold-sep"></div>
