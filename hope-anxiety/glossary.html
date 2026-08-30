@@ -14,16 +14,16 @@
   --parchment-shadow: #d4c9b0;
   --ink: #1a1810;
   --ink-soft: #3d3828;
-  --gold: #c8a84a;
+  --gold: #c9a84c;
   --gold-light: #e8cc7a;
   --gold-bright: #f5e0a0;
-  --gold-dark: #8a6820;
-  --gold-mid: #d4a83a;
+  --gold-dark: #8b6914;
+  --gold-mid: #c9a84c;
   --dark: #12100a;
   --page-shadow: rgba(0,0,0,0.35);
   --spine: #2a2418;
-  --metallic: linear-gradient(135deg, #c8a030 0%, #f0d878 25%, #a87820 45%, #f5e090 55%, #c8a030 75%, #e8c860 100%);
-  --metallic-h: linear-gradient(135deg, #d4ac3a 0%, #f8e888 22%, #b08828 44%, #faeea0 56%, #d4ac3a 78%, #f0d470 100%);
+  --metallic: linear-gradient(135deg, #8b6914 0%, #e8cc7a 25%, #8b6914 45%, #f5e0a0 55%, #8b6914 75%, #dcc27b 100%);
+  --metallic-h: linear-gradient(135deg, #c9a84c 0%, #f5e0a0 22%, #8b6914 44%, #f5e0a0 56%, #c9a84c 78%, #e8cc7a 100%);
 }
 
 body {
@@ -67,7 +67,7 @@ a{text-decoration:none;color:inherit}
 .gold-rule {
   width: 120px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #f0d878, #c8a030, #f0d878, transparent);
+  background: linear-gradient(90deg, transparent, #e8cc7a, #8b6914, #e8cc7a, transparent);
   margin: 10px auto 0;
 }
 
@@ -110,7 +110,7 @@ a{text-decoration:none;color:inherit}
   position: absolute;
   top: 0; right: 0;
   width: 4px; height: 100%;
-  background: linear-gradient(180deg, rgba(255,220,100,0.15), rgba(255,220,100,0.05), rgba(255,220,100,0.15));
+  background: linear-gradient(180deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05), rgba(201,168,76,0.15));
 }
 
 /* ── Pages stack illusion ── */
@@ -246,7 +246,7 @@ a{text-decoration:none;color:inherit}
   display: inline-block;
   width: 20px;
   height: 1px;
-  background: linear-gradient(90deg, #c8a030, #f0d878, #c8a030);
+  background: linear-gradient(90deg, #8b6914, #e8cc7a, #8b6914);
   flex-shrink: 0;
 }
 
@@ -346,7 +346,7 @@ a{text-decoration:none;color:inherit}
 
 .btn:hover {
   color: var(--dark);
-  box-shadow: 0 4px 16px rgba(200,160,48,0.4), inset 0 1px 0 rgba(255,255,255,0.35);
+  box-shadow: 0 4px 16px rgba(201,168,76,0.4), inset 0 1px 0 rgba(255,255,255,0.35);
   transform: translateY(-1px);
 }
 
@@ -375,7 +375,7 @@ a{text-decoration:none;color:inherit}
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  border: 1px solid #d4a83a;
+  border: 1px solid #c9a84c;
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -386,11 +386,11 @@ a{text-decoration:none;color:inherit}
   background: var(--metallic);
   border-color: transparent;
   transform: scale(1.3);
-  box-shadow: 0 0 6px rgba(200,160,48,0.6);
+  box-shadow: 0 0 6px rgba(201,168,76,0.6);
 }
 
 .dot:hover:not(.active) {
-  background: linear-gradient(135deg, #c8a030, #f0d878);
+  background: linear-gradient(135deg, #8b6914, #e8cc7a);
   opacity: 0.5;
 }
 
