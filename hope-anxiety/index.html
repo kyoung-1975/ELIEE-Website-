@@ -63,17 +63,17 @@ nav{
 @media (min-width:769px){
   .hero{
     min-height:0; height:auto; display:block; align-items:normal;
-    padding:84px 0 76px; background:var(--ink);
+    padding:84px 0 0; background:var(--ink);
   }
   .hero-frame{
-    position:relative; max-width:600px; margin:0 auto;
+    position:relative; width:100%;
     aspect-ratio:1024/1536; /* the photo's native ratio -- guarantees zero crop */
     overflow:hidden;
   }
   .hero-media{position:absolute; inset:0}
   .hero-inner{
     position:absolute; left:0; right:0; bottom:0; z-index:2;
-    max-width:none; padding:0 44px 44px;
+    max-width:640px; padding:0 80px 76px;
   }
 }
 
