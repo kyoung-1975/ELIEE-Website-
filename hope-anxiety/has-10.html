@@ -495,7 +495,7 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
   background-image:
     linear-gradient(180deg, rgba(8,7,6,.18), rgba(8,7,6,.30) 50%, rgba(8,7,6,.66)),
     var(--hero-img);
-  background-size:cover; background-position:center top; background-repeat:no-repeat;
+  background-size:cover; background-position:center 84px; background-repeat:no-repeat;
 }
 .has10-hero .inner{width:100%}
 .has10-hero h1{margin-bottom:0; text-shadow:0 2px 22px rgba(0,0,0,.55)}
@@ -554,10 +554,10 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
 }
 .hv-card{
   background:linear-gradient(135deg,#1b140d,#0c0b0a);
-  border:1px solid rgba(201,168,76,.34); border-radius:8px;
+  border:1px solid rgba(201,168,76,.72); border-radius:8px;
   padding:32px 30px; display:flex; flex-direction:column; justify-content:center;
 }
-.hv-card-accent{border-color:rgba(201,168,76,.6); border-left:4px solid var(--gold)}
+.hv-card-accent{border-color:rgba(201,168,76,.9); border-left:4px solid var(--gold)}
 .hv-label{
   font-size:9.5px; font-weight:700; letter-spacing:.28em;
   text-transform:uppercase; color:#9d8a6f; margin-bottom:14px;
@@ -588,12 +588,12 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
 }
 .lens-panel{
   background:linear-gradient(150deg,#1c150e,#0c0b0a);
-  border:1px solid rgba(201,168,76,.34); border-radius:10px;
+  border:1px solid rgba(201,168,76,.75); border-radius:10px;
   padding:38px 34px 34px; position:relative;
 }
 .lens-panel:after{
   content:""; position:absolute; inset:11px;
-  border:1px solid rgba(201,168,76,.16); border-radius:6px; pointer-events:none;
+  border:1px solid rgba(201,168,76,.45); border-radius:6px; pointer-events:none;
 }
 .lens-num{
   display:block; font-family:'Cinzel',serif; font-size:17px; letter-spacing:.3em;
@@ -646,6 +646,12 @@ p.lede{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2vw,24px);col
 @media (max-width:768px){
   .has10-hero{
     padding-top:calc(84px + 66.667vw + 26px); padding-bottom:56px; min-height:0;
+  }
+  .has10-hero{position:relative}
+  .has10-hero:before{
+    content:""; position:absolute; left:0; right:0; height:4px;
+    top:calc(84px + 66.667vw);
+    background:linear-gradient(to right,transparent,#8b6914,#c9a84c,#e2c97e,#c9a84c,#8b6914,transparent);
   }
   /* Phone: the fixed nav covers the top 84px, which is exactly where the heads
      are. So drop the photo below the nav at full width, uncropped, no overlay. */
