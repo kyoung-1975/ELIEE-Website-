@@ -149,12 +149,14 @@ nav{
   /* Start the photo BELOW the fixed 84px nav, which would otherwise cover the
      subject's head. Side padding moves to .inner so the photo stays full-bleed. */
   background-origin:content-box; background-color:var(--ink);
-  min-height:74vh; display:flex; align-items:flex-end;
-  padding:84px 0 0;
+  /* min in px as well as vh: on short landscape screens 74vh left too little
+     room, pushing the copy up against the nav and cropping the subject. */
+  min-height:max(74vh,520px); display:flex; align-items:flex-end;
+  padding:112px 0 0;
 }
 .chapter-hero.photo-hero .inner{padding:0 40px 76px; width:100%;}
 @media (max-width:768px){
-  .chapter-hero.photo-hero{padding:84px 0 0;}
+  .chapter-hero.photo-hero{padding:96px 0 0; min-height:max(60vh,420px);}
   .chapter-hero.photo-hero .inner{padding:0 22px 56px;}
 }
 .chapter-hero .inner{max-width:780px;margin:0 auto;text-align:left}
