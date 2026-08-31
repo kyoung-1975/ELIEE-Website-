@@ -9,6 +9,7 @@
 <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
+      --nav-h: 96px;
       --gold: #C9A84C;
       --gold-light: #E2C97E;
       --gold-dark: #8B6914;
@@ -362,7 +363,7 @@
       .patterns-grid { grid-template-columns: 1fr; }
       .quote-block { padding: 40px 24px; }
       footer { padding: 28px 24px; flex-direction: column; text-align: center; }
-      .page-hero { padding-top: 64px; height: 70vh; }
+      .page-hero { padding-top: var(--nav-h); height: 70vh; }
     }
   
     /* BOTTOM NAV BAR */

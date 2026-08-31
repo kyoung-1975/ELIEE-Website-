@@ -11,6 +11,7 @@
 <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
+      --nav-h: 96px;
       --gold: #C9A84C;
       --gold-light: #E2C97E;
       --gold-dark: #8B6914;
@@ -86,12 +87,10 @@
     .inner { max-width: 760px; margin: 0 auto; }
 
     /* HERO IMAGE */
-    .enrollment-hero {
-      position: relative; min-height: 62vh; padding-top: 96px; overflow: hidden;
-    }
+    .enrollment-hero { position: relative; min-height: max(62vh, 430px); padding-top: var(--nav-h); overflow: hidden; }
     .enrollment-hero-bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center 20%;
+      position: absolute; inset: var(--nav-h) 0 0 0;
+      background-size: cover; background-position: center 26%;
     }
 
     /* OPENING TEXT (below hero) */
