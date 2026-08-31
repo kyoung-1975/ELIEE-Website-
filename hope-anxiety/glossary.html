@@ -537,157 +537,211 @@ body{padding:124px 20px 40px !important}
 }
 
 /* ═══════════════════════════════════════════════════════════
-   GLOSSARY COVER — entrance experience only.
-   Purely additive: nothing below this comment modifies the
-   existing glossary pages, page-turn, controls or swoosh.
+   BOUND VOLUME — front cover, back cover, foil detailing.
+   Additive only: no existing glossary rule is modified.
    ═══════════════════════════════════════════════════════════ */
 
-/* While closed, the title and controls stay in the layout but
-   hidden, so revealing them causes no shift. */
-/* base first, state override second — .cover-closed wins on specificity */
-.book-title, .controls{transition:opacity .55s ease .35s;}
-/* .book-title and .controls carry fadeUp/fadeDown animations whose final
-   keyframe sets opacity:1, and animated values beat plain declarations —
-   so the animation has to be switched off while the cover is closed. */
-body.cover-closed .book-title,
-body.cover-closed .controls{animation:none !important; opacity:0 !important; pointer-events:none;}
+/* Own perspective so the hinge doesn't depend on .book-scene
+   (.book carries a filter, which can flatten inherited 3D). */
+.book{perspective:1900px;}
 
-.cover-front{
-  position:absolute; inset:0; z-index:6;
-  transform-origin:left center;
-  transform-style:preserve-3d;
-  transition:transform 840ms cubic-bezier(.34,.02,.24,1),
-             opacity 260ms ease 560ms;
-  cursor:pointer; outline:none;
+/* Ambient shadow so the volume separates from the background */
+.book-scene{position:relative;}
+.book-scene:before{
+  content:""; position:absolute; z-index:-1;
+  left:4%; right:4%; top:6%; bottom:-4%;
+  background:radial-gradient(60% 50% at 50% 60%, rgba(0,0,0,.85), transparent 72%);
+  filter:blur(26px); pointer-events:none;
 }
-/* Swings past vertical then fades: the glossary is a single page, not a
-   spread, so a fully flipped cover would sit as a dark slab to the left. */
-.cover-front.is-open{transform:rotateY(-116deg); opacity:0;}
-.cover-front.is-gone{display:none;}
 
-.cover-face{
+/* Counter hides on either cover; PREV/NEXT stay live */
+body.on-cover .page-counter{visibility:hidden;}
+/* On the closed front cover the volume speaks for itself: the page title
+   would duplicate the foil stamping, and the only move is to open it.
+   (These carry fadeUp/fadeDown animations, which beat plain declarations.) */
+body.on-front .book-title,
+body.on-front .controls{animation:none !important; opacity:0 !important; pointer-events:none;}
+.book-title,.controls{transition:opacity .5s ease .35s;}
+
+/* ── Shared hardcover construction ───────────────────────── */
+.hard-cover{position:absolute; inset:0; border-radius:3px 6px 6px 3px;}
+
+.leather-face{
   position:absolute; inset:0;
-  -webkit-backface-visibility:hidden; backface-visibility:hidden;
   border-radius:3px 6px 6px 3px;
   overflow:hidden;
-}
-
-/* ── Outer face: deep espresso leather ── */
-.cover-outer{
   background:
-    /* grain */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='0.35'/%3E%3C/svg%3E"),
-    radial-gradient(120% 90% at 30% 18%, rgba(86,68,44,.30), transparent 62%),
-    linear-gradient(158deg, #1a1512 0%, #100d0a 40%, #0c0a08 72%, #15110d 100%),
-    #0d0d0d;
-  background-blend-mode:overlay, screen, normal, normal;
+    /* fine grain */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23a)' opacity='0.42'/%3E%3C/svg%3E"),
+    /* coarse pebbling */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.26' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23b)' opacity='0.30'/%3E%3C/svg%3E"),
+    /* light falling across a slightly padded board */
+    radial-gradient(150% 120% at 32% 16%, rgba(96,92,88,.34), transparent 58%),
+    radial-gradient(120% 100% at 78% 92%, rgba(0,0,0,.55), transparent 60%),
+    linear-gradient(152deg,#101010 0%,#0a0a0a 42%,#060606 72%,#0d0d0d 100%);
+  background-blend-mode:overlay, soft-light, screen, multiply, normal;
   box-shadow:
-    inset 0 0 0 1px rgba(0,0,0,.6),
-    inset -14px 0 34px rgba(0,0,0,.55),
-    inset 3px 0 0 rgba(201,168,76,.10);
+    inset 0 1px 0 rgba(255,255,255,.11),
+    inset 0 -1px 0 rgba(255,255,255,.05),
+    inset -26px 0 46px rgba(0,0,0,.55),
+    inset 0 -30px 46px rgba(0,0,0,.45);
 }
-/* raised spine bands at the hinge edge */
-.cover-outer:before{
-  content:""; position:absolute; left:0; top:0; bottom:0; width:30px;
-  background:
-    linear-gradient(90deg, rgba(0,0,0,.72), rgba(255,255,255,.05) 42%, rgba(0,0,0,.55)),
-    repeating-linear-gradient(180deg,
-      transparent 0 62px,
-      rgba(201,168,76,.16) 62px 63px,
-      rgba(0,0,0,.5) 63px 68px,
-      rgba(201,168,76,.10) 68px 69px,
-      transparent 69px 132px);
-  border-right:1px solid rgba(0,0,0,.6);
-}
-/* soft sheen across the leather */
-.cover-outer:after{
+/* sheen */
+.leather-face:after{
   content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(112deg, rgba(255,255,255,.055) 0%, transparent 32%, transparent 70%, rgba(255,255,255,.028) 100%);
+  background:linear-gradient(118deg, rgba(255,255,255,.07) 0%, transparent 26%, transparent 66%, rgba(255,255,255,.035) 100%);
 }
 
-/* ── Gold rules and corners ── */
-.cover-rule{
-  position:absolute; pointer-events:none;
-  border:1px solid rgba(201,168,76,.62);
-  box-shadow:0 0 0 .5px rgba(0,0,0,.5), inset 0 0 12px rgba(201,168,76,.06);
+/* ── Spine with raised bands ─────────────────────────────── */
+.cover-spine{
+  position:absolute; left:0; top:0; bottom:0; width:44px; z-index:2;
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,.92) 0%,
+      rgba(255,255,255,.075) 26%,
+      rgba(0,0,0,.20) 52%,
+      rgba(0,0,0,.55) 78%,
+      rgba(0,0,0,.88) 100%);
+  border-right:1px solid rgba(0,0,0,.75);
 }
-.cover-rule.outer{inset:26px 22px 26px 48px; border-width:1.5px;}
-.cover-rule.inner{inset:34px 30px 34px 56px; border-color:rgba(201,168,76,.30);}
-.cover-corner{
-  position:absolute; width:26px; height:26px; pointer-events:none;
-  border:1.5px solid rgba(201,168,76,.72);
+.cover-spine i{
+  position:absolute; left:0; right:0; height:15px; display:block;
+  background:linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(255,255,255,.13) 42%, rgba(255,255,255,.04) 62%, rgba(0,0,0,.85) 100%);
+  box-shadow:0 1px 0 rgba(201,168,76,.20), 0 -1px 0 rgba(201,168,76,.12);
 }
-.cover-corner.tl{top:20px; left:42px; border-right:0; border-bottom:0;}
-.cover-corner.tr{top:20px; right:16px; border-left:0; border-bottom:0;}
-.cover-corner.bl{bottom:20px; left:42px; border-right:0; border-top:0;}
-.cover-corner.br{bottom:20px; right:16px; border-left:0; border-top:0;}
+.cover-spine i:nth-child(1){top:16%}
+.cover-spine i:nth-child(2){top:36%}
+.cover-spine i:nth-child(3){top:56%}
+.cover-spine i:nth-child(4){top:76%}
 
-/* ── Cover typography ── */
+/* fore-edge catch on the opening side */
+.hard-cover .fore-edge{
+  position:absolute; top:3px; bottom:3px; right:0; width:4px; z-index:2;
+  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05) 40%, rgba(255,255,255,.12));
+  border-radius:0 4px 4px 0;
+}
+
+/* ── Gold foil frame ─────────────────────────────────────── */
+.foil-rule{
+  position:absolute; z-index:3; pointer-events:none; border-style:solid;
+  border-color:#c1a24a;
+}
+.foil-rule.outer{
+  inset:30px 26px 30px 66px; border-width:2px;
+  box-shadow:
+    0 1px 1px rgba(0,0,0,.9),
+    inset 0 1px 0 rgba(255,246,214,.45),
+    inset 0 -1px 0 rgba(0,0,0,.5);
+}
+.foil-rule.inner{
+  inset:39px 35px 39px 75px; border-width:1px;
+  border-color:rgba(201,168,76,.55);
+  box-shadow:0 1px 0 rgba(0,0,0,.75), inset 0 1px 0 rgba(255,246,214,.25);
+}
+/* corner ornaments */
+.foil-corner{
+  position:absolute; z-index:3; width:15px; height:15px; pointer-events:none;
+  border:2px solid #c1a24a;
+  box-shadow:0 1px 1px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,246,214,.4);
+}
+.foil-corner.tl{top:22px; left:58px; border-right:0; border-bottom:0;}
+.foil-corner.tr{top:22px; right:18px; border-left:0; border-bottom:0;}
+.foil-corner.bl{bottom:22px; left:58px; border-right:0; border-top:0;}
+.foil-corner.br{bottom:22px; right:18px; border-left:0; border-top:0;}
+
+/* ── Foil-stamped type ───────────────────────────────────── */
+.foil{
+  background:linear-gradient(168deg,#7a5a13 0%,#f4e3ae 22%,#c9a84c 46%,#8d6c1d 60%,#eed69c 78%,#795913 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 1.5px 0 rgba(0,0,0,.92)) drop-shadow(0 -1px 0 rgba(255,255,255,.07)) drop-shadow(0 3px 5px rgba(0,0,0,.5));
+}
+
 .cover-type{
-  position:absolute; inset:0; z-index:3;
+  position:absolute; z-index:4; left:66px; right:26px; top:0; bottom:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:70px 44px 70px 70px; text-align:center;
+  padding:56px 22px 96px; text-align:center;
 }
 .cover-title{
-  font-family:'Cinzel',serif; font-weight:400;
-  font-size:clamp(21px,3.1vw,38px); line-height:1.28;
-  letter-spacing:.10em; text-transform:uppercase;
-  color:#c9a84c;
-  background:linear-gradient(170deg,#8b6914 0%,#f0dca0 26%,#c9a84c 52%,#e8cc7a 72%,#8b6914 100%);
-  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,.85)) drop-shadow(0 2px 3px rgba(0,0,0,.55));
-  margin:0;
+  font-family:'Cinzel',serif; font-weight:400; margin:0;
+  font-size:clamp(30px,5.2vw,58px); line-height:1.12; letter-spacing:.07em;
+  text-transform:uppercase;
 }
 .cover-title .of{
-  display:block; font-size:.50em; letter-spacing:.26em;
-  margin:.40em 0 .28em;
-  background:none; -webkit-background-clip:border-box; background-clip:border-box;
-  -webkit-text-fill-color:#b99a55; color:#b99a55;
-}
-.cover-divider{
-  width:74px; height:1px; margin:30px auto 26px;
-  background:linear-gradient(to right,transparent,rgba(201,168,76,.75),transparent);
+  display:block; font-size:.40em; letter-spacing:.30em;
+  margin:.34em 0 .28em;
+  -webkit-text-fill-color:#b08f3f; color:#b08f3f; background:none;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
 }
 .cover-sub{
-  font-family:'Cormorant Garamond',serif; font-style:italic;
-  font-size:clamp(15px,1.7vw,21px); letter-spacing:.03em;
-  color:#d8c08f; margin:0;
-  text-shadow:0 1px 2px rgba(0,0,0,.7);
+  font-family:'Cormorant Garamond',serif; font-style:italic; margin:26px 0 0;
+  font-size:clamp(17px,2.1vw,25px); letter-spacing:.02em;
+}
+.foil-ornament{
+  margin:16px auto 0; font-size:11px; letter-spacing:.5em;
+  color:#b08f3f; text-shadow:0 1px 0 rgba(0,0,0,.9);
 }
 .cover-imprint{
-  position:absolute; left:70px; right:44px; bottom:62px;
-  font-family:'Cinzel',serif; font-size:clamp(8px,.85vw,10px);
-  letter-spacing:.34em; text-transform:uppercase;
-  color:rgba(201,168,76,.62);
-  text-shadow:0 1px 1px rgba(0,0,0,.8);
-}
-.cover-imprint span{display:inline-block; margin:0 10px; opacity:.7;}
-
-/* ── Inner face, seen as the cover swings past ── */
-.cover-inner-face{
-  transform:rotateY(180deg);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23h)' opacity='0.22'/%3E%3C/svg%3E"),
-    linear-gradient(100deg,#171310,#0e0b09 55%,#12100c);
-  background-blend-mode:overlay,normal;
-  box-shadow:inset 0 0 0 1px rgba(201,168,76,.14), inset 12px 0 40px rgba(0,0,0,.6);
+  position:absolute; z-index:4; left:66px; right:26px; bottom:52px;
+  text-align:center;
+  font-family:'Cinzel',serif; font-size:clamp(8px,.9vw,10px);
+  letter-spacing:.38em; text-transform:uppercase;
+  color:#8f7433; text-shadow:0 1px 0 rgba(0,0,0,.9);
 }
 
-/* shadow the cover casts on the page, easing off as it opens */
-.cover-shadow{
-  position:absolute; inset:0; z-index:5; pointer-events:none;
-  background:linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.34) 26%, rgba(0,0,0,.10) 62%, transparent 100%);
-  opacity:1; transition:opacity 700ms ease;
+/* ── Front cover: hinged at the spine ────────────────────── */
+.front-cover{
+  z-index:6; cursor:pointer; outline:none;
+  transform-origin:left center; transform-style:preserve-3d;
+  transition:transform 840ms cubic-bezier(.34,.02,.24,1), opacity 240ms ease 580ms;
 }
-.cover-shadow.is-clear{opacity:0;}
+/* Swings past vertical and fades: the glossary is a single page,
+   not a spread, so a fully flipped board would sit as a dark slab. */
+.front-cover.is-open{transform:rotateY(-116deg); opacity:0; pointer-events:none;}
+.front-cover .cover-face{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden;}
+.front-cover .inner-face{
+  transform:rotateY(180deg); border-radius:6px 3px 3px 6px;
+  background:linear-gradient(100deg,#141414,#0a0a0a 55%,#101010);
+  box-shadow:inset 0 0 0 1px rgba(201,168,76,.12);
+}
 
-/* ── Open call to action ── */
+/* ── Back cover: sits under the pages, revealed by the last turn ── */
+.back-cover{
+  z-index:3; opacity:0; pointer-events:none;
+  transition:opacity 320ms ease 120ms;
+}
+.back-cover.is-visible{opacity:1; pointer-events:auto;}
+.back-type{
+  position:absolute; z-index:4; left:66px; right:26px; top:0; bottom:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:60px 30px; text-align:center;
+}
+.back-brand{
+  font-family:'Cinzel',serif; font-weight:400; margin:0 0 28px;
+  font-size:clamp(19px,2.8vw,30px); letter-spacing:.16em; text-transform:uppercase;
+}
+.back-line{
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(15px,1.75vw,20px); line-height:1.7;
+  color:#a89a86; margin:0 0 6px; max-width:30em;
+}
+.back-divider{
+  margin:30px auto 26px; font-size:10px; letter-spacing:.5em;
+  color:#b08f3f; text-shadow:0 1px 0 rgba(0,0,0,.9);
+}
+.back-imprint{
+  font-family:'Cinzel',serif; font-size:clamp(8px,.9vw,10px);
+  letter-spacing:.38em; text-transform:uppercase;
+  color:#8f7433; text-shadow:0 1px 0 rgba(0,0,0,.9);
+}
+
+/* ── Open prompt ─────────────────────────────────────────── */
 .cover-cta{
   position:absolute; left:0; right:0; top:100%;
-  margin-top:30px; text-align:center; z-index:7;
-  transition:opacity .4s ease, transform .4s ease;
+  margin-top:28px; text-align:center; z-index:7;
+  transition:opacity .35s ease;
 }
-.cover-cta.is-gone{opacity:0; transform:translateY(6px); pointer-events:none;}
+body:not(.on-front) .cover-cta{opacity:0; pointer-events:none;}
 .cover-cta button{
   background:none; border:0; cursor:pointer; padding:10px 6px;
   font-family:'Cinzel',serif; font-size:12px; letter-spacing:.26em;
@@ -698,27 +752,30 @@ body.cover-closed .controls{animation:none !important; opacity:0 !important; poi
 .cover-cta button span{margin-left:8px;}
 
 @media (max-width:768px){
-  .cover-rule.outer{inset:16px 12px 16px 32px;}
-  .cover-rule.inner{inset:22px 18px 22px 38px;}
-  .cover-corner{width:18px; height:18px;}
-  .cover-corner.tl,.cover-corner.bl{left:28px;}
-  .cover-corner.tr,.cover-corner.br{right:8px;}
-  .cover-type{padding:44px 24px 44px 46px;}
-  .cover-imprint{left:46px; right:24px; bottom:38px; letter-spacing:.24em;}
-  .cover-outer:before{width:20px;}
-  .cover-cta{margin-top:22px;}
+  /* breathing room so the volume sits in the environment */
+  .book-scene{max-width:calc(100vw - 52px); margin:0 auto;}
+  .cover-spine{width:30px;}
+  .foil-rule.outer{inset:18px 14px 18px 44px; border-width:1.5px;}
+  .foil-rule.inner{inset:25px 21px 25px 51px;}
+  .foil-corner{width:11px; height:11px;}
+  .foil-corner.tl,.foil-corner.bl{left:38px;}
+  .foil-corner.tr,.foil-corner.br{right:8px;}
+  .cover-type{left:44px; right:14px; padding:34px 14px 74px;}
+  .cover-imprint{left:44px; right:14px; bottom:32px; letter-spacing:.28em;}
+  .back-type{left:44px; right:14px; padding:40px 18px;}
+  .cover-cta{margin-top:20px;}
   /* keep PREV/NEXT clear of Safari's bottom bar */
   body{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px)) !important;}
   .controls{margin-bottom:env(safe-area-inset-bottom,0px);}
 }
 @media (prefers-reduced-motion: reduce){
-  .cover-front{transition:opacity .3s ease;}
-  .cover-front.is-open{transform:none; opacity:0;}
+  .front-cover{transition:opacity .3s ease;}
+  .front-cover.is-open{transform:none;}
 }
 
 </style>
 </head>
-<body class="cover-closed">
+<body class="on-front on-cover">
 
 <nav>
 <a class="nav-logo" href="index.html">Hope Anxiety™</a>
@@ -803,25 +860,43 @@ body.cover-closed .controls{animation:none !important; opacity:0 !important; poi
     </div>
 
     <div class="book-cover-right"></div>
-<!-- ── Glossary cover (entrance only; removed once opened) ── -->
-<div class="cover-front" id="coverFront" role="button" tabindex="0" aria-label="Open the glossary">
-<div class="cover-face cover-outer">
-<div class="cover-rule outer"></div>
-<div class="cover-rule inner"></div>
-<div class="cover-corner tl"></div>
-<div class="cover-corner tr"></div>
-<div class="cover-corner bl"></div>
-<div class="cover-corner br"></div>
-<div class="cover-type">
-<h2 class="cover-title">Glossary<span class="of">of</span>Key Terms</h2>
-<div class="cover-divider"></div>
-<p class="cover-sub">Hope Anxiety™</p>
-</div>
-<div class="cover-imprint"><span>✦</span>Theological Somatics™<span>✦</span></div>
-</div>
-<div class="cover-face cover-inner-face"></div>
-</div>
-<div class="cover-shadow" id="coverShadow"></div>
+    <!-- ── Back cover: revealed when the final page turns ── -->
+    <div class="hard-cover back-cover" id="coverBack">
+      <div class="leather-face"></div>
+      <div class="cover-spine"><i></i><i></i><i></i><i></i></div>
+      <div class="fore-edge"></div>
+      <div class="foil-rule outer"></div>
+      <div class="foil-rule inner"></div>
+      <div class="foil-corner tl"></div><div class="foil-corner tr"></div>
+      <div class="foil-corner bl"></div><div class="foil-corner br"></div>
+      <div class="back-type">
+        <h2 class="back-brand foil">Hope Anxiety™</h2>
+        <p class="back-line">Language for what you've been feeling.</p>
+        <p class="back-line">A framework for understanding what your body has been protecting.</p>
+        <div class="back-divider">✦</div>
+        <div class="back-imprint">Theological Somatics™</div>
+      </div>
+    </div>
+
+    <!-- ── Front cover: hinged at the spine ── -->
+    <div class="hard-cover front-cover" id="coverFront" role="button" tabindex="0" aria-label="Open the glossary">
+      <div class="cover-face">
+        <div class="leather-face"></div>
+        <div class="cover-spine"><i></i><i></i><i></i><i></i></div>
+        <div class="fore-edge"></div>
+        <div class="foil-rule outer"></div>
+        <div class="foil-rule inner"></div>
+        <div class="foil-corner tl"></div><div class="foil-corner tr"></div>
+        <div class="foil-corner bl"></div><div class="foil-corner br"></div>
+        <div class="cover-type">
+          <h2 class="cover-title foil">Glossary<span class="of">of</span>Key Terms</h2>
+          <p class="cover-sub foil">Hope Anxiety™</p>
+          <div class="foil-ornament">✦</div>
+        </div>
+        <div class="cover-imprint">Theological Somatics™</div>
+      </div>
+      <div class="cover-face inner-face"></div>
+    </div>
   </div>
   <div class="cover-cta" id="coverCta"><button type="button">Open the Glossary <span>&rarr;</span></button></div>
 </div>
@@ -1093,94 +1168,147 @@ updateControls();
 </script>
 
 <script>
-/* Glossary cover — entrance only. Does not touch page-turn logic. */
+/* ═══════════════════════════════════════════════════════════
+   The covers are part of the book's navigation:
+     front cover → pages 1..N → back cover
+   Existing goToPage / page-turn / swoosh are reused, not replaced.
+   ═══════════════════════════════════════════════════════════ */
 (function(){
-  var cover  = document.getElementById('coverFront');
-  var shadow = document.getElementById('coverShadow');
-  var cta    = document.getElementById('coverCta');
-  if(!cover) return;
+  var front   = document.getElementById('coverFront');
+  var back    = document.getElementById('coverBack');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var counter = document.getElementById('pageCounter');
+  var cta     = document.getElementById('coverCta');
+  if(!front || !back) return;
 
-  var SEEN = 'ha_glossary_opened';
-  var opened = false;
+  var TOTAL = pages.length;
+  var view  = 'front';          /* 'front' | 'interior' | 'back' */
+  var busy  = false;
 
-  /* Already opened earlier this session — skip straight to the glossary. */
-  try {
-    if (sessionStorage.getItem(SEEN) === '1') {
-      cover.parentNode.removeChild(cover);
-      if (shadow) shadow.parentNode.removeChild(shadow);
-      if (cta) cta.parentNode.removeChild(cta);
-      document.body.classList.remove('cover-closed');
-      return;
-    }
-  } catch(e){ /* private mode — just show the cover */ }
+  var origGoToPage = window.goToPage;
 
-  /* Leather hardcover opening: a low body thump plus a soft grain sweep.
-     Same synthesis approach as the existing page swoosh, with more weight. */
-  function playCoverSound(){
+  /* ── Hardcover sound: heavier than the paper swoosh ── */
+  var ctx = null;
+  function coverSound(closing){
     try{
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if(!Ctx) return;
-      var ctx = new Ctx();
+      var C = window.AudioContext || window.webkitAudioContext;
+      if(!C) return;
+      if(!ctx) ctx = new C();
       if(ctx.state === 'suspended') ctx.resume();
-      var t0 = ctx.currentTime;
+      var t0 = ctx.currentTime, dur = closing ? 0.42 : 0.50;
 
-      /* 1. leather grain — filtered noise, slower and lower than a page turn */
-      var dur = 0.5;
+      /* leather grain sweep */
       var n = Math.floor(ctx.sampleRate * dur);
       var buf = ctx.createBuffer(1, n, ctx.sampleRate);
       var d = buf.getChannelData(0);
       for(var i=0;i<n;i++){
         var t = i/n;
-        d[i] = (Math.random()*2-1) * Math.pow(Math.sin(Math.PI*t), 1.4) * (1 - t*0.45);
+        d[i] = (Math.random()*2-1) * Math.pow(Math.sin(Math.PI*t),1.5) * (1 - t*0.4);
       }
-      var noise = ctx.createBufferSource(); noise.buffer = buf;
-      var bp = ctx.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.frequency.setValueAtTime(900, t0);
-      bp.frequency.exponentialRampToValueAtTime(320, t0 + dur);
-      bp.Q.value = 0.55;
+      var src = ctx.createBufferSource(); src.buffer = buf;
+      var bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=0.55;
+      bp.frequency.setValueAtTime(closing ? 620 : 950, t0);
+      bp.frequency.exponentialRampToValueAtTime(closing ? 240 : 340, t0+dur);
       var ng = ctx.createGain();
-      ng.gain.setValueAtTime(0.0001, t0);
-      ng.gain.exponentialRampToValueAtTime(0.10, t0 + 0.09);
-      ng.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-      noise.connect(bp).connect(ng).connect(ctx.destination);
-      noise.start(t0); noise.stop(t0 + dur);
+      ng.gain.setValueAtTime(0.0001,t0);
+      ng.gain.exponentialRampToValueAtTime(0.085,t0+0.08);
+      ng.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+      src.connect(bp).connect(ng).connect(ctx.destination);
+      src.start(t0); src.stop(t0+dur);
 
-      /* 2. board thump — the weight of a hardcover swinging */
-      var osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(96, t0);
-      osc.frequency.exponentialRampToValueAtTime(46, t0 + 0.26);
+      /* board weight — a touch firmer when it closes */
+      var o = ctx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(closing ? 110 : 94, t0);
+      o.frequency.exponentialRampToValueAtTime(closing ? 42 : 48, t0+0.28);
       var og = ctx.createGain();
-      og.gain.setValueAtTime(0.0001, t0);
-      og.gain.exponentialRampToValueAtTime(0.075, t0 + 0.035);
-      og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.34);
-      osc.connect(og).connect(ctx.destination);
-      osc.start(t0); osc.stop(t0 + 0.36);
-    }catch(e){ /* sound is optional, never block the cover */ }
+      og.gain.setValueAtTime(0.0001,t0);
+      og.gain.exponentialRampToValueAtTime(closing ? 0.09 : 0.07, t0+0.03);
+      og.gain.exponentialRampToValueAtTime(0.0001,t0+0.34);
+      o.connect(og).connect(ctx.destination);
+      o.start(t0); o.stop(t0+0.36);
+    }catch(e){}
   }
 
-  function openCover(){
-    if(opened) return;
-    opened = true;
-    playCoverSound();
-    cover.classList.add('is-open');
-    if(shadow) shadow.classList.add('is-clear');
-    if(cta) cta.classList.add('is-gone');
-    document.body.classList.remove('cover-closed');
-    try{ sessionStorage.setItem(SEEN,'1'); }catch(e){}
-    setTimeout(function(){
-      cover.classList.add('is-gone');
-      if(shadow && shadow.parentNode) shadow.parentNode.removeChild(shadow);
-      if(cta && cta.parentNode) cta.parentNode.removeChild(cta);
-    }, 900);
+  function syncUI(){
+    document.body.classList.toggle('on-front', view==='front');
+    document.body.classList.toggle('on-back',  view==='back');
+    document.body.classList.toggle('on-cover', view!=='interior');
+    prevBtn.disabled = (view==='front');
+    nextBtn.disabled = (view==='back');
+    counter.textContent = (view==='interior') ? (currentPage+1)+' of '+TOTAL : '';
+    var dots = document.querySelectorAll('.dot');
+    for(var i=0;i<dots.length;i++){
+      dots[i].classList.toggle('active', view==='interior' && i===currentPage);
+    }
+  }
+  /* the original calls updateControls() after every turn */
+  window.updateControls = syncUI;
+
+  function openFront(){
+    if(busy || view!=='front') return;
+    busy = true; coverSound(false);
+    front.classList.add('is-open');
+    view = 'interior'; syncUI();
+    setTimeout(function(){ busy = false; }, 860);
+  }
+  function closeFront(){
+    if(busy || view!=='interior') return;
+    busy = true; coverSound(true);
+    front.classList.remove('is-open');
+    view = 'front'; syncUI();
+    setTimeout(function(){ busy = false; }, 860);
+  }
+  function openBack(){
+    if(busy) return;
+    busy = true; playPageTurnSound();
+    var out = document.getElementById('page-'+currentPage);
+    out.classList.remove('active'); out.classList.add('turning-out');
+    back.classList.add('is-visible');
+    view = 'back'; syncUI();
+    setTimeout(function(){ out.classList.remove('turning-out'); busy = false; }, 470);
+  }
+  function closeBack(){
+    if(busy) return;
+    busy = true; playPageTurnSound();
+    back.classList.remove('is-visible');
+    document.getElementById('page-'+currentPage).classList.add('active');
+    view = 'interior'; syncUI();
+    setTimeout(function(){ busy = false; }, 470);
   }
 
-  cover.addEventListener('click', openCover);
-  cover.addEventListener('keydown', function(e){
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openCover(); }
+  window.changePage = function(dir){
+    if(busy) return;
+    if(view === 'front'){ if(dir > 0) openFront(); return; }
+    if(view === 'back'){  if(dir < 0) closeBack(); return; }
+    if(dir < 0 && currentPage === 0)         { closeFront(); return; }
+    if(dir > 0 && currentPage === TOTAL - 1) { openBack();   return; }
+    origGoToPage(currentPage + dir);
+  };
+
+  /* pagination dots open the book first if a cover is showing */
+  window.goToPage = function(n){
+    if(busy) return;
+    if(view === 'front'){
+      openFront();
+      if(n !== currentPage) setTimeout(function(){ origGoToPage(n); }, 880);
+      return;
+    }
+    if(view === 'back'){
+      closeBack();
+      if(n !== currentPage) setTimeout(function(){ origGoToPage(n); }, 500);
+      return;
+    }
+    origGoToPage(n);
+  };
+
+  front.addEventListener('click', openFront);
+  front.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openFront(); }
   });
-  if(cta) cta.querySelector('button').addEventListener('click', openCover);
+  if(cta) cta.querySelector('button').addEventListener('click', openFront);
+
+  syncUI();
 })();
 </script>
 </body>
