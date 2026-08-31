@@ -91,9 +91,12 @@
       aspect-ratio: 2688 / 1000; background-size: cover; background-position: center center; background-repeat: no-repeat;
     }
 
-    /* large screens: let the hero fill the view so it reads as a statement, not a strip */
+    /* anything wider than a portrait phone: fill the view so the hero reads as a statement, not a strip */
+    @media (min-width: 769px) {
+      .page-hero-bg { aspect-ratio: auto; height: calc(100vh - var(--nav-h)); height: calc(100svh - var(--nav-h)); max-height: 900px; }
+    }
     @media (min-width: 1025px) {
-      .page-hero-bg { aspect-ratio: auto; height: calc(100vh - var(--nav-h)); min-height: 620px; max-height: 900px; }
+      .page-hero-bg { min-height: 620px; }
     }
 
 
@@ -388,7 +391,7 @@
     <div class="gold-rule"></div>
     <p class="body-light" style="font-style: italic;">This page is not where you enroll in anything.</p>
     <p class="body-light" style="font-style: italic;">It is where you understand something first.</p>
-    <p class="body-light">What you are about to learn is called the PMFRL Methodology&trade;, and it was built specifically for the moment you are standing in right now.</p>
+    <p class="body-light">What you are about to learn is called the PMFRL Methodology, and it was built specifically for the moment you are standing in right now.</p>
   </div>
 </section>
 <div class="gold-sep"></div>
@@ -447,8 +450,8 @@
 <section class="section-parchment">
   <div class="inner">
     <div class="callout-box">
-      <span class="callout-label">What Is the PMFRL Methodology&trade;?</span>
-      <p>The PMFRL Methodology&trade; is the disciplined practice of turning vision into structured, sustainable execution.</p>
+      <span class="callout-label">What Is the PMFRL Methodology?</span>
+      <p>The PMFRL Methodology is the disciplined practice of turning vision into structured, sustainable execution.</p>
       <p>That is the definition. It is the same one at the center of the course itself, because the methodology does not change depending on where you encounter it.</p>
       <p>But a definition alone does not capture what PMFRL actually is. PMFRL is not simply a project management framework borrowed and relabeled for entrepreneurs. It is an entrepreneurial operating methodology &mdash; an operating system for building a business intentionally, from the moment it is only a vision to the moment it becomes a legacy. Not a better way to manage tasks. A different way to run the entire business of building your business.</p>
     </div>
@@ -588,7 +591,7 @@
     <p class="cta-sub">You understand the methodology now. That understanding alone puts you ahead of where you started this page.</p>
     <div class="gold-rule"></div>
     <span class="section-label">Before Enrollment</span>
-    <p class="body-light">Every participant begins the PMFRL Methodology&trade; with the Entrepreneurship Readiness Assessment&trade;. We believe every entrepreneur deserves a learning experience informed by how they naturally build, and the assessment reveals your Builder Profile&trade;, the starting point for how you experience everything from here forward.</p>
+    <p class="body-light">Every participant begins the PMFRL Methodology with the Entrepreneurship Readiness Assessment&trade;. We believe every entrepreneur deserves a learning experience informed by how they naturally build, and the assessment reveals your Builder Profile&trade;, the starting point for how you experience everything from here forward.</p>
     <p class="body-light" style="font-style: italic; color: var(--gold-light);">You are ready. Let&rsquo;s find out how you build.</p>
     <a href="ERA.html" class="btn-gold">Take the Entrepreneurship Readiness Assessment&trade;</a>
   </div>
