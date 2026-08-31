@@ -52,23 +52,6 @@
     .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-burger.open span:nth-child(2) { opacity: 0; }
     .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .nav-links-mobile {
-      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
-      max-height: calc(100vh - var(--nav-h)); max-height: calc(100svh - var(--nav-h)); overflow-y: auto;
-      background: #080808; flex-direction: column; align-items: center; gap: 0;
-      list-style: none; padding: 8px 0 18px; border-bottom: 2px solid #8B6914; z-index: 99;
-    }
-    .nav-links-mobile.open { display: flex; }
-    .nav-links-mobile li { width: 100%; text-align: center; }
-    .nav-links-mobile a {
-      display: block; font-family: 'Lato', sans-serif; font-size: 13px; letter-spacing: 0.06em;
-      color: var(--text-light); text-decoration: none; padding: 14px 24px;
-    }
-    .nav-links-mobile a:hover, .nav-links-mobile a:active, .nav-links-mobile a.active { color: var(--gold); }
-    .nav-links-mobile .nav-cta { display: inline-block; margin-top: 8px; }
-    .drawer-portal { border-top: 1px solid rgba(139,105,20,0.5); margin-top: 10px; padding-top: 6px; }
-    .drawer-portal a { color: var(--gold); }
     .nav-right { display: flex; align-items: center; }
     .nav-cta {
       background: linear-gradient(135deg, #8B6914, #C9A84C, #8B6914);
@@ -351,7 +334,65 @@
       .back-home-nav { flex-direction: column; gap: 14px; }
       .back-home-nav li:not(:last-child)::after { display: none; }
     }
-</style>
+
+    /* ===== ELIEE sliding drawer (cream counterpart to the Hope Anxiety portal) ===== */
+    .nav-backdrop{ position:fixed; inset:0; background:rgba(6,5,4,.68); opacity:0; visibility:hidden;
+      transition:opacity .5s ease, visibility .5s ease; z-index:998; }
+    .nav-backdrop.active{ opacity:1; visibility:visible; }
+
+    .eliee-drawer{ position:fixed; top:0; right:0; height:100vh; height:100svh;
+      width:42%; max-width:520px; min-width:340px;
+      background-image:linear-gradient(to bottom,transparent,#8b6914 12%,#c9a84c 50%,#8b6914 88%,transparent),
+        linear-gradient(165deg,#fbf8f2,#f2e9d8 55%,#f6f0e6);
+      background-size:5px 100%, 100% 100%; background-position:left top, left top; background-repeat:no-repeat;
+      box-shadow:-30px 0 70px rgba(0,0,0,.45);
+      transform:translateX(100%); transition:transform .55s cubic-bezier(.16,.84,.44,1);
+      z-index:999; overflow-y:auto; }
+    .eliee-drawer.active{ transform:translateX(0); }
+    @media (max-width:640px){ .eliee-drawer{ width:88%; min-width:0; } }
+
+    .eliee-drawer-close{ position:absolute; top:26px; right:28px; width:42px; height:42px; border-radius:50%;
+      background:rgba(139,105,20,.12); border:none; padding:0; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; transition:background .25s ease, transform .25s ease; }
+    .eliee-drawer-close:hover{ background:rgba(139,105,20,.24); transform:scale(1.08); }
+    .eliee-drawer-close .close-ring{ position:absolute; inset:0; width:100%; height:100%; }
+    .eliee-drawer-close .close-x{ position:relative; z-index:1; font-size:22px; line-height:1; font-weight:400; color:#8b6914; }
+
+    .eliee-drawer-inner{ padding:104px 46px 48px; min-height:100%; display:flex; flex-direction:column; }
+    @media (max-width:640px){ .eliee-drawer-inner{ padding:92px 28px 40px; } }
+
+    .eliee-drawer-eyebrow{ font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:.3em;
+      text-transform:uppercase; margin-bottom:30px; display:inline-block; color:#8b6914; }
+
+    .eliee-drawer-list{ display:flex; flex-direction:column; }
+    .eliee-drawer-item{ display:flex; align-items:flex-start; gap:16px; padding:16px 0; text-decoration:none; }
+    .eliee-drawer-list .eliee-drawer-item:first-child{ padding-top:0; }
+    .eliee-drawer-icon{ width:22px; height:22px; flex-shrink:0; margin-top:2px; }
+    .eliee-drawer-icon svg{ width:100%; height:100%; display:block; }
+    .eliee-drawer-text{ display:flex; flex-direction:column; gap:3px; }
+    .eliee-drawer-label{ font-family:'Cinzel',serif; font-size:14.5px; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:#1f1610; transition:color .25s ease; }
+    .eliee-drawer-item:hover .eliee-drawer-label,
+    .eliee-drawer-item.active .eliee-drawer-label{ color:#8b6914; }
+    .eliee-drawer-sub{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+      color:#725b43; line-height:1.4; }
+
+    .eliee-drawer-divider{ display:flex; flex-direction:column; gap:5px; }
+    .eliee-drawer-divider span{ display:block; height:2px;
+      background:linear-gradient(to right,#8b6914,#c9a84c 30%,#8b6914 60%,transparent); }
+    .eliee-drawer-footer{ margin-top:auto; padding-top:18px; }
+
+    /* ---- TEMPORARY: three label treatments to compare. Remove with the switcher. ---- */
+    body.tt-b .eliee-drawer-label{ -webkit-text-stroke:0.6px #8b6914; }
+    body.tt-c .eliee-drawer-eyebrow{ -webkit-text-stroke:0.7px #8b6914; color:#1f1610; }
+    #ttSwitch{ position:fixed; left:12px; bottom:12px; z-index:1001; display:flex; gap:6px;
+      background:rgba(8,8,8,.88); padding:8px 10px; border:1px solid #8b6914; border-radius:6px; }
+    #ttSwitch button{ font-family:'Lato',sans-serif; font-size:11px; letter-spacing:.06em; cursor:pointer;
+      background:none; border:1px solid #8b6914; color:#f4ead9; padding:6px 9px; border-radius:4px; }
+    #ttSwitch button.on{ background:#c9a84c; color:#0c0b0a; }
+    #ttSwitch span{ font-family:'Lato',sans-serif; font-size:10px; color:#a8927a; align-self:center; margin-right:4px; }
+
+  </style>
 </head>
 <body>
 
@@ -612,33 +653,83 @@
   </ul>
 </footer>
 
-<ul class="nav-links-mobile" id="navLinksMobile">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="about.html">About</a></li>
-  <li><a href="our-foundation.html">Our Foundation</a></li>
-  <li><a href="programs.html" class="active">The PMFRL Methodology&trade;</a></li>
-    <li><a href="ERA.html">Entrepreneurship Readiness Assessment&trade; (ERA)</a></li>
-    <li><a href="enrollment.html">Enrollment</a></li>
-  <li><a href="research-ideas.html">Research &amp; Ideas</a></li>
-  <li><a href="contact.html">Contact</a></li>
-  <li class="drawer-portal"><a href="hope-anxiety/index.html">Hope Anxiety&trade;</a></li>
-</ul>
+
+
+
+<div class="nav-backdrop" id="navBackdrop"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="eliGold" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#7a5a10"/><stop offset="30%" stop-color="#c9a84c"/>
+<stop offset="60%" stop-color="#8b6914"/><stop offset="100%" stop-color="#a8801f"/>
+</linearGradient></defs></svg>
+<aside class="eliee-drawer" id="elieeDrawer" role="dialog" aria-modal="true" aria-label="ELIEE navigation">
+<button class="eliee-drawer-close" id="elieeDrawerClose" aria-label="Close menu">
+<svg class="close-ring" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="19.3" stroke="url(#eliGold)" stroke-width="2.5"/></svg>
+<span class="close-x">&times;</span>
+</button>
+<div class="eliee-drawer-inner">
+<span class="eliee-drawer-eyebrow">empowerHER Legacy</span>
+<div class="eliee-drawer-list">
+<a href="index.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M3.5 10L11 4L18.5 10" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 8.5V17.5H16.5V8.5" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 17.5V12.5H13.5V17.5" stroke="url(#eliGold)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Home</span><span class="eliee-drawer-sub">The empowerHER Legacy Institute homepage.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="about.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="8" r="3.3" stroke="url(#eliGold)" stroke-width="2"/><path d="M4.5 18C5.3 14.3 7.8 12.3 11 12.3C14.2 12.3 16.7 14.3 17.5 18" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">About</span><span class="eliee-drawer-sub">Who ELIEE is and the woman it was built for.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="our-foundation.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M3 8L11 3L19 8" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 8H19" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round"/><path d="M5 8V16M8.5 8V16M13.5 8V16M17 8V16" stroke="url(#eliGold)" stroke-width="1.8" stroke-linecap="round"/><path d="M3 18H19" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Our Foundation</span><span class="eliee-drawer-sub">The institute, its convictions and how it is built.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="programs.html" class="eliee-drawer-item active"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M4 17.5V6.5A1.5 1.5 0 0 1 5.5 5H16.5A1.5 1.5 0 0 1 18 6.5V17.5" stroke="url(#eliGold)" stroke-width="2" stroke-linejoin="round"/><path d="M7 9H15M7 12.5H12.5" stroke="url(#eliGold)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">The PMFRL Methodology&trade;</span><span class="eliee-drawer-sub">Turning vision into structured, sustainable execution.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="ERA.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M4 14a7 7 0 0 1 14 0" stroke="url(#eliGold)" stroke-width="2"/><path d="M11 14L14.5 9" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="14" r="1.3" fill="#8b6914"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Entrepreneurship Readiness Assessment&trade; (ERA)</span><span class="eliee-drawer-sub">Discover your Builder Profile&trade; before you begin.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="enrollment.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M11 4L19 8L11 12L3 8L11 4Z" stroke="url(#eliGold)" stroke-width="2" stroke-linejoin="round"/><path d="M6 10V15C6 15 8 17.5 11 17.5C14 17.5 16 15 16 15V10" stroke="url(#eliGold)" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Enrollment</span><span class="eliee-drawer-sub">Enroll in the methodology and start building.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="research-ideas.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><circle cx="9.5" cy="9.5" r="5" stroke="url(#eliGold)" stroke-width="2"/><path d="M13.3 13.3L18 18" stroke="url(#eliGold)" stroke-width="2" stroke-linecap="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Research &amp; Ideas</span><span class="eliee-drawer-sub">The intellectual home of the institute.</span></span></a>
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="contact.html" class="eliee-drawer-item"><span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><rect x="3.5" y="5.5" width="15" height="11" rx="1.5" stroke="url(#eliGold)" stroke-width="2"/><path d="M4 6.5L11 11.5L18 6.5" stroke="url(#eliGold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="eliee-drawer-text"><span class="eliee-drawer-label">Contact</span><span class="eliee-drawer-sub">Tell us where you are and where you are going.</span></span></a>
+</div>
+<div class="eliee-drawer-footer">
+<div class="eliee-drawer-divider"><span></span><span></span></div>
+<a href="hope-anxiety/index.html" class="eliee-drawer-item">
+<span class="eliee-drawer-icon"><svg viewBox="0 0 22 22" fill="none"><path d="M11 18C11 18 4 13.8 4 9.3A3.8 3.8 0 0 1 11 7.2A3.8 3.8 0 0 1 18 9.3C18 13.8 11 18 11 18Z" stroke="url(#eliGold)" stroke-width="2" stroke-linejoin="round"/></svg></span>
+<span class="eliee-drawer-text"><span class="eliee-drawer-label">Hope Anxiety&trade;</span>
+<span class="eliee-drawer-sub">Go to the Hope Anxiety&trade; portal, the framework and body of work developed through the institute.</span></span>
+</a>
+</div>
+</div>
+</aside>
+
+<div id="ttSwitch"><span>LABELS</span>
+<button data-tt="tt-a" class="on">Black</button>
+<button data-tt="tt-b">Gold traced</button>
+<button data-tt="tt-c">Eyebrow only</button>
+</div>
 
 <script>
-  const navBurger = document.getElementById('navBurger');
-  const navLinksMobile = document.getElementById('navLinksMobile');
-  navBurger.addEventListener('click', function() {
-    const isOpen = navLinksMobile.classList.toggle('open');
-    navBurger.classList.toggle('open', isOpen);
-    navBurger.setAttribute('aria-expanded', isOpen);
+(function(){
+  var btn=document.getElementById('navBurger');
+  var drawer=document.getElementById('elieeDrawer');
+  var backdrop=document.getElementById('navBackdrop');
+  var closeBtn=document.getElementById('elieeDrawerClose');
+  if(!btn||!drawer||!backdrop||!closeBtn) return;
+  function open(){ drawer.classList.add('active'); backdrop.classList.add('active');
+    btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+  function close(){ drawer.classList.remove('active'); backdrop.classList.remove('active');
+    btn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  btn.addEventListener('click',function(){ drawer.classList.contains('active')?close():open(); });
+  closeBtn.addEventListener('click',close);
+  backdrop.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',close); });
+
+  document.body.classList.add('tt-a');
+  var sw=document.getElementById('ttSwitch');
+  sw.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    document.body.classList.remove('tt-a','tt-b','tt-c');
+    document.body.classList.add(b.dataset.tt);
+    sw.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
   });
-  navLinksMobile.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinksMobile.classList.remove('open');
-      navBurger.classList.remove('open');
-      navBurger.setAttribute('aria-expanded', 'false');
-    });
-  });
+})();
 </script>
 
 </body>
