@@ -1244,7 +1244,6 @@ updateControls();
   var cta     = document.getElementById('coverCta');
   if(!front || !back) return;
 
-  var TOTAL = pages.length;
   var view  = 'front';          /* 'front' | 'interior' | 'back' */
   var busy  = false;
 
@@ -1298,7 +1297,7 @@ updateControls();
     document.body.classList.toggle('on-cover', view!=='interior');
     prevBtn.disabled = (view==='front');
     nextBtn.disabled = (view==='back');
-    counter.textContent = (view==='interior') ? (currentPage+1)+' of '+TOTAL : '';
+    counter.textContent = (view==='interior') ? (currentPage+1)+' of '+pages.length : '';
     var dots = document.querySelectorAll('.dot');
     for(var i=0;i<dots.length;i++){
       dots[i].classList.toggle('active', view==='interior' && i===currentPage);
@@ -1344,7 +1343,7 @@ updateControls();
     if(view === 'front'){ if(dir > 0) openFront(); return; }
     if(view === 'back'){  if(dir < 0) closeBack(); return; }
     if(dir < 0 && currentPage === 0)         { closeFront(); return; }
-    if(dir > 0 && currentPage === TOTAL - 1) { openBack();   return; }
+    if(dir > 0 && currentPage === pages.length - 1) { openBack();   return; }
     origGoToPage(currentPage + dir);
   };
 
@@ -1410,7 +1409,88 @@ updateControls();
   window.addEventListener('load', fit);
   window.addEventListener('resize', schedule);
   window.addEventListener('orientationchange', schedule);
+  window.__fitPages = fit;
   fit();
+})();
+</script>
+<script>
+/* Reflow: two definitions on one narrow page forced the volume to grow
+   very tall. On phones the book carries one term per page instead, which
+   keeps book-like proportions with nothing hidden.
+   Rebuilds content only — the cover/page navigation is untouched. */
+(function(){
+  var container = document.getElementById('pagesContainer');
+  var pagination = document.getElementById('pagination');
+  if(!container || typeof terms === 'undefined') return;
+
+  var current = null;
+
+  function perPage(){ return window.innerWidth <= 768 ? 1 : 2; }
+
+  function label(a, b, total){
+    return (a === b) ? ('Term ' + a + ' of ' + total)
+                     : ('Terms ' + a + '\u2013' + b + ' of ' + total);
+  }
+
+  function rebuild(per){
+    var keepTerm = 0;
+    if(current) keepTerm = currentPage * current;      /* stay near the same term */
+
+    pages.length = 0;
+    for(var i = 0; i < terms.length; i += per){
+      pages.push(terms.slice(i, i + per));
+    }
+
+    container.innerHTML = '';
+    pages.forEach(function(pageTerms, idx){
+      var el = document.createElement('div');
+      el.className = 'page';
+      el.id = 'page-' + idx;
+      var a = idx * per + 1;
+      var b = Math.min(a + per - 1, terms.length);
+      el.innerHTML =
+        '<div class="page-header">' +
+          '<span class="page-header-title">Hope Anxiety\u2122 \u00b7 Glossary</span>' +
+          '<span class="page-num">' + label(a, b, terms.length) + '</span>' +
+        '</div>' +
+        pageTerms.map(function(t){
+          return '<div class="term-entry">' +
+                   '<div class="term-name">' + t.name + '</div>' +
+                   '<div class="term-def">' + t.def + '</div>' +
+                 '</div>';
+        }).join('') +
+        '<div class="page-footer">' +
+          '<span class="footer-ornament">\u2726</span>' +
+          '<span class="footer-brand">Hope Anxiety\u2122</span>' +
+          '<span class="footer-ornament">\u2726</span>' +
+        '</div>';
+      container.appendChild(el);
+    });
+
+    pagination.innerHTML = '';
+    pages.forEach(function(_, idx){
+      var dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.setAttribute('aria-label', 'Page ' + (idx + 1));
+      dot.onclick = function(){ goToPage(idx); };
+      pagination.appendChild(dot);
+    });
+
+    currentPage = Math.min(Math.floor(keepTerm / per), pages.length - 1);
+    if(currentPage < 0) currentPage = 0;
+    document.getElementById('page-' + currentPage).classList.add('active');
+
+    current = per;
+    updateControls();
+    if(window.__fitPages) window.__fitPages();
+  }
+
+  function check(){ var p = perPage(); if(p !== current) rebuild(p); }
+
+  var t;
+  window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(check, 160); });
+  window.addEventListener('orientationchange', function(){ clearTimeout(t); t = setTimeout(check, 160); });
+  check();
 })();
 </script>
 </body>
