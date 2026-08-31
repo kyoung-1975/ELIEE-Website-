@@ -92,7 +92,7 @@
       position: relative;
       min-height: 78vh;
       min-height: max(78vh, 480px);
-      padding-top: 96px;
+      padding-top: var(--nav-h);
       overflow: hidden;
       display: flex; align-items: flex-end;
     }
@@ -419,6 +419,12 @@
     .eliee-drawer-eyebrow .her{
       background:linear-gradient(100deg,#6d4f0d,#b8860b 22%,#e0ac3f 45%,#c9a84c 62%,#8b6914 85%,#6d4f0d);
       -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+      /* laptop and up: give the band the photo's own shape so the desk is not cropped away */
+    @media (min-width: 1025px) {
+      .foundation-hero { min-height: 0; display: block; }
+      .foundation-hero-bg { position: relative; inset: auto; width: 100%; aspect-ratio: 1536 / 1024; }
+      .foundation-hero-overlay { inset: var(--nav-h) 0 0 0; }
+    }
   </style>
 </head>
 <body>
