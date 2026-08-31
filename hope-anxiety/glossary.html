@@ -537,130 +537,169 @@ body{padding:124px 20px 40px !important}
 }
 
 /* ═══════════════════════════════════════════════════════════
-   BOUND VOLUME — front cover, back cover, foil detailing.
-   Additive only: no existing glossary rule is modified.
+   BOUND VOLUME — material pass. Visual only.
+   No navigation, markup or script behaviour depends on anything here.
    ═══════════════════════════════════════════════════════════ */
 
-/* Own perspective so the hinge doesn't depend on .book-scene
-   (.book carries a filter, which can flatten inherited 3D). */
 .book{perspective:1900px;}
 
 /* Ambient shadow so the volume separates from the background */
 .book-scene{position:relative;}
 .book-scene:before{
   content:""; position:absolute; z-index:-1;
-  left:4%; right:4%; top:6%; bottom:-4%;
-  background:radial-gradient(60% 50% at 50% 60%, rgba(0,0,0,.85), transparent 72%);
-  filter:blur(26px); pointer-events:none;
+  left:3%; right:3%; top:5%; bottom:-5%;
+  background:radial-gradient(60% 52% at 50% 60%, rgba(0,0,0,.9), transparent 72%);
+  filter:blur(30px); pointer-events:none;
 }
 
-/* Counter hides on either cover; PREV/NEXT stay live */
 body.on-cover .page-counter{visibility:hidden;}
-/* On the closed front cover the volume speaks for itself: the page title
-   would duplicate the foil stamping, and the only move is to open it.
-   (These carry fadeUp/fadeDown animations, which beat plain declarations.) */
 body.on-front .book-title,
 body.on-front .controls{animation:none !important; opacity:0 !important; pointer-events:none;}
 .book-title,.controls{transition:opacity .5s ease .35s;}
 
-/* ── Shared hardcover construction ───────────────────────── */
-.hard-cover{position:absolute; inset:0; border-radius:3px 6px 6px 3px;}
+/* ── Hardcover board, with a raised perimeter lip ─────────── */
+.hard-cover{position:absolute; inset:0; border-radius:3px 7px 7px 3px;}
+.hard-cover:after{
+  content:""; position:absolute; inset:0; z-index:5; pointer-events:none;
+  border-radius:3px 7px 7px 3px;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255,244,214,.13),      /* light catches the top lip  */
+    inset -1.5px 0 0 rgba(255,244,214,.09),     /* and the fore-edge          */
+    inset 0 -2px 0 rgba(0,0,0,.95),             /* underside falls away       */
+    inset 2px 0 0 rgba(0,0,0,.8),
+    inset 0 0 0 1px rgba(0,0,0,.55);
+}
 
+/* ── Leather: lit grain, not a gradient ──────────────────────
+   feDiffuseLighting over feTurbulence renders an actually bumpy
+   surface with its own highlights and shadows, which is what
+   makes it read as hide rather than noise laid over black.     */
 .leather-face{
   position:absolute; inset:0;
-  border-radius:3px 6px 6px 3px;
+  border-radius:3px 7px 7px 3px;
   overflow:hidden;
   background:
-    /* fine grain */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23a)' opacity='0.42'/%3E%3C/svg%3E"),
-    /* coarse pebbling */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.26' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23b)' opacity='0.30'/%3E%3C/svg%3E"),
-    /* light falling across a slightly padded board */
-    radial-gradient(150% 120% at 32% 16%, rgba(96,92,88,.34), transparent 58%),
-    radial-gradient(120% 100% at 78% 92%, rgba(0,0,0,.55), transparent 60%),
-    linear-gradient(152deg,#101010 0%,#0a0a0a 42%,#060606 72%,#0d0d0d 100%);
-  background-blend-mode:overlay, soft-light, screen, multiply, normal;
+    /* fine lit grain */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' seed='7'/%3E%3CfeDiffuseLighting lighting-color='%239a9a9a' surfaceScale='2.4'%3E%3CfeDistantLight azimuth='135' elevation='58'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23a)'/%3E%3C/svg%3E"),
+    /* coarser pebbling, softer light */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='3' seed='3'/%3E%3CfeDiffuseLighting lighting-color='%23808080' surfaceScale='3.2'%3E%3CfeDistantLight azimuth='128' elevation='50'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23b)'/%3E%3C/svg%3E"),
+    /* broad tonal drift across the hide */
+    radial-gradient(90% 70% at 22% 12%, rgba(122,118,112,.20), transparent 55%),
+    radial-gradient(70% 60% at 82% 88%, rgba(0,0,0,.6), transparent 62%),
+    linear-gradient(152deg,#111 0%,#0a0a0a 40%,#050505 72%,#0e0e0e 100%);
+  background-size:260px 260px, 420px 420px, auto, auto, auto;
+  background-blend-mode:soft-light, overlay, screen, multiply, normal;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.11),
-    inset 0 -1px 0 rgba(255,255,255,.05),
-    inset -26px 0 46px rgba(0,0,0,.55),
-    inset 0 -30px 46px rgba(0,0,0,.45);
+    inset -30px 0 52px rgba(0,0,0,.55),
+    inset 0 -34px 50px rgba(0,0,0,.45);
 }
-/* sheen */
+/* micro-highlights riding the raised grain */
+.leather-face:before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' seed='11'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23c)' opacity='0.5'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay; opacity:.30;
+}
 .leather-face:after{
   content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(118deg, rgba(255,255,255,.07) 0%, transparent 26%, transparent 66%, rgba(255,255,255,.035) 100%);
+  background:linear-gradient(118deg, rgba(255,255,255,.075) 0%, transparent 24%, transparent 64%, rgba(255,255,255,.04) 100%);
 }
 
-/* ── Spine with raised bands ─────────────────────────────── */
+/* ── Spine: raised leather ridges with traditional gold rules ── */
 .cover-spine{
-  position:absolute; left:0; top:0; bottom:0; width:44px; z-index:2;
+  position:absolute; left:0; top:0; bottom:0; width:46px; z-index:2;
   background:
     linear-gradient(90deg,
-      rgba(0,0,0,.92) 0%,
-      rgba(255,255,255,.075) 26%,
-      rgba(0,0,0,.20) 52%,
-      rgba(0,0,0,.55) 78%,
-      rgba(0,0,0,.88) 100%);
-  border-right:1px solid rgba(0,0,0,.75);
+      rgba(0,0,0,.95) 0%,
+      rgba(255,255,255,.09) 22%,
+      rgba(255,255,255,.03) 44%,
+      rgba(0,0,0,.42) 68%,
+      rgba(0,0,0,.92) 100%);
+  border-right:1px solid rgba(0,0,0,.85);
 }
 .cover-spine i{
-  position:absolute; left:0; right:0; height:15px; display:block;
-  background:linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(255,255,255,.13) 42%, rgba(255,255,255,.04) 62%, rgba(0,0,0,.85) 100%);
-  box-shadow:0 1px 0 rgba(201,168,76,.20), 0 -1px 0 rgba(201,168,76,.12);
+  position:absolute; left:0; right:0; height:22px; display:block;
+  background:linear-gradient(180deg,
+    rgba(0,0,0,.92) 0%,
+    rgba(255,255,255,.14) 30%,
+    rgba(255,255,255,.05) 52%,
+    rgba(0,0,0,.55) 78%,
+    rgba(0,0,0,.95) 100%);
+  box-shadow:0 3px 5px rgba(0,0,0,.7), 0 -2px 4px rgba(0,0,0,.5);
 }
-.cover-spine i:nth-child(1){top:16%}
-.cover-spine i:nth-child(2){top:36%}
-.cover-spine i:nth-child(3){top:56%}
-.cover-spine i:nth-child(4){top:76%}
+/* gold rule flanking each raised band */
+.cover-spine i:before,
+.cover-spine i:after{
+  content:""; position:absolute; left:5px; right:5px; height:1px;
+  background:linear-gradient(90deg, rgba(120,88,24,0), #d8b45c 30%, #fff0c4 50%, #d8b45c 70%, rgba(120,88,24,0));
+  opacity:.75;
+}
+.cover-spine i:before{top:-2px;}
+.cover-spine i:after{bottom:-2px;}
+.cover-spine i:nth-child(1){top:15%}
+.cover-spine i:nth-child(2){top:35%}
+.cover-spine i:nth-child(3){top:55%}
+.cover-spine i:nth-child(4){top:75%}
 
-/* fore-edge catch on the opening side */
 .hard-cover .fore-edge{
-  position:absolute; top:3px; bottom:3px; right:0; width:4px; z-index:2;
-  background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05) 40%, rgba(255,255,255,.12));
-  border-radius:0 4px 4px 0;
+  position:absolute; top:4px; bottom:4px; right:0; width:5px; z-index:2;
+  background:linear-gradient(180deg, rgba(255,244,214,.20), rgba(255,244,214,.06) 42%, rgba(255,244,214,.15));
+  border-radius:0 5px 5px 0;
 }
 
-/* ── Gold foil frame ─────────────────────────────────────── */
-.foil-rule{
-  position:absolute; z-index:3; pointer-events:none; border-style:solid;
-  border-color:#c1a24a;
-}
-.foil-rule.outer{
-  inset:30px 26px 30px 66px; border-width:2px;
-  box-shadow:
-    0 1px 1px rgba(0,0,0,.9),
-    inset 0 1px 0 rgba(255,246,214,.45),
-    inset 0 -1px 0 rgba(0,0,0,.5);
-}
-.foil-rule.inner{
-  inset:39px 35px 39px 75px; border-width:1px;
-  border-color:rgba(201,168,76,.55);
-  box-shadow:0 1px 0 rgba(0,0,0,.75), inset 0 1px 0 rgba(255,246,214,.25);
-}
-/* corner ornaments */
-.foil-corner{
-  position:absolute; z-index:3; width:15px; height:15px; pointer-events:none;
-  border:2px solid #c1a24a;
-  box-shadow:0 1px 1px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,246,214,.4);
-}
-.foil-corner.tl{top:22px; left:58px; border-right:0; border-bottom:0;}
-.foil-corner.tr{top:22px; right:18px; border-left:0; border-bottom:0;}
-.foil-corner.bl{bottom:22px; left:58px; border-right:0; border-top:0;}
-.foil-corner.br{bottom:22px; right:18px; border-left:0; border-top:0;}
-
-/* ── Foil-stamped type ───────────────────────────────────── */
+/* ── Metallic gold: deep warm base, bright specular bands ──── */
 .foil{
-  background:linear-gradient(168deg,#7a5a13 0%,#f4e3ae 22%,#c9a84c 46%,#8d6c1d 60%,#eed69c 78%,#795913 100%);
+  background:linear-gradient(163deg,
+    #4a3208 0%, #8d6716 9%, #d9b45e 20%, #fff3cc 29%,
+    #d4aa4c 38%, #8a6414 50%, #c9a24a 62%,
+    #ffeec2 72%, #cfa445 82%, #7d5a11 92%, #452e07 100%);
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent; color:transparent;
-  filter:drop-shadow(0 1.5px 0 rgba(0,0,0,.92)) drop-shadow(0 -1px 0 rgba(255,255,255,.07)) drop-shadow(0 3px 5px rgba(0,0,0,.5));
+  /* pressed into the hide: dark on the upper edge, warm rim below */
+  filter:
+    drop-shadow(0 -1px 0 rgba(0,0,0,.95))
+    drop-shadow(0 1.5px 0 rgba(255,238,196,.20))
+    drop-shadow(0 3px 6px rgba(0,0,0,.65));
 }
 
+/* ── Bookbinding frame: fine outer rule, weightier inner rule ── */
+.foil-rule{position:absolute; z-index:3; pointer-events:none; border-style:solid;}
+.foil-rule.outer{
+  inset:26px 22px 26px 62px;
+  border-width:1px; border-color:rgba(206,170,84,.72);
+  box-shadow:0 1px 0 rgba(0,0,0,.85), inset 0 1px 0 rgba(255,240,200,.22);
+}
+.foil-rule.inner{
+  inset:38px 34px 38px 74px;
+  border-width:2.5px; border-color:#c9a24a;
+  box-shadow:
+    0 1.5px 2px rgba(0,0,0,.9),
+    inset 0 1px 0 rgba(255,246,214,.55),
+    inset 0 -1px 0 rgba(90,62,10,.85);
+}
+
+/* ornamental corners where the rules meet */
+.foil-corner{
+  position:absolute; z-index:4; width:34px; height:34px; pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cg fill='none' stroke='%23cfa74c' stroke-width='1.5'%3E%3Cpath d='M33 1 L9 1 Q1 1 1 9 L1 33'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e8cf8a' stroke-width='0.8' opacity='0.85'%3E%3Cpath d='M33 6 L11 6 Q6 6 6 11 L6 33'/%3E%3C/g%3E%3Cg fill='%23e8cf8a'%3E%3Cpath d='M6.2 6.2 l3.4 1.2 -1.2 -3.4 -1.2 3.4 -3.4 -1.2 z' opacity='0.95'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.9));
+}
+.foil-corner.tl{top:26px; left:62px;}
+.foil-corner.tr{top:26px; right:22px; transform:scaleX(-1);}
+.foil-corner.bl{bottom:26px; left:62px; transform:scaleY(-1);}
+.foil-corner.br{bottom:26px; right:22px; transform:scale(-1,-1);}
+
+/* ── Flourish: fine rule running out of a central motif ────── */
+.foil-flourish{
+  height:13px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 13' preserveAspectRatio='xMidYMid meet'%3E%3Cg stroke='%23cfa74c' stroke-width='1' fill='none'%3E%3Cpath d='M4 6.5 H92'/%3E%3Cpath d='M128 6.5 H216'/%3E%3C/g%3E%3Cg stroke='%23e8cf8a' stroke-width='0.7' fill='none' opacity='0.8'%3E%3Cpath d='M96 6.5 q6 -5 12 0 q6 5 12 0'/%3E%3C/g%3E%3Cg fill='%23e8cf8a'%3E%3Cpath d='M110 2.4 l2.6 4.1 -2.6 4.1 -2.6 -4.1 z'/%3E%3Ccircle cx='92' cy='6.5' r='1.5'/%3E%3Ccircle cx='128' cy='6.5' r='1.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
+}
+
+/* ── Type block ─────────────────────────────────────────────── */
 .cover-type{
-  position:absolute; z-index:4; left:66px; right:26px; top:0; bottom:0;
+  position:absolute; z-index:4; left:62px; right:22px; top:0; bottom:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:56px 22px 96px; text-align:center;
+  padding:56px 26px 100px; text-align:center;
 }
 .cover-title{
   font-family:'Cinzel',serif; font-weight:400; margin:0;
@@ -668,51 +707,58 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
   text-transform:uppercase;
 }
 .cover-title .of{
-  display:block; font-size:.40em; letter-spacing:.30em;
-  margin:.34em 0 .28em;
-  -webkit-text-fill-color:#b08f3f; color:#b08f3f; background:none;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
+  display:block; font-size:.40em; letter-spacing:.30em; margin:.34em 0 .28em;
+  background:linear-gradient(163deg,#4a3208,#c9a24a 30%,#ffeec2 50%,#c9a24a 70%,#4a3208);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 -1px 0 rgba(0,0,0,.95)) drop-shadow(0 1px 0 rgba(255,238,196,.18));
 }
 .cover-sub{
   font-family:'Cormorant Garamond',serif; font-style:italic; margin:26px 0 0;
   font-size:clamp(17px,2.1vw,25px); letter-spacing:.02em;
 }
+/* small motif under Hope Anxiety™ */
 .foil-ornament{
-  margin:16px auto 0; font-size:11px; letter-spacing:.5em;
-  color:#b08f3f; text-shadow:0 1px 0 rgba(0,0,0,.9);
+  margin:15px auto 0; width:96px; height:11px; font-size:0; line-height:0; color:transparent;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 11'%3E%3Cg stroke='%23cfa74c' stroke-width='0.9' fill='none'%3E%3Cpath d='M2 5.5 H38'/%3E%3Cpath d='M58 5.5 H94'/%3E%3C/g%3E%3Cg fill='%23e8cf8a'%3E%3Cpath d='M48 1.8 l2.4 3.7 -2.4 3.7 -2.4 -3.7 z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
 }
 .cover-imprint{
-  position:absolute; z-index:4; left:66px; right:26px; bottom:52px;
+  position:absolute; z-index:4; left:62px; right:22px; bottom:48px;
   text-align:center;
   font-family:'Cinzel',serif; font-size:clamp(8px,.9vw,10px);
   letter-spacing:.38em; text-transform:uppercase;
-  color:#8f7433; text-shadow:0 1px 0 rgba(0,0,0,.9);
+  background:linear-gradient(163deg,#5a3f0c,#c9a24a 32%,#ffeec2 52%,#b58f37 72%,#5a3f0c);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 -1px 0 rgba(0,0,0,.95)) drop-shadow(0 1px 0 rgba(255,238,196,.16));
+}
+/* the flourish sits immediately above the imprint */
+.cover-imprint:before{
+  content:""; display:block; height:13px; margin:0 auto 15px; max-width:66%;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 13' preserveAspectRatio='xMidYMid meet'%3E%3Cg stroke='%23cfa74c' stroke-width='1' fill='none'%3E%3Cpath d='M4 6.5 H92'/%3E%3Cpath d='M128 6.5 H216'/%3E%3C/g%3E%3Cg stroke='%23e8cf8a' stroke-width='0.7' fill='none' opacity='0.8'%3E%3Cpath d='M96 6.5 q6 -5 12 0 q6 5 12 0'/%3E%3C/g%3E%3Cg fill='%23e8cf8a'%3E%3Cpath d='M110 2.4 l2.6 4.1 -2.6 4.1 -2.6 -4.1 z'/%3E%3Ccircle cx='92' cy='6.5' r='1.5'/%3E%3Ccircle cx='128' cy='6.5' r='1.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
 }
 
-/* ── Front cover: hinged at the spine ────────────────────── */
+/* ── Front cover behaviour (unchanged) ──────────────────────── */
 .front-cover{
   z-index:6; cursor:pointer; outline:none;
   transform-origin:left center; transform-style:preserve-3d;
   transition:transform 840ms cubic-bezier(.34,.02,.24,1), opacity 240ms ease 580ms;
 }
-/* Swings past vertical and fades: the glossary is a single page,
-   not a spread, so a fully flipped board would sit as a dark slab. */
 .front-cover.is-open{transform:rotateY(-116deg); opacity:0; pointer-events:none;}
 .front-cover .cover-face{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden;}
 .front-cover .inner-face{
-  transform:rotateY(180deg); border-radius:6px 3px 3px 6px;
+  transform:rotateY(180deg); border-radius:7px 3px 3px 7px;
   background:linear-gradient(100deg,#141414,#0a0a0a 55%,#101010);
   box-shadow:inset 0 0 0 1px rgba(201,168,76,.12);
 }
 
-/* ── Back cover: sits under the pages, revealed by the last turn ── */
-.back-cover{
-  z-index:3; opacity:0; pointer-events:none;
-  transition:opacity 320ms ease 120ms;
-}
+/* ── Back cover (same construction) ─────────────────────────── */
+.back-cover{z-index:3; opacity:0; pointer-events:none; transition:opacity 320ms ease 120ms;}
 .back-cover.is-visible{opacity:1; pointer-events:auto;}
 .back-type{
-  position:absolute; z-index:4; left:66px; right:26px; top:0; bottom:0;
+  position:absolute; z-index:4; left:62px; right:22px; top:0; bottom:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   padding:60px 30px; text-align:center;
 }
@@ -726,20 +772,24 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
   color:#a89a86; margin:0 0 6px; max-width:30em;
 }
 .back-divider{
-  margin:30px auto 26px; font-size:10px; letter-spacing:.5em;
-  color:#b08f3f; text-shadow:0 1px 0 rgba(0,0,0,.9);
+  margin:32px auto 26px; width:200px; height:13px;
+  font-size:0; line-height:0; color:transparent;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 13'%3E%3Cg stroke='%23cfa74c' stroke-width='1' fill='none'%3E%3Cpath d='M4 6.5 H92'/%3E%3Cpath d='M128 6.5 H216'/%3E%3C/g%3E%3Cg stroke='%23e8cf8a' stroke-width='0.7' fill='none' opacity='0.8'%3E%3Cpath d='M96 6.5 q6 -5 12 0 q6 5 12 0'/%3E%3C/g%3E%3Cg fill='%23e8cf8a'%3E%3Cpath d='M110 2.4 l2.6 4.1 -2.6 4.1 -2.6 -4.1 z'/%3E%3Ccircle cx='92' cy='6.5' r='1.5'/%3E%3Ccircle cx='128' cy='6.5' r='1.5'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.9));
 }
 .back-imprint{
   font-family:'Cinzel',serif; font-size:clamp(8px,.9vw,10px);
   letter-spacing:.38em; text-transform:uppercase;
-  color:#8f7433; text-shadow:0 1px 0 rgba(0,0,0,.9);
+  background:linear-gradient(163deg,#5a3f0c,#c9a24a 32%,#ffeec2 52%,#b58f37 72%,#5a3f0c);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter:drop-shadow(0 -1px 0 rgba(0,0,0,.95)) drop-shadow(0 1px 0 rgba(255,238,196,.16));
 }
 
-/* ── Open prompt ─────────────────────────────────────────── */
+/* ── Open prompt (unchanged) ────────────────────────────────── */
 .cover-cta{
   position:absolute; left:0; right:0; top:100%;
-  margin-top:28px; text-align:center; z-index:7;
-  transition:opacity .35s ease;
+  margin-top:28px; text-align:center; z-index:7; transition:opacity .35s ease;
 }
 body:not(.on-front) .cover-cta{opacity:0; pointer-events:none;}
 .cover-cta button{
@@ -752,19 +802,22 @@ body:not(.on-front) .cover-cta{opacity:0; pointer-events:none;}
 .cover-cta button span{margin-left:8px;}
 
 @media (max-width:768px){
-  /* breathing room so the volume sits in the environment */
   .book-scene{max-width:calc(100vw - 52px); margin:0 auto;}
-  .cover-spine{width:30px;}
-  .foil-rule.outer{inset:18px 14px 18px 44px; border-width:1.5px;}
-  .foil-rule.inner{inset:25px 21px 25px 51px;}
-  .foil-corner{width:11px; height:11px;}
-  .foil-corner.tl,.foil-corner.bl{left:38px;}
-  .foil-corner.tr,.foil-corner.br{right:8px;}
-  .cover-type{left:44px; right:14px; padding:34px 14px 74px;}
-  .cover-imprint{left:44px; right:14px; bottom:32px; letter-spacing:.28em;}
-  .back-type{left:44px; right:14px; padding:40px 18px;}
+  .cover-spine{width:32px;}
+  .cover-spine i{height:16px;}
+  .foil-rule.outer{inset:16px 12px 16px 42px;}
+  .foil-rule.inner{inset:25px 21px 25px 51px; border-width:2px;}
+  .foil-corner{width:22px; height:22px;}
+  .foil-corner.tl,.foil-corner.bl{left:42px;}
+  .foil-corner.tr,.foil-corner.br{right:12px;}
+  .foil-corner.tl,.foil-corner.tr{top:16px;}
+  .foil-corner.bl,.foil-corner.br{bottom:16px;}
+  .cover-type{left:42px; right:12px; padding:34px 14px 78px;}
+  .cover-imprint{left:42px; right:12px; bottom:30px; letter-spacing:.28em;}
+  .cover-imprint:before{max-width:78%; margin-bottom:11px;}
+  .back-type{left:42px; right:12px; padding:40px 18px;}
+  .back-divider{width:150px;}
   .cover-cta{margin-top:20px;}
-  /* keep PREV/NEXT clear of Safari's bottom bar */
   body{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px)) !important;}
   .controls{margin-bottom:env(safe-area-inset-bottom,0px);}
 }
@@ -772,7 +825,6 @@ body:not(.on-front) .cover-cta{opacity:0; pointer-events:none;}
   .front-cover{transition:opacity .3s ease;}
   .front-cover.is-open{transform:none;}
 }
-
 </style>
 </head>
 <body class="on-front on-cover">
