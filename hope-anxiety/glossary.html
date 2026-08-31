@@ -670,15 +670,12 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
    where the foil catches light), and drop-shadow sinks the whole
    impression into the hide.                                      */
 .foil{
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' seed='5'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23f)' opacity='0.4'/%3E%3C/svg%3E"),
-    /* runs across the line so each letter catches the light differently */
-    linear-gradient(102deg,
-      #a8801f 0%, #e0bd6a 6%, #fff8e6 12%, #d3ac55 19%, #b8912f 26%,
-      #edd394 34%, #fff6dd 41%, #d9b45c 49%, #a67c1f 56%,
-      #e8cf8a 64%, #fff8e6 71%, #ddb95f 79%, #c09533 88%, #ecd28f 100%);
-  background-size:200px 200px, auto;
-  background-blend-mode:soft-light, normal;
+  /* Continuous metallic ramp running across the line so letters catch light
+     differently. No texture layer here — that read as wear, not foil. */
+  background-image:linear-gradient(102deg,
+      #b8912f 0%, #e6c47a 8%, #fff8e6 17%, #dcb862 27%, #c49d3f 36%,
+      #f0dda6 45%, #fff8e6 55%, #ddb95f 65%, #c39a37 75%,
+      #f2e0ac 86%, #d3ac55 94%, #b8912f 100%);
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent; color:transparent;
   /* crisp 1px rims read as an impression; blur would only dull the metal */
@@ -731,7 +728,7 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
 /* ── Fleuron: central palmette with leaf scrolls ────────────── */
 .cover-imprint:before,
 .back-divider{
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 22' preserveAspectRatio='xMidYMid meet'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-width='1.15' stroke-linecap='round'%3E%3Cpath d='M6 11 H99'/%3E%3Cpath d='M161 11 H254'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e6c682' stroke-width='1.05' stroke-linecap='round'%3E%3Cpath d='M99 11 C107 11 111 4.6 119 5.6 C125 6.4 127 8.8 129 11'/%3E%3Cpath d='M99 11 C107 11 111 17.4 119 16.4 C125 15.6 127 13.2 129 11'/%3E%3Cpath d='M161 11 C153 11 149 4.6 141 5.6 C135 6.4 133 8.8 131 11'/%3E%3Cpath d='M161 11 C153 11 149 17.4 141 16.4 C135 15.6 133 13.2 131 11'/%3E%3C/g%3E%3Cpath d='M130 2.6 C134 6.6 135 11 130 19.4 C125 11 126 6.6 130 2.6 Z' fill='%23e6c682'/%3E%3Ccircle cx='99' cy='11' r='1.5' fill='%23d9b45c'/%3E%3Ccircle cx='161' cy='11' r='1.5' fill='%23d9b45c'/%3E%3C/svg%3E") no-repeat center/contain;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='xMidYMid meet'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-width='1.15' stroke-linecap='round'%3E%3Cpath d='M2 14 H25'/%3E%3Cpath d='M95 14 H118'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e6c682' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M25 14 C35 14 39 4.6 49 4.6 C55.4 4.6 57.6 9.4 54.4 12 C51.6 14.3 47.9 12.5 49.4 9.9'/%3E%3Cpath d='M25 14 C35 14 39 23.4 49 23.4 C55.4 23.4 57.6 18.6 54.4 16 C51.6 13.7 47.9 15.5 49.4 18.1'/%3E%3Cpath d='M95 14 C85 14 81 4.6 71 4.6 C64.6 4.6 62.4 9.4 65.6 12 C68.4 14.3 72.1 12.5 70.6 9.9'/%3E%3Cpath d='M95 14 C85 14 81 23.4 71 23.4 C64.6 23.4 62.4 18.6 65.6 16 C68.4 13.7 72.1 15.5 70.6 18.1'/%3E%3C/g%3E%3Cpath d='M60 3 C64.4 7.8 65.4 14 60 25 C54.6 14 55.6 7.8 60 3 Z' fill='%23e8cf8a'/%3E%3Cpath d='M60 8.6 V19.4' stroke='%23a8801f' stroke-width='.75'/%3E%3Ccircle cx='25' cy='14' r='1.5' fill='%23d9b45c'/%3E%3Ccircle cx='95' cy='14' r='1.5' fill='%23d9b45c'/%3E%3C/svg%3E") no-repeat center/contain;
   filter:drop-shadow(0 -0.7px 0 rgba(0,0,0,.95)) drop-shadow(0 1.3px 0 rgba(255,243,214,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.55));
 }
 
@@ -761,9 +758,9 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
 }
 /* small fleuron, same vocabulary as the large one */
 .foil-ornament{
-  order:2; margin:22px auto 18px; width:150px; height:13px;
+  order:2; margin:20px auto 16px; width:132px; height:24px;
   font-size:0; line-height:0; color:transparent;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 14'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M4 7 H58'/%3E%3Cpath d='M112 7 H166'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e6c682' stroke-width='.95' stroke-linecap='round'%3E%3Cpath d='M58 7 C64 7 67 3 72 3.6 C76 4.1 77.5 5.6 79 7'/%3E%3Cpath d='M58 7 C64 7 67 11 72 10.4 C76 9.9 77.5 8.4 79 7'/%3E%3Cpath d='M112 7 C106 7 103 3 98 3.6 C94 4.1 92.5 5.6 91 7'/%3E%3Cpath d='M112 7 C106 7 103 11 98 10.4 C94 9.9 92.5 8.4 91 7'/%3E%3C/g%3E%3Cpath d='M85 1.8 C87.6 4.4 88.2 7 85 12.2 C81.8 7 82.4 4.4 85 1.8 Z' fill='%23e6c682'/%3E%3C/svg%3E") no-repeat center/contain;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='xMidYMid meet'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-width='1.15' stroke-linecap='round'%3E%3Cpath d='M2 14 H25'/%3E%3Cpath d='M95 14 H118'/%3E%3C/g%3E%3Cg fill='none' stroke='%23e6c682' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M25 14 C35 14 39 4.6 49 4.6 C55.4 4.6 57.6 9.4 54.4 12 C51.6 14.3 47.9 12.5 49.4 9.9'/%3E%3Cpath d='M25 14 C35 14 39 23.4 49 23.4 C55.4 23.4 57.6 18.6 54.4 16 C51.6 13.7 47.9 15.5 49.4 18.1'/%3E%3Cpath d='M95 14 C85 14 81 4.6 71 4.6 C64.6 4.6 62.4 9.4 65.6 12 C68.4 14.3 72.1 12.5 70.6 9.9'/%3E%3Cpath d='M95 14 C85 14 81 23.4 71 23.4 C64.6 23.4 62.4 18.6 65.6 16 C68.4 13.7 72.1 15.5 70.6 18.1'/%3E%3C/g%3E%3Cpath d='M60 3 C64.4 7.8 65.4 14 60 25 C54.6 14 55.6 7.8 60 3 Z' fill='%23e8cf8a'/%3E%3Cpath d='M60 8.6 V19.4' stroke='%23a8801f' stroke-width='.75'/%3E%3Ccircle cx='25' cy='14' r='1.5' fill='%23d9b45c'/%3E%3Ccircle cx='95' cy='14' r='1.5' fill='%23d9b45c'/%3E%3C/svg%3E") no-repeat center/contain;
   filter:drop-shadow(0 -0.6px 0 rgba(0,0,0,.95)) drop-shadow(0 1.2px 0 rgba(255,243,214,.2));
 }
 .cover-imprint{
@@ -776,7 +773,7 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
   text-shadow:0 -1px 0 rgba(0,0,0,.85), 0 1px 0 rgba(255,243,214,.24);
 }
 .cover-imprint:before{
-  content:""; display:block; height:18px; margin:0 auto 18px; max-width:72%;
+  content:""; display:block; height:26px; margin:0 auto 14px; max-width:150px;
 }
 
 /* ── Front cover behaviour (unchanged) ──────────────────────── */
@@ -814,7 +811,7 @@ body.on-front .controls{animation:none !important; opacity:0 !important; pointer
   color:#9d907e; margin:0 0 6px; max-width:30em;
 }
 .back-divider{
-  margin:32px auto 26px; width:220px; height:18px;
+  margin:30px auto 24px; width:150px; height:26px;
   font-size:0; line-height:0; color:transparent; opacity:.88;
 }
 .back-imprint{
@@ -855,11 +852,11 @@ body:not(.on-front) .cover-cta{opacity:0; pointer-events:none;}
   .foil-corner.tl,.foil-corner.tr{top:16px;}
   .foil-corner.bl,.foil-corner.br{bottom:16px;}
   .cover-type{left:46px; right:12px; padding:34px 14px 82px;}
-  .foil-ornament{width:120px; margin:18px auto 14px;}
+  .foil-ornament{width:108px; height:20px; margin:16px auto 12px;}
   .cover-imprint{left:46px; right:12px; bottom:52px; letter-spacing:.28em;}
-  .cover-imprint:before{max-width:82%; margin-bottom:13px; height:14px;}
+  .cover-imprint:before{max-width:118px; margin-bottom:11px; height:22px;}
   .back-type{left:46px; right:12px; padding:40px 18px;}
-  .back-divider{width:168px;}
+  .back-divider{width:118px; height:22px;}
   .cover-cta{margin-top:20px;}
   body{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px)) !important;}
   /* With one term per page there are 19 dots, which pushed NEXT onto a
