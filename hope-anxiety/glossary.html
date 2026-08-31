@@ -553,6 +553,12 @@ body{padding:124px 20px 40px !important}
 }
 
 body.on-cover .page-counter{visibility:hidden;}
+/* PREV/NEXT hover overlay (.btn::before) paints above the button's own text
+   node, so hovering hid the label — and on touch the hover state sticks.
+   Drop the overlay and swap the button's background instead. */
+.btn::before{content:none !important;}
+.btn:hover:not(:disabled){background:var(--metallic-h);}
+.btn, .btn:hover{color:var(--dark);}
 body.on-front .book-title,
 body.on-front .controls{animation:none !important; opacity:0 !important; pointer-events:none;}
 .book-title,.controls{transition:opacity .5s ease .35s;}
