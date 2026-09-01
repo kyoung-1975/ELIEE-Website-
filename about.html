@@ -439,6 +439,96 @@
     html, body { overflow-x: hidden; overflow-x: clip; }
     .eliee-drawer:not(.active) { visibility: hidden; }
     .eliee-drawer { transition: transform .55s cubic-bezier(.16,.84,.44,1), visibility .55s; }
+  /* ===== HOPE ANXIETY THRESHOLD — departure ===== */
+#ha-veil{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 46%,rgba(8,8,8,.55) 0%,rgba(8,8,8,.94) 70%);
+  transition:opacity 620ms cubic-bezier(.4,0,.2,1);
+}
+#ha-veil.up{opacity:1;}
+#ha-dust{position:fixed;inset:0;z-index:9999;pointer-events:none;}
+body.ha-crossing > *:not(#ha-veil):not(#ha-dust){
+  animation:ha-dissolve 900ms cubic-bezier(.4,0,.2,1) forwards;
+  will-change:opacity,filter,transform;
+}
+@keyframes ha-dissolve{
+  0%{opacity:1;filter:blur(0);transform:scale(1);}
+  100%{opacity:0;filter:blur(9px);transform:scale(.988);}
+}
+@media (prefers-reduced-motion: reduce){
+  body.ha-crossing > *:not(#ha-veil):not(#ha-dust){animation:none;}
+}
+
+    /* ===== unified ELIEE nav: wordmark, one gold button, drawer. Same at every width. ===== */
+    :root{ --nav-h:84px; }
+    nav{ display:flex; align-items:center; padding:0 24px; height:var(--nav-h); gap:14px; }
+    .nav-links{ display:none; }
+    .nav-logo{ display:flex; align-items:center; text-decoration:none; margin-right:auto; }
+    .nav-logo img{ height:64px; width:auto; }
+    .nav-right{ display:flex; align-items:center; }
+    .nav-burger{ display:flex; flex-direction:column; justify-content:center; gap:5px;
+      width:32px; height:32px; background:none; border:none; padding:0; cursor:pointer; flex-shrink:0; }
+    .nav-burger span{ display:block; height:2px; width:100%; background:var(--gold, #c9a84c);
+      transition:transform .25s ease, opacity .25s ease; }
+    @media (max-width:520px){ .nav-logo img{ height:56px; } }
+    /* ===== ELIEE sliding drawer (cream counterpart to the Hope Anxiety portal) ===== */
+    .nav-backdrop{ position:fixed; inset:0; background:rgba(6,5,4,.68); opacity:0; visibility:hidden;
+      transition:opacity .5s ease, visibility .5s ease; z-index:998; }
+    .nav-backdrop.active{ opacity:1; visibility:visible; }
+
+    .eliee-drawer{ position:fixed; top:0; right:0; height:100vh; height:100svh;
+      width:42%; max-width:520px; min-width:340px;
+      background-image:linear-gradient(to bottom,transparent,#8b6914 12%,#c9a84c 50%,#8b6914 88%,transparent),
+        linear-gradient(165deg,#fbf8f2,#f2e9d8 55%,#f6f0e6);
+      background-size:5px 100%, 100% 100%; background-position:left top, left top; background-repeat:no-repeat;
+      box-shadow:-30px 0 70px rgba(0,0,0,.45);
+      transform:translateX(100%); transition:transform .55s cubic-bezier(.16,.84,.44,1);
+      z-index:999; overflow-y:auto; }
+    .eliee-drawer.active{ transform:translateX(0); }
+    @media (max-width:640px){ .eliee-drawer{ width:88%; min-width:0; } }
+
+    .eliee-drawer-close{ position:absolute; top:26px; right:28px; width:42px; height:42px; border-radius:50%;
+      background:rgba(139,105,20,.12); border:none; padding:0; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; transition:background .25s ease, transform .25s ease; }
+    .eliee-drawer-close:hover{ background:rgba(139,105,20,.24); transform:scale(1.08); }
+    .eliee-drawer-close .close-ring{ position:absolute; inset:0; width:100%; height:100%; }
+    .eliee-drawer-close .close-x{ position:relative; z-index:1; font-size:22px; line-height:1; font-weight:400; color:#8b6914; }
+
+    .eliee-drawer-inner{ padding:104px 46px 48px; min-height:100%; display:flex; flex-direction:column; }
+    @media (max-width:640px){ .eliee-drawer-inner{ padding:92px 28px 40px; } }
+
+    .eliee-drawer-eyebrow{ font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600;
+      letter-spacing:.05em; text-transform:none; margin-bottom:30px; display:block; color:#8b6914;
+      line-height:1.35; max-width:300px; }
+    .eliee-drawer-eyebrow .eyebrow-sub{ display:block; font-size:14px; font-style:italic; font-weight:500; letter-spacing:.02em; }
+
+    .eliee-drawer-list{ display:flex; flex-direction:column; }
+    .eliee-drawer-item{ display:flex; align-items:flex-start; gap:16px; padding:16px 0; text-decoration:none; }
+    .eliee-drawer-list .eliee-drawer-item:first-child{ padding-top:0; }
+    .eliee-drawer-icon{ width:22px; height:22px; flex-shrink:0; margin-top:2px; }
+    .eliee-drawer-icon svg{ width:100%; height:100%; display:block; }
+    .eliee-drawer-text{ display:flex; flex-direction:column; gap:3px; }
+    .eliee-drawer-label{ font-family:'Cinzel',serif; font-size:14.5px; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:#1f1610; transition:color .25s ease; }
+    .eliee-drawer-item:hover .eliee-drawer-label,
+    .eliee-drawer-item.active .eliee-drawer-label{ color:#8b6914; }
+    .eliee-drawer-sub{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px;
+      color:#725b43; line-height:1.4; }
+
+    .eliee-drawer-divider{ display:flex; flex-direction:column; gap:5px; }
+    .eliee-drawer-divider span{ display:block; height:2px;
+      background:linear-gradient(to right,#8b6914,#c9a84c 30%,#8b6914 60%,transparent); }
+    .eliee-drawer-footer{ margin-top:auto; padding-top:18px; }
+
+    .eliee-drawer-eyebrow{ color:#1f1610; }
+    .eliee-drawer-eyebrow .her{
+      background:linear-gradient(100deg,#6d4f0d,#b8860b 22%,#e0ac3f 45%,#c9a84c 62%,#8b6914 85%,#6d4f0d);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+      /* the closed drawer is parked 520px off the right edge; without this the page can be
+       scrolled sideways in Safari, which makes centred blocks look off-centre */
+    html, body { overflow-x: hidden; overflow-x: clip; }
+    .eliee-drawer:not(.active) { visibility: hidden; }
+    .eliee-drawer { transition: transform .55s cubic-bezier(.16,.84,.44,1), visibility .55s; }
   </style>
 </head>
 <body>
@@ -768,6 +858,166 @@
   window.addEventListener('orientationchange', fit);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   window.addEventListener('load', fit);
+})();
+</script>
+
+<div id="ha-veil"></div>
+<canvas id="ha-dust"></canvas>
+<script>
+(function(){
+  var TARGET = 'hope-anxiety/index.html';
+  var links  = document.querySelectorAll('a[href="' + TARGET + '"]');
+  if(!links.length) return;
+
+  var veil   = document.getElementById('ha-veil');
+  var canvas = document.getElementById('ha-dust');
+  var ctx    = canvas.getContext('2d');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var going = false;
+
+  var W,H,cx,cy,dpr;
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.width  = innerWidth  * dpr;
+    H = canvas.height = innerHeight * dpr;
+    canvas.style.width  = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    cx = W/2; cy = H*0.46;
+  }
+  size();
+  addEventListener('resize', size);
+
+  /* the tone — synthesized, no audio file to host */
+  function playTone(){
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return;
+      var ac = new AC(), now = ac.currentTime;
+      var filter = ac.createBiquadFilter();
+      filter.type='lowpass';
+      filter.frequency.setValueAtTime(900, now);
+      filter.frequency.linearRampToValueAtTime(1500, now+0.7);
+      filter.Q.value = 0.6;
+      var master = ac.createGain();
+      master.gain.setValueAtTime(0.0001, now);
+      master.gain.exponentialRampToValueAtTime(0.16, now+0.42);
+      master.gain.exponentialRampToValueAtTime(0.09, now+0.95);
+      master.gain.exponentialRampToValueAtTime(0.0001, now+1.9);
+      filter.connect(master); master.connect(ac.destination);
+      [[174.61,0.55,0],[261.63,0.30,-4],[349.23,0.14,5]].forEach(function(v){
+        var o = ac.createOscillator();
+        o.type='sine'; o.frequency.value=v[0]; o.detune.value=v[2];
+        var g = ac.createGain(); g.gain.value=v[1];
+        o.connect(g); g.connect(filter);
+        o.start(now); o.stop(now+2.1);
+      });
+      setTimeout(function(){ try{ac.close();}catch(e){} }, 2400);
+    }catch(e){}
+  }
+
+  var GOLD = [[201,168,76],[226,201,126],[139,105,20],[240,228,190]];
+  var motes = [];
+  function seed(){
+    motes = [];
+    var n = innerWidth < 600 ? 70 : 130;
+    for(var i=0;i<n;i++){
+      var x = Math.random()*W, y = Math.random()*H;
+      motes.push({
+        x:x, y:y,
+        r0: Math.hypot(x-cx, y-cy),
+        a0: Math.atan2(y-cy, x-cx),
+        vx:(Math.random()-0.5)*0.16*dpr,
+        vy:-(0.05+Math.random()*0.16)*dpr,
+        size:(0.5+Math.random()*1.9)*dpr,
+        col: GOLD[(Math.random()*GOLD.length)|0],
+        phase: Math.random()*Math.PI*2,
+        born: 40+Math.random()*260
+      });
+    }
+  }
+
+  var DRIFT=430, SPIRAL=700, BLOOM=300, TOTAL=DRIFT+SPIRAL+BLOOM;
+  function easeOut(t){ return 1-Math.pow(1-t,3); }
+  function easeIn(t){ return t*t*t; }
+
+  function run(t0, done){
+    var t = performance.now() - t0;
+    ctx.clearRect(0,0,W,H);
+
+    motes.forEach(function(m){
+      var x,y,alpha,rad = m.size;
+      if(t < DRIFT){
+        var life = Math.max(0,(t-m.born)/320);
+        alpha = Math.min(1,life)*0.85;
+        m.x += m.vx; m.y += m.vy;
+        x = m.x + Math.sin((t/700)+m.phase)*2.2*dpr;
+        y = m.y;
+      } else if(t < DRIFT+SPIRAL){
+        var p = easeIn((t-DRIFT)/SPIRAL);
+        var r = m.r0*(1-p);
+        var a = m.a0 + p*2.15;
+        x = cx + Math.cos(a)*r;
+        y = cy + Math.sin(a)*r;
+        alpha = 0.85 + p*0.15;
+        rad = m.size*(1+p*0.85);
+      } else {
+        var q = (t-DRIFT-SPIRAL)/BLOOM;
+        x = cx; y = cy;
+        alpha = Math.max(0, 1-q);
+        rad = m.size*1.85;
+      }
+      var c = m.col;
+      var g = ctx.createRadialGradient(x,y,0,x,y,rad*3.4);
+      g.addColorStop(0,'rgba('+c[0]+','+c[1]+','+c[2]+','+alpha+')');
+      g.addColorStop(1,'rgba('+c[0]+','+c[1]+','+c[2]+',0)');
+      ctx.beginPath(); ctx.fillStyle=g;
+      ctx.arc(x,y,rad*3.4,0,Math.PI*2); ctx.fill();
+    });
+
+    if(t > DRIFT + SPIRAL*0.55){
+      var p2 = easeOut(Math.min(1,(t-DRIFT-SPIRAL*0.55)/(SPIRAL*0.45+BLOOM)));
+      var R  = Math.max(W,H)*0.60*p2;
+      var b  = ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+      b.addColorStop(0,   'rgba(255,246,224,'+(0.60*p2)+')');
+      b.addColorStop(0.22,'rgba(226,201,126,'+(0.34*p2)+')');
+      b.addColorStop(0.55,'rgba(201,168,76,'+(0.10*p2)+')');
+      b.addColorStop(1,   'rgba(8,8,8,0)');
+      ctx.fillStyle=b; ctx.fillRect(0,0,W,H);
+    }
+
+    if(t < TOTAL) requestAnimationFrame(function(){ run(t0, done); });
+    else done();
+  }
+
+  function cross(e){
+    if(going) { e.preventDefault(); return; }
+    e.preventDefault();
+    going = true;
+
+    if(reduced){ location.href = TARGET; return; }
+
+    try{ sessionStorage.setItem('ha-threshold','1'); }catch(err){}
+
+    playTone();
+    document.body.classList.add('ha-crossing');
+    veil.classList.add('up');
+    seed();
+
+    // hard fallback: never trap the visitor if rAF stalls
+    var bail = setTimeout(function(){ location.href = TARGET; }, TOTAL + 900);
+
+    try{
+      run(performance.now(), function(){
+        clearTimeout(bail);
+        location.href = TARGET;
+      });
+    }catch(err){
+      clearTimeout(bail);
+      location.href = TARGET;
+    }
+  }
+
+  for(var i=0;i<links.length;i++) links[i].addEventListener('click', cross);
 })();
 </script>
 </body>
