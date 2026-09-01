@@ -488,6 +488,11 @@
       @media (max-width: 768px) {
       .atm-peace { background-position: 24% 25%; }
     }
+      /* the closed drawer is parked 520px off the right edge; without this the page can be
+       scrolled sideways in Safari, which makes centred blocks look off-centre */
+    html, body { overflow-x: hidden; overflow-x: clip; }
+    .eliee-drawer:not(.active) { visibility: hidden; }
+    .eliee-drawer { transition: transform .55s cubic-bezier(.16,.84,.44,1), visibility .55s; }
   </style>
 </head>
 <body>
