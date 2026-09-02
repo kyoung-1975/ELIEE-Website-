@@ -599,23 +599,10 @@ body.ha-crossing > *:not(#ha-veil):not(#ha-dust){
     /* portrait imagery: sit the photo beside the copy on wide screens, and cap card width in the grid */
     @media (min-width:760px){
       .ev-cards.one .ev-card{ flex-direction:row; align-items:stretch; }
-      .ev-cards.one .ev-card-media{ flex:0 0 36%; width:auto; aspect-ratio:4/5; align-self:stretch; min-height:0; }
+      .ev-cards.one .ev-card-media{ flex:0 0 36%; width:auto; aspect-ratio:4/5; align-self:start; min-height:0; }
       .ev-cards.one .ev-card-body{ flex:1; display:flex; flex-direction:column; justify-content:center; }
     }
     .ev-cards.many{ grid-template-columns:repeat(auto-fit,minmax(300px,400px)); justify-content:center; }
-  
-    /* polished gold frame around the card portrait: layered rings read as a bevel,
-       and box-shadow renders identically everywhere (unlike border-image) */
-    .ev-card-media{
-      width:auto; margin: clamp(18px,2.2vw,26px);
-      box-shadow:
-        0 0 0 2px  #6d4f0d,
-        0 0 0 5px  #a8801f,
-        0 0 0 9px  #f2d489,
-        0 0 0 13px #c9a84c,
-        0 0 0 16px #7a5a10,
-        0 12px 34px rgba(0,0,0,.55);
-    }
   </style>
 </head>
 <body>
