@@ -603,6 +603,16 @@ body.ha-crossing > *:not(#ha-veil):not(#ha-dust){
       .ev-cards.one .ev-card-body{ flex:1; display:flex; flex-direction:column; justify-content:center; }
     }
     .ev-cards.many{ grid-template-columns:repeat(auto-fit,minmax(300px,400px)); justify-content:center; }
+  
+    .ev-card-hook{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(17px,1.8vw,21px);
+      line-height:1.5; color:#DDBE84; margin:20px 0 14px; }
+    .ev-card-take{ list-style:none; padding:0; margin:18px 0 0; }
+    .ev-card-take li{ font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:300; line-height:1.6;
+      color:var(--text-light); padding-left:22px; position:relative; margin-bottom:7px; }
+    .ev-card-take li::before{ content:''; position:absolute; left:2px; top:5px; width:6px; height:11px;
+      border-right:1.7px solid #C9A05A; border-bottom:1.7px solid #C9A05A; transform:rotate(45deg); }
+    .ev-card-take-label{ font-family:'Lato',sans-serif; font-size:10.5px; letter-spacing:.18em;
+      text-transform:uppercase; color:#C9A05A; display:block; margin:22px 0 10px; }
   </style>
 </head>
 <body>
@@ -642,7 +652,17 @@ body.ha-crossing > *:not(#ha-veil):not(#ha-dust){
         <h3>Still Called. Still Capable.<br/>Still in the Game.</h3>
         <p class="ev-card-sub">A business workshop for visionary entrepreneurs 40+</p>
         <div class="ev-card-venue"><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 20s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" stroke="url(#evGold)" stroke-width="1.7" stroke-linejoin="round"/><circle cx="11" cy="9" r="2.6" stroke="url(#evGold)" stroke-width="1.5"/></svg><span>Fayetteville Tech Community College<br/>Center for Business &amp; Industry<br/>Fayetteville, North Carolina</span></div>
-        <p class="ev-card-copy">This intimate workshop was created for women 40+ who are ready to build boldly and intentionally &mdash; aligned with their purpose and positioned for impact. Together, we explored strategies, mindset shifts and real-world tools to help you move from vision to legacy.</p>
+        <p class="ev-card-hook">You&rsquo;re not starting late. You&rsquo;re starting right now.</p>
+        <p class="ev-card-copy">You&rsquo;ve lived. You&rsquo;ve led. You&rsquo;ve loved. You may have even lost &mdash; but the vision is still there and the calling is still tugging. This intimate workshop is for women 40+ who are done playing small: seasoned starters, second-act visionaries and purpose-driven professionals ready to build with purpose rather than from overwhelm.</p>
+        <span class="ev-card-take-label">You&rsquo;ll walk away with</span>
+        <ul class="ev-card-take">
+          <li>A tangible business idea</li>
+          <li>A clear vision for your next move</li>
+          <li>A deep sense of alignment</li>
+          <li>A concrete, real-world strategy</li>
+          <li>Renewed confidence and clarity</li>
+        </ul>
+        <p class="ev-card-copy">We&rsquo;re not chasing hustle. We&rsquo;re building legacy.</p>
       </div>
     </article>
 
