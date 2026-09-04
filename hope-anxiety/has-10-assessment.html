@@ -800,6 +800,12 @@ function renderStages(){
       + '<div class="st-corr">Stage One begins in the 9&ndash;16 range.</div></div>';
     return;
   }
+  if(keys.length > 1){
+    const note = document.createElement('p');
+    note.className = 'lead-note';
+    note.innerHTML = 'Your score sits where two stages overlap. Read both &mdash; one of them will describe your days more accurately than the other.';
+    holder.appendChild(note);
+  }
   keys.forEach(k=>{
     const st = STAGES[k];
     const card = document.createElement('div');
@@ -809,13 +815,6 @@ function renderStages(){
       + '<div class="st-corr">' + st.corr + '</div>';
     holder.appendChild(card);
   });
-  if(keys.length > 1){
-    const note = document.createElement('p');
-    note.className = 'lead-note';
-    note.style.marginBottom = '0';
-    note.innerHTML = 'Your score sits where these two stages overlap. Read both &mdash; one of them will describe your days more accurately than the other.';
-    holder.appendChild(note);
-  }
 }
 
 function showResults(){
