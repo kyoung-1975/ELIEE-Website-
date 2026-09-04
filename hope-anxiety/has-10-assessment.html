@@ -161,6 +161,27 @@
   .section-heading .eyebrow{display:block;text-align:center;margin-bottom:12px;}
   .lead-note{color:var(--muted);font-size:0.95rem;text-align:center;max-width:600px;margin:0 auto 32px;}
 
+  .consent{border:3px solid var(--gold-dark);padding:6px;background:var(--cream);margin-top:26px;}
+  .consent label{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--gold);padding:22px 24px;cursor:pointer;}
+  .consent input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:24px;height:24px;border:2px solid var(--gold-dark);background:#FFFFFF;margin-top:2px;cursor:pointer;position:relative;}
+  .consent input[type=checkbox]:checked::after{content:'';position:absolute;left:7px;top:2px;width:6px;height:13px;border:solid var(--gold-dark);border-width:0 3px 3px 0;transform:rotate(45deg);}
+  .consent span{font-size:0.99rem;color:var(--ink);line-height:1.55;}
+
+  .lens-choice{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0 8px;}
+  .lens-card{display:flex;flex-direction:column;text-align:left;background:var(--cream);border:1.5px solid var(--line);padding:26px 26px;transition:all .25s;}
+  .lens-card:hover{border-color:var(--gold-dark);}
+  .lens-card.picked{border:2px solid var(--gold-dark);background:rgba(201,168,76,0.18);box-shadow:0 3px 14px rgba(139,105,20,0.2);}
+  .lens-card .lc-name{font-family:'Cinzel',serif;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:12px;}
+  .lens-card .lc-desc{font-family:'Cormorant Garamond',serif;font-size:1.16rem;color:var(--ink);line-height:1.4;}
+  @media(max-width:620px){ .lens-choice{grid-template-columns:1fr;} }
+
+  .embed-frame{border:3px solid var(--gold-dark);padding:6px;background:var(--cream);}
+  .embed-frame > div{border:1px solid var(--gold);padding:22px 18px;background:var(--paper);min-height:120px;}
+  .embed-missing{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--muted);text-align:center;padding:26px 10px;font-size:1.06rem;}
+  .unlock-fallback{text-align:center;margin-top:22px;}
+  .unlock-fallback button{background:none;border:none;text-decoration:underline;color:var(--muted);font-size:0.86rem;cursor:pointer;}
+  .unlock-fallback button:hover{color:var(--gold-dark);}
+
   .lens-toggle{display:flex;gap:0;max-width:520px;margin:0 auto 26px;border:1px solid var(--line);}
   .lens-toggle button{flex:1;background:transparent;border:none;padding:14px 12px;font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);transition:all .25s;}
   .lens-toggle button + button{border-left:1px solid var(--line);}
@@ -269,30 +290,53 @@
     <p class="disclaimer">There are no right or wrong scores. A lower score does not indicate denial. A higher score does not indicate failure. This scale is intended as a reflective framework to support understanding and healing, not as a diagnostic label.</p>
   </section>
 
-  <!-- ============ INTAKE ============ -->
+  <!-- ============ GATE ============ -->
   <section class="screen" id="screen-intake">
     <span class="eyebrow">Before you begin</span>
-    <h2 style="font-size:1.9rem;font-style:italic;margin:14px 0 26px;">One quiet moment</h2>
+    <h2 style="font-size:1.9rem;font-style:italic;margin:14px 0 22px;">One quiet moment</h2>
+
+    <div class="howto" style="margin-top:0;">
+      <h3>What this is</h3>
+      <ul>
+        <li>Ten statements about how you experience hope. It takes about three minutes.</li>
+        <li>You will see your score and your range as soon as you finish.</li>
+        <li>The HAS-10 is a reflective tool, not a diagnosis.</li>
+      </ul>
+    </div>
+
+    <div class="howto">
+      <h3>About the research</h3>
+      <ul>
+        <li>The HAS-10 is being studied, and your responses contribute to that work.</li>
+        <li>After your score you will be asked a few questions about yourself. Answering them unlocks your full interpretation.</li>
+        <li>Your responses are recorded without your name or email attached.</li>
+        <li>You must be 18 or older to take part.</li>
+      </ul>
+    </div>
+
+    <div class="consent">
+      <label for="f-consent">
+        <input type="checkbox" id="f-consent" onchange="clearGateError()">
+        <span>I am 18 or older, and I agree to my responses being used for research on the Hope Anxiety Scale&trade;.</span>
+      </label>
+    </div>
+
+    <div class="gold-sep" style="margin:34px 0;"></div>
+
     <div class="field">
       <label for="f-name">Your name</label>
       <input type="text" id="f-name" placeholder="First name" autocomplete="given-name">
-      <p class="note">Optional. It is used to personalize your results and to name your download.</p>
+      <p class="note">Optional. It personalizes your result on screen and names your download. It is not recorded with your responses.</p>
     </div>
     <div class="field">
       <label for="f-email">Your email</label>
       <input type="text" id="f-email" placeholder="you@email.com" autocomplete="email" inputmode="email">
-      <p class="note">Optional. If you&rsquo;d like a copy of your result, this fills in the address for you at the end. Nothing you enter here is sent anywhere or stored &mdash; the email is written in your own mail app and you press send.</p>
+      <p class="note">Optional. If you&rsquo;d like a copy, this fills in the address at the end. The email is written in your own mail app and you press send. It is not recorded with your responses.</p>
     </div>
-    <div class="howto" style="margin-top:34px;">
-      <h3>As you answer</h3>
-      <ul>
-        <li>Think about the last two weeks, not your whole life.</li>
-        <li>Answer for how often, not how badly.</li>
-        <li>Your first instinct is usually the honest one.</li>
-      </ul>
-    </div>
+
     <div class="nav-row">
       <button class="btn-ghost" onclick="goTo('landing')">Back</button>
+      <span class="hint" id="gate-error"></span>
       <button class="btn-primary" onclick="startQuiz()">Start the assessment</button>
     </div>
   </section>
@@ -308,6 +352,30 @@
       <button class="btn-ghost" id="btn-back" onclick="prevSection()">Back</button>
       <span class="hint" id="quiz-error"></span>
       <button class="btn-primary" id="btn-next" onclick="nextSection()">Continue</button>
+    </div>
+  </section>
+
+  <!-- ============ LENS CHOICE ============ -->
+  <section class="screen" id="screen-lens">
+    <span class="eyebrow">One last choice</span>
+    <h2 style="font-size:1.9rem;font-style:italic;margin:14px 0 12px;">How would you like your results interpreted?</h2>
+    <p class="section-sub">Both readings describe the same score and the same patterns. Choose the one you would rather read first. You will be able to read the other afterward.</p>
+
+    <div class="lens-choice">
+      <button type="button" class="lens-card" id="pick-standard" onclick="chooseLens('standard')">
+        <span class="lc-name">Standard Interpretation</span>
+        <span class="lc-desc">Focuses on emotional patterns and nervous system responses.</span>
+      </button>
+      <button type="button" class="lens-card" id="pick-faith" onclick="chooseLens('faith')">
+        <span class="lc-name">Faith-Integrated Interpretation</span>
+        <span class="lc-desc">The same reading, with spiritual reflection alongside it.</span>
+      </button>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-ghost" onclick="backToQuiz()">Back</button>
+      <span class="hint" id="lens-error"></span>
+      <button class="btn-primary" onclick="submitLens()">See my score</button>
     </div>
   </section>
 
@@ -329,90 +397,110 @@
       <p class="ladder-caption">Each range reflects a different level of Hope Anxiety activation.</p>
     </div>
 
-    <div class="gold-sep"></div>
-
-    <h2 class="section-heading"><span class="eyebrow">Understanding your score</span></h2>
-    <p class="lead-note">There are two ways to read this result. Both apply to the same score and reflect the same underlying emotional and nervous system patterns.</p>
-
-    <div class="lens-toggle no-print" role="group" aria-label="Choose an interpretation">
-      <button id="lens-standard" class="on" onclick="setLens('standard')">Standard</button>
-      <button id="lens-faith" onclick="setLens('faith')">Faith-Integrated</button>
-    </div>
-
-    <div class="panel" id="lens-panel">
-      <div class="panel-inner">
-        <h3 id="lens-title">Standard Interpretation</h3>
-        <div id="lens-body"></div>
+    <!-- ---- research gate ---- -->
+    <div id="research-block">
+      <div class="gold-sep"></div>
+      <h2 class="section-heading"><span class="eyebrow">A few questions before you read on</span></h2>
+      <p class="lead-note">The HAS-10 is being studied, and these answers are what make that study possible. They are recorded without your name or email. Completing them opens your full interpretation, your stage and your download.</p>
+      <div class="embed-frame">
+        <div id="cognito-embed">
+          <!-- COGNITO_EMBED_CODE_GOES_HERE -->
+          <p class="embed-missing">The research questions will appear here once the Cognito form is connected.</p>
+        </div>
+      </div>
+      <div class="unlock-fallback no-print" id="preview-unlock">
+        <button type="button" onclick="unlockResults()">Preview only &mdash; skip ahead and show the rest of my results</button>
       </div>
     </div>
 
-    <div class="gold-sep"></div>
+    <!-- ---- everything below unlocks after the research block ---- -->
+    <div id="locked" hidden>
 
-    <h2 class="section-heading"><span class="eyebrow">Where this sits in the stages</span></h2>
-    <p class="lead-note">Hope Anxiety moves through three stages. The lower your score, the more freely hope flows &mdash; but hope never completely disappears. Even at the highest stages it is still there, just protected.</p>
-    <div id="stage-holder"></div>
+      <div class="gold-sep"></div>
 
-    <div class="gold-sep"></div>
+      <h2 class="section-heading"><span class="eyebrow">Understanding your score</span></h2>
+      <p class="lead-note">There are two ways to read this result. Both apply to the same score and reflect the same underlying emotional and nervous system patterns.</p>
 
-    <h2 class="section-heading"><span class="eyebrow">What to do with your results</span></h2>
-    <div class="rblock">
-      <ul>
-        <li>Don&rsquo;t panic if you scored high.</li>
-        <li>Don&rsquo;t dismiss it if you scored low.</li>
-        <li>Your score is information.</li>
-        <li>Retake it monthly.</li>
-        <li>Use your score to choose chapters and tools.</li>
-        <li>Share it with your therapist if you have one.</li>
-        <li>Celebrate having language for your lived experience.</li>
-      </ul>
-    </div>
-
-    <div class="gold-sep"></div>
-
-    <h2 class="section-heading"><span class="eyebrow">Your responses</span></h2>
-    <p class="lead-note">A record of what you answered, so you can compare when you retake it.</p>
-    <table class="answer-table">
-      <thead><tr><th>Statement</th><th>Response</th></tr></thead>
-      <tbody id="answer-body"></tbody>
-    </table>
-
-    <p class="closing-line" style="margin-top:38px;">Now you know where you stand. You have a number that validates your fear. You have language for the bracing in your body and the tension in your chest.</p>
-
-    <div class="safety-note">
-      <strong>A note on support.</strong> The HAS-10 is a psychoeducational instrument, not a diagnostic tool, and it is not a substitute for care from a qualified professional. If you are in crisis or thinking about harming yourself, contact your local emergency number, or in the US call or text 988 to reach the Suicide &amp; Crisis Lifeline.
-    </div>
-
-    <div class="gold-sep"></div>
-
-    <h2 class="section-heading"><span class="eyebrow">Where to go next</span></h2>
-    <div class="next-step-grid no-print">
-      <div class="next-step-card">
-        <h4>Read the framework</h4>
-        <p>Explore the ten topics that explain how Hope Anxiety forms, what it does to the body and how it heals.</p>
-        <a href="index.html#topics" class="btn-primary" style="text-decoration:none;display:inline-block;">Explore the topics</a>
+      <div class="lens-toggle no-print" role="group" aria-label="Choose an interpretation">
+        <button id="lens-standard" class="on" onclick="setLens('standard')">Standard</button>
+        <button id="lens-faith" onclick="setLens('faith')">Faith-Integrated</button>
       </div>
-      <div class="next-step-card">
-        <h4>Read the book</h4>
-        <p><em>When Hope Feels Dangerous</em> is the full clinical and spiritual path behind this scale.</p>
-        <a href="the-book.html" class="btn-primary" style="text-decoration:none;display:inline-block;">About the book</a>
-      </div>
-    </div>
 
-    <div class="resources-grid no-print" style="margin-top:44px;padding-top:36px;border-top:1px solid var(--line);">
-      <div class="resource-item">
-        <h4>Download your result</h4>
-        <p>Save a copy of your score, your interpretation and your responses.</p>
-        <button class="btn-ghost" onclick="downloadResult()">Download your result</button>
+      <div class="panel" id="lens-panel">
+        <div class="panel-inner">
+          <h3 id="lens-title">Standard Interpretation</h3>
+          <div id="lens-body"></div>
+        </div>
       </div>
-      <div class="resource-item">
-        <h4>Email your result</h4>
-        <p>Opens your own mail app with your result already written in, so you can send it wherever you like.</p>
-        <button class="btn-ghost" onclick="emailResult()">Email your result</button>
+
+      <div class="gold-sep"></div>
+
+      <h2 class="section-heading"><span class="eyebrow">Where this sits in the stages</span></h2>
+      <p class="lead-note">Hope Anxiety moves through three stages. The lower your score, the more freely hope flows &mdash; but hope never completely disappears. Even at the highest stages it is still there, just protected.</p>
+      <div id="stage-holder"></div>
+
+      <div class="gold-sep"></div>
+
+      <h2 class="section-heading"><span class="eyebrow">What to do with your results</span></h2>
+      <div class="rblock">
+        <ul>
+          <li>Don&rsquo;t panic if you scored high.</li>
+          <li>Don&rsquo;t dismiss it if you scored low.</li>
+          <li>Your score is information.</li>
+          <li>Retake it monthly.</li>
+          <li>Use your score to choose chapters and tools.</li>
+          <li>Share it with your therapist if you have one.</li>
+          <li>Celebrate having language for your lived experience.</li>
+        </ul>
       </div>
-      <div class="resource-item">
-        <h4>Retake the HAS-10</h4>
-        <p>Retake it monthly to track how your relationship with hope is changing.</p>
-        <button class="btn-ghost" onclick="restart()">Retake the HAS-10</button>
+
+      <div class="gold-sep"></div>
+
+      <h2 class="section-heading"><span class="eyebrow">Your responses</span></h2>
+      <p class="lead-note">A record of what you answered, so you can compare when you retake it.</p>
+      <table class="answer-table">
+        <thead><tr><th>Statement</th><th>Response</th></tr></thead>
+        <tbody id="answer-body"></tbody>
+      </table>
+
+      <p class="closing-line" style="margin-top:38px;">Now you know where you stand. You have a number that validates your fear. You have language for the bracing in your body and the tension in your chest.</p>
+
+      <div class="safety-note">
+        <strong>A note on support.</strong> The HAS-10 is a psychoeducational instrument, not a diagnostic tool, and it is not a substitute for care from a qualified professional. If you are in crisis or thinking about harming yourself, contact your local emergency number, or in the US call or text 988 to reach the Suicide &amp; Crisis Lifeline.
+      </div>
+
+      <div class="gold-sep"></div>
+
+      <h2 class="section-heading"><span class="eyebrow">Where to go next</span></h2>
+      <div class="next-step-grid no-print">
+        <div class="next-step-card">
+          <h4>Read the framework</h4>
+          <p>Explore the ten topics that explain how Hope Anxiety forms, what it does to the body and how it heals.</p>
+          <a href="index.html#topics" class="btn-primary" style="text-decoration:none;display:inline-block;">Explore the topics</a>
+        </div>
+        <div class="next-step-card">
+          <h4>Read the book</h4>
+          <p><em>When Hope Feels Dangerous</em> is the full clinical and spiritual path behind this scale.</p>
+          <a href="the-book.html" class="btn-primary" style="text-decoration:none;display:inline-block;">About the book</a>
+        </div>
+      </div>
+
+      <div class="resources-grid no-print" style="margin-top:44px;padding-top:36px;border-top:1px solid var(--line);">
+        <div class="resource-item">
+          <h4>Download your result</h4>
+          <p>Save a copy of your score, your interpretation and your responses.</p>
+          <button class="btn-ghost" onclick="downloadResult()">Download your result</button>
+        </div>
+        <div class="resource-item">
+          <h4>Email your result</h4>
+          <p>Opens your own mail app with your result already written in, so you can send it wherever you like.</p>
+          <button class="btn-ghost" onclick="emailResult()">Email your result</button>
+        </div>
+        <div class="resource-item">
+          <h4>Retake the HAS-10</h4>
+          <p>Retake it monthly to track how your relationship with hope is changing.</p>
+          <button class="btn-ghost" onclick="restart()">Retake the HAS-10</button>
+        </div>
       </div>
     </div>
   </section>
@@ -436,9 +524,9 @@ const SCALE = [
   {v:1, label:'Rarely'},
   {v:2, label:'Sometimes'},
   {v:3, label:'Often'},
-  {v:4, label:'Always or<br>almost always'}
+  {v:4, label:'Always or<br>Almost Always'}
 ];
-const SCALE_PLAIN = ['Never','Rarely','Sometimes','Often','Always or almost always'];
+const SCALE_PLAIN = ['Never','Rarely','Sometimes','Often','Always or Almost Always'];
 
 const QUESTIONS = [
   'When something good happens, I feel anxious.',
@@ -548,21 +636,48 @@ const STAGES = {
   }
 };
 
+// Exact Cognito internal field names (from the export header row)
+const CF = {
+  q: [
+    '_1WhenSomethingGoodHappensIFeelAnxious',
+    '_2IDownplayOrMinimizeGoodNewsWhenItHappens',
+    '_3WhenLifeIsGoingWellIBraceForSomethingToGoWrong',
+    '_4IAvoidGettingExcitedAboutFutureOpportunities',
+    '_5WhenLifeIsGoingWellIStruggleToTrustItWillLast',
+    '_6IHaveTroubleEnjoyingGoodMoments',
+    'IAvoidThinkingAboutWhatIWantForMyself',
+    '_8PastDisappointmentsMakeMeAfraidToHopeForGoodThings',
+    '_9IPullBackFromGoodThingsWhenIWorryTheyWontLast',
+    '_10WhenImLookingForwardToSomethingIFeelMoreNervousThanExcited'
+  ],
+  lens: 'HowWouldYouLikeYourResultsInterpreted'
+};
+// Exact option text stored by Cognito
+const CF_LENS = { standard:'Standard Interpretation', faith:'Faith-Integrated Interpretation' };
+
 let answers = new Array(10).fill(undefined);
 let currentPart = 0;
 let userName = '';
 let userEmail = '';
 let currentLens = 'standard';
+let chosenLens = null;   // the FIRST choice — this is what gets recorded
 let finalBand = null;
+let unlocked = false;
 
 function goTo(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
-  window.scrollTo({top:0,behavior:'instant' in window ? 'auto' : 'auto'});
+  window.scrollTo({top:0});
 }
 
+function clearGateError(){ document.getElementById('gate-error').textContent = ''; }
+
 function startQuiz(){
-  userName = document.getElementById('f-name').value.trim();
+  if(!document.getElementById('f-consent').checked){
+    document.getElementById('gate-error').textContent = 'Please confirm you are 18 or older to continue.';
+    return;
+  }
+  userName  = document.getElementById('f-name').value.trim();
   userEmail = document.getElementById('f-email').value.trim();
   currentPart = 0;
   goTo('quiz');
@@ -574,14 +689,9 @@ function renderPart(){
   document.getElementById('section-title').textContent = part.title;
   document.getElementById('section-sub').textContent = part.sub;
   document.getElementById('progress-text').textContent = 'Part ' + (currentPart+1) + ' of ' + PARTS.length;
-
-  const answered = answers.filter(a=>a!==undefined).length;
-  const pct = Math.round(answered/QUESTIONS.length*100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-pct').textContent = pct + '%';
-
+  updateProgress();
   document.getElementById('btn-back').textContent = currentPart === 0 ? 'Back' : 'Previous';
-  document.getElementById('btn-next').textContent = currentPart === PARTS.length-1 ? 'See my result' : 'Continue';
+  document.getElementById('btn-next').textContent = currentPart === PARTS.length-1 ? 'Continue' : 'Continue';
   document.getElementById('quiz-error').textContent = '';
 
   const list = document.getElementById('question-list');
@@ -603,17 +713,20 @@ function renderPart(){
   window.scrollTo({top:0});
 }
 
-function pick(idx, val, el){
-  answers[idx] = val;
-  const parent = el.parentElement;
-  parent.querySelectorAll('label').forEach(l=>l.classList.remove('picked'));
-  el.classList.add('picked');
-  const input = el.querySelector('input');
-  if(input) input.checked = true;
+function updateProgress(){
   const answered = answers.filter(a=>a!==undefined).length;
   const pct = Math.round(answered/QUESTIONS.length*100);
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-pct').textContent = pct + '%';
+}
+
+function pick(idx, val, el){
+  answers[idx] = val;
+  el.parentElement.querySelectorAll('label').forEach(l=>l.classList.remove('picked'));
+  el.classList.add('picked');
+  const input = el.querySelector('input');
+  if(input) input.checked = true;
+  updateProgress();
   document.getElementById('quiz-error').textContent = '';
 }
 
@@ -634,7 +747,7 @@ function nextSection(){
     currentPart++;
     renderPart();
   } else {
-    showResults();
+    goTo('lens');
   }
 }
 
@@ -644,17 +757,68 @@ function prevSection(){
   renderPart();
 }
 
-function bandFor(score){
-  return BANDS.find(b => score >= b.min && score <= b.max);
+function backToQuiz(){
+  currentPart = PARTS.length - 1;
+  goTo('quiz');
+  renderPart();
 }
+
+function chooseLens(which){
+  chosenLens = which;
+  document.getElementById('pick-standard').classList.toggle('picked', which === 'standard');
+  document.getElementById('pick-faith').classList.toggle('picked', which === 'faith');
+  document.getElementById('lens-error').textContent = '';
+}
+
+function submitLens(){
+  if(!chosenLens){
+    document.getElementById('lens-error').textContent = 'Please choose one to continue.';
+    return;
+  }
+  showResults();
+}
+
+function bandFor(score){ return BANDS.find(b => score >= b.min && score <= b.max); }
 
 function setLens(which){
   currentLens = which;
   document.getElementById('lens-standard').classList.toggle('on', which === 'standard');
   document.getElementById('lens-faith').classList.toggle('on', which === 'faith');
-  document.getElementById('lens-title').innerHTML = which === 'standard' ? 'Standard Interpretation' : 'Faith-Integrated Interpretation';
+  document.getElementById('lens-title').textContent = which === 'standard' ? 'Standard Interpretation' : 'Faith-Integrated Interpretation';
   const paras = which === 'standard' ? finalBand.standard : finalBand.faith;
   document.getElementById('lens-body').innerHTML = paras.map(p=>'<p>'+p+'</p>').join('');
+}
+
+function renderStages(){
+  const holder = document.getElementById('stage-holder');
+  holder.innerHTML = '';
+  let keys = [];
+  if(finalBand.stage === 's2s3') keys = ['s2','s3'];
+  else if(finalBand.stage) keys = [finalBand.stage];
+
+  if(keys.length === 0){
+    holder.innerHTML = '<div class="stage-card"><div class="st-name">Before the stages</div>'
+      + '<p>Scores in the 0&ndash;8 range sit below the first stage. Hope is accessible and does not reliably activate anxiety, so there is no stage to place you in.</p>'
+      + '<p>This range reflects healthy emotional regulation around hope. The work here is preservation, not intervention &mdash; staying connected to your goals, your relationships and your own anticipation.</p>'
+      + '<div class="st-corr">Stage One begins in the 9&ndash;16 range.</div></div>';
+    return;
+  }
+  keys.forEach(k=>{
+    const st = STAGES[k];
+    const card = document.createElement('div');
+    card.className = 'stage-card';
+    card.innerHTML = '<div class="st-name">' + st.name + '</div>'
+      + st.body.map(p=>'<p>'+p+'</p>').join('')
+      + '<div class="st-corr">' + st.corr + '</div>';
+    holder.appendChild(card);
+  });
+  if(keys.length > 1){
+    const note = document.createElement('p');
+    note.className = 'lead-note';
+    note.style.marginBottom = '0';
+    note.innerHTML = 'Your score sits where these two stages overlap. Read both &mdash; one of them will describe your days more accurately than the other.';
+    holder.appendChild(note);
+  }
 }
 
 function showResults(){
@@ -674,37 +838,9 @@ function showResults(){
     row.appendChild(cell);
   });
 
-  setLens('standard');
-
-  const holder = document.getElementById('stage-holder');
-  holder.innerHTML = '';
-  let keys = [];
-  if(finalBand.stage === 's2s3') keys = ['s2','s3'];
-  else if(finalBand.stage) keys = [finalBand.stage];
-
-  if(keys.length === 0){
-    holder.innerHTML = '<div class="stage-card"><div class="st-name">Before the stages</div>'
-      + '<p>Scores in the 0&ndash;8 range sit below the first stage. Hope is accessible and does not reliably activate anxiety, so there is no stage to place you in.</p>'
-      + '<p>This range reflects healthy emotional regulation around hope. The work here is preservation, not intervention — staying connected to your goals, your relationships and your own anticipation.</p>'
-      + '<div class="st-corr">Stage One begins in the 9&ndash;16 range.</div></div>';
-  } else {
-    keys.forEach(k=>{
-      const st = STAGES[k];
-      const card = document.createElement('div');
-      card.className = 'stage-card';
-      card.innerHTML = '<div class="st-name">' + st.name + '</div>'
-        + st.body.map(p=>'<p>'+p+'</p>').join('')
-        + '<div class="st-corr">' + st.corr + '</div>';
-      holder.appendChild(card);
-    });
-    if(keys.length > 1){
-      const note = document.createElement('p');
-      note.className = 'lead-note';
-      note.style.marginBottom = '0';
-      note.innerHTML = 'Your score sits where these two stages overlap. Read both — one of them will describe your days more accurately than the other.';
-      holder.appendChild(note);
-    }
-  }
+  currentLens = chosenLens || 'standard';
+  setLens(currentLens);
+  renderStages();
 
   const tbody = document.getElementById('answer-body');
   tbody.innerHTML = '';
@@ -715,7 +851,36 @@ function showResults(){
   });
 
   goTo('results');
+  pushToCognito();
 }
+
+/* ---- hand the assessment data to the embedded Cognito form ---- */
+function buildPrefill(){
+  const data = {};
+  CF.q.forEach((name,i)=>{ data[name] = SCALE_PLAIN[answers[i]]; });
+  data[CF.lens] = CF_LENS[chosenLens || 'standard'];
+  return data;
+}
+
+function pushToCognito(){
+  if(typeof Cognito === 'undefined') return;   // embed not present yet
+  try { Cognito.prefill(buildPrefill()); } catch(e){ console.log('prefill failed', e); }
+}
+
+function unlockResults(){
+  if(unlocked) return;
+  unlocked = true;
+  document.getElementById('locked').hidden = false;
+  const rb = document.getElementById('research-block');
+  if(rb) rb.style.display = 'none';
+  document.getElementById('locked').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  if(typeof Cognito !== 'undefined' && Cognito.on){
+    try { Cognito.on('afterSubmit', function(){ unlockResults(); }); } catch(e){ console.log('listener failed', e); }
+  }
+});
 
 function stripTags(html){
   const d = document.createElement('div');
@@ -733,10 +898,7 @@ function buildResultText(){
   L.push('Your range: ' + finalBand.name + ' (' + finalBand.min + '-' + finalBand.max + ')');
   L.push('');
   L.push(currentLens === 'standard' ? 'STANDARD INTERPRETATION' : 'FAITH-INTEGRATED INTERPRETATION');
-  (currentLens === 'standard' ? finalBand.standard : finalBand.faith).forEach(t=>{
-    L.push(stripTags(t));
-    L.push('');
-  });
+  (currentLens === 'standard' ? finalBand.standard : finalBand.faith).forEach(t=>{ L.push(stripTags(t)); L.push(''); });
   let keys = [];
   if(finalBand.stage === 's2s3') keys = ['s2','s3'];
   else if(finalBand.stage) keys = [finalBand.stage];
@@ -759,10 +921,9 @@ function buildResultText(){
 
 function emailResult(){
   const subject = userName ? (userName + ' - HAS-10 result') : 'My HAS-10 result';
-  const href = 'mailto:' + encodeURIComponent(userEmail)
-             + '?subject=' + encodeURIComponent(subject)
-             + '&body=' + encodeURIComponent(buildResultText());
-  window.location.href = href;
+  window.location.href = 'mailto:' + encodeURIComponent(userEmail)
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(buildResultText());
 }
 
 function downloadResult(){
@@ -776,7 +937,14 @@ function downloadResult(){
 function restart(){
   answers = new Array(10).fill(undefined);
   currentPart = 0;
+  chosenLens = null;
   currentLens = 'standard';
+  unlocked = false;
+  document.getElementById('locked').hidden = true;
+  const rb = document.getElementById('research-block');
+  if(rb) rb.style.display = '';
+  document.getElementById('pick-standard').classList.remove('picked');
+  document.getElementById('pick-faith').classList.remove('picked');
   document.getElementById('f-name').value = userName;
   document.getElementById('f-email').value = userEmail;
   goTo('landing');
