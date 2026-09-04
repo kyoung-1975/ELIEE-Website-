@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "scale.hopeanxiety.com"
+        }
+      ],
+      "destination": "/hope-anxiety/has-10-assessment.html"
+    }
+  ]
+}
