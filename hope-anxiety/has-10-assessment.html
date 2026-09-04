@@ -24,6 +24,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="https://www.cognitoforms.com/f/seamless.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@500;600;700&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -404,8 +405,7 @@
       <p class="lead-note">The HAS-10 is being studied, and these answers are what make that study possible. They are recorded without your name or email. Completing them opens your full interpretation, your stage and your download.</p>
       <div class="embed-frame">
         <div id="cognito-embed">
-          <!-- COGNITO_EMBED_CODE_GOES_HERE -->
-          <p class="embed-missing">The research questions will appear here once the Cognito form is connected.</p>
+          <p class="embed-missing" id="embed-loading">Loading the research questions&hellip;</p>
         </div>
       </div>
       <div class="unlock-fallback no-print" id="preview-unlock">
@@ -862,9 +862,30 @@ function buildPrefill(){
   return data;
 }
 
+const CF_KEY  = 'dKAoVYSjpUysJ9_7nKwHew';
+const CF_FORM = '1';
+let cfMounted = false;
+
 function pushToCognito(){
-  if(typeof Cognito === 'undefined') return;   // embed not present yet
-  try { Cognito.prefill(buildPrefill()); } catch(e){ console.log('prefill failed', e); }
+  if(cfMounted) return;
+  if(typeof Cognito === 'undefined'){
+    document.getElementById('embed-loading').textContent = 'The research questions could not be loaded. Please refresh and try again.';
+    return;
+  }
+  try {
+    const api  = Cognito(CF_KEY);
+    const form = api.mount(CF_FORM, '#cognito-embed');
+    cfMounted = true;
+    form.prefill(buildPrefill());
+    ['afterSubmit','submit'].forEach(function(evt){
+      try { form.on(evt, function(){ unlockResults(); }); } catch(e){}
+    });
+    const note = document.getElementById('embed-loading');
+    if(note) note.remove();
+  } catch(e){
+    console.log('Cognito mount failed', e);
+    document.getElementById('embed-loading').textContent = 'The research questions could not be loaded. Please refresh and try again.';
+  }
 }
 
 function unlockResults(){
@@ -875,12 +896,6 @@ function unlockResults(){
   if(rb) rb.style.display = 'none';
   document.getElementById('locked').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
-document.addEventListener('DOMContentLoaded', function(){
-  if(typeof Cognito !== 'undefined' && Cognito.on){
-    try { Cognito.on('afterSubmit', function(){ unlockResults(); }); } catch(e){ console.log('listener failed', e); }
-  }
-});
 
 function stripTags(html){
   const d = document.createElement('div');
